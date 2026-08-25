@@ -18,7 +18,7 @@ meio de informação, daltonismo, qualidade do texto alternativo (aceita `foto1.
 descrição válida), descrição longa, links "clique aqui", animação, alvo de clique, Libras,
 audiodescrição, nem qualquer coisa do PDF exportado.
 
-Este repositório é o que falta: **~75 regras auditáveis**, cada uma com ID estável, severidade,
+Este repositório é o que falta: **98 regras auditáveis**, cada uma com ID estável, severidade,
 critério de origem, como detectar e como corrigir.
 
 ---
@@ -27,7 +27,7 @@ critério de origem, como detectar e como corrigir.
 
 | | |
 |---|---|
-| **Catálogo de auditoria** | 12 camadas, ~75 regras — de metadados a PDF/UA e confirmação humana |
+| **Catálogo de auditoria** | 13 camadas, 98 regras — de metadados a PDF/UA e confirmação humana |
 | **Cookbook OOXML** | Onde cada recurso mora no XML, extraído de arquivos reais, não de memória |
 | **Paleta cega-segura calculada** | Okabe-Ito com variantes que de fato passam em contraste, com os números medidos |
 | **Libras automatizado** | Caminhos com VLibras (LGPLv3, código aberto), sem depender de login |
@@ -48,8 +48,12 @@ critério de origem, como detectar e como corrigir.
   resultados.
 - **`.pptx` não tem troca de paleta em tempo de exibição.** A solução sem macro é um hub com
   Apresentações Personalizadas.
-- **ABNT NBR 17060 é sobre aplicativos móveis e páginas web**, não sobre documentos — é uma
-  citação errada frequente em trabalhos de acessibilidade documental.
+- **ABNT NBR 17060 é sobre aplicativos móveis**, não sobre documentos — é uma citação errada
+  frequente em trabalhos de acessibilidade documental. A NBR 17225:2025 também é de escopo web.
+- **A NBR 15290 vigente é a de 2016** (confirmada em 11.12.2025), mas a que circula livremente na
+  internet é a primeira edição, de 2005 — já superada. O repositório traz os parâmetros da janela
+  de Libras conferidos no texto integral, e a ressalva de que aplicá-los a um slide é **analogia**
+  (a norma regula televisão), o que deve ser declarado no relatório.
 
 ---
 
@@ -76,7 +80,7 @@ instalado para as operações via COM. Opcionais: `OPENAI_API_KEY` (figuras),
 ```
 SKILL.md                              roteiro operacional
 references/01-normas-e-legislacao.md  fundamentação e armadilhas de citação
-references/02-catalogo-auditoria.md   ← o coração: as ~75 regras
+references/02-catalogo-auditoria.md   ← o coração: as 98 regras
 references/03-ferramentas-e-plugins.md
 references/04-ooxml-cookbook.md
 references/05-alt-text-e-audiodescricao.md

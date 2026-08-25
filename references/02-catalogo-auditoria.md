@@ -108,6 +108,8 @@
 | F06 | A | — | Itálico em bloco, sublinhado fora de link, ou frase inteira em CAIXA ALTA | AUTO | Usar negrito para destaque |
 | F07 | A | — | Mais de 6 marcadores por slide, ou linha acima de ~70 caracteres | AUTO | Dividir o slide |
 | F08 | D | — | Fonte não incorporada e fora do conjunto seguro | AUTO | Incorporar fontes ao salvar |
+| F09 | A | ABNT NBR ISO 24495-1:2024 (Linguagem Simples) | Período longo, voz passiva encadeada, ou jargão sem definição no primeiro uso — barreira cognitiva | SEMI | Reescrever em linguagem simples: uma ideia por frase, voz ativa, termo definido na primeira aparição |
+| F10 | A | ABNT NBR ISO 24495-1:2024 | Sigla usada sem ser expandida na primeira ocorrência | AUTO | Expandir na primeira vez |
 
 ## G — Tabelas
 
@@ -152,10 +154,13 @@
 | ID | Sev | Critério | O que caracteriza a falha | Detecção | Correção |
 |---|---|---|---|---|---|
 | J01 | E | LBI · Lei 10.436/2002 · Dec. 5.626/2005 | Nenhuma via em Libras para o conteúdo principal | AUTO (presença de mídia) + HUM | Janela de Libras nos slides-chave ou vídeo-resumo |
-| J02 | A | ABNT NBR 15290 | Janela de Libras com tamanho, posição ou contraste fora dos parâmetros da norma | HUM | Ajustar conforme a norma — **conferir os valores no texto da NBR 15290 antes de auditar; não usar número de memória** |
+| J02 | A | NBR 15290:2016, 7.1.3 | Janela de Libras com **altura menor que 1/2 da altura** ou **largura menor que 1/4 da largura** da área útil do slide | AUTO (mede o objeto de mídia) | Ampliar. Em 16:9 os mínimos são **9,53 cm de altura** e **8,47 cm de largura** |
+| J02b | A | NBR 15290:2016, 7.1.3 | Janela encoberta pela legenda, ou mudando de posição sem continuidade de imagem | SEMI | Reposicionar |
+| J02c | A | NBR 15290:2016, 7.1.2 e 7.1.4 | Contraste insuficiente entre intérprete e fundo, ou foco que corta a gesticulação, ou outra imagem sobreposta ao recorte | HUM | Regravar ou reenquadrar |
 | J03 | A | — | Sem roteiro em SRT disponível junto ao material | AUTO | Gerar o SRT |
 | J04 | A | — | Legendas ao vivo não pré-configuradas no arquivo | AUTO — `p:showPr` / configuração de legenda | Apresentação de Slides › Configurações de Legenda, idioma falado e exibido |
 | J05 | D | — | Glosa gerada automaticamente e não revisada | HUM | Revisão por intérprete ou pessoa surda |
+| J06 | A | — | Relatório apresentando os parâmetros da NBR 15290 como conformidade formal | HUM | A norma regula televisão; aplicá-la a slide é **analogia** e deve ser declarada como tal |
 
 ## K — Público cego e audiodescrição
 

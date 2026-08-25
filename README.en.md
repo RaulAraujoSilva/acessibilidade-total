@@ -18,7 +18,7 @@ colour used as the only carrier of meaning, colour blindness, alt text *quality*
 `photo1.png` as a valid description), long descriptions, "click here" links, animation, target
 size, sign language, audio description, or anything at all in the exported PDF.
 
-This repository is the missing part: **~75 auditable rules**, each with a stable ID, a severity,
+This repository is the missing part: **98 auditable rules**, each with a stable ID, a severity,
 its source criterion, how to detect it and how to fix it.
 
 ---
@@ -27,7 +27,7 @@ its source criterion, how to detect it and how to fix it.
 
 | | |
 |---|---|
-| **Audit catalogue** | 12 layers, ~75 rules — from document metadata to PDF/UA and human confirmation |
+| **Audit catalogue** | 13 layers, 98 rules — from document metadata to PDF/UA and human confirmation |
 | **OOXML cookbook** | Where every accessibility feature lives in the XML, extracted from real files rather than recalled |
 | **Computed colour-blind-safe palette** | Okabe-Ito with variants that actually pass contrast, with measured numbers |
 | **Automated sign language** | VLibras paths (LGPLv3, open source), without depending on a government login |
@@ -48,8 +48,12 @@ its source criterion, how to detect it and how to fix it.
 - **The native checker cannot be automated**: no object model returns its results.
 - **`.pptx` has no runtime palette switching.** The macro-free answer is a hub slide backed by
   Custom Shows.
-- **ABNT NBR 17060 covers mobile applications and web pages**, not documents — a frequent
-  miscitation in document-accessibility work.
+- **ABNT NBR 17060 covers mobile applications**, not documents — a frequent miscitation in
+  document-accessibility work. NBR 17225:2025 is likewise web-scoped.
+- **The current edition of ABNT NBR 15290 is 2016** (reconfirmed 11 Dec 2025), yet the edition
+  circulating freely online is the superseded 2005 first edition. The repository carries the sign
+  language window parameters checked against the full text, plus the caveat that applying them to
+  a slide is **an analogy** — the standard governs television — which must be stated in the report.
 
 ---
 

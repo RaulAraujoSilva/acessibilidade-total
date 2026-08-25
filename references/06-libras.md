@@ -5,7 +5,8 @@
 > Libras atendem públicos diferentes e não se substituem.
 
 Fundamento: **Lei 10.436/2002** (reconhece a Libras), **Decreto 5.626/2005** (regulamenta seu
-uso e difusão), **LBI 13.146/2015**. Parâmetros técnicos da janela: **ABNT NBR 15290**.
+uso e difusão), **LBI 13.146/2015**. Parâmetros técnicos da janela: **ABNT NBR 15290:2016** —
+atenção à edição, a de 2005 está superada e é a que mais circula na internet.
 
 ---
 
@@ -61,13 +62,54 @@ com todas as letras, que a janela de Libras não foi produzida e por quê.**
 
 ---
 
-## 3. A janela de Libras no slide (regras J01 a J05)
+## 3. A janela de Libras: os parâmetros da norma
 
-- **Posição e tamanho:** conforme os parâmetros da **ABNT NBR 15290**. Consulte o texto da norma
-  antes de auditar e **não use números de memória** — esta é uma das regras em que um valor
-  inventado causa mais dano que a ausência da regra.
-- **Contraste:** o avatar precisa se destacar do fundo; fundo neutro e uniforme atrás da janela.
-- **Não sobrepor** texto, legenda ou informação essencial.
+Fonte: **ABNT NBR 15290** (edição vigente **2016**, confirmada em 11.12.2025), seção 7 —
+*Diretrizes para a janela de LIBRAS*. Os valores dimensionais abaixo foram lidos no texto
+integral da norma, item **7.1.3 Recorte ou wipe**.
+
+### Dimensão e posição (7.1.3)
+
+| Requisito | Valor |
+|---|---|
+| Altura da janela | **no mínimo metade da altura da tela** |
+| Largura da janela | **no mínimo um quarto da largura da tela** |
+| Posição | de modo a **não ser encoberta pela tarja da legenda oculta** |
+| Deslocamento | se a janela precisar mudar de posição, deve haver **continuidade da imagem** |
+
+### Qualidade da janela (7.1.2)
+
+- Contrastes nítidos **tanto em cores quanto em preto e branco**.
+- Contraste entre o pano de fundo e os elementos do intérprete.
+- O foco deve abranger **toda a movimentação e gesticulação** do intérprete.
+- Iluminação sem sombras nos olhos e sem ofuscamento.
+
+### Interpretação e visualização (7.1.4)
+
+- Vestimenta, pele e cabelo do intérprete **contrastantes entre si e com o fundo**; evitar fundo
+  e vestimenta em tons próximos ao da pele.
+- **No recorte não se inclui nem se sobrepõe nenhuma outra imagem.**
+
+### Estúdio (7.1.1)
+
+Espaço entre intérprete e fundo para não gerar sombras; iluminação adequada; câmera em tripé
+fixo; marcação no solo delimitando a movimentação.
+
+### Transposição para o slide — e a ressalva honesta
+
+A NBR 15290 regula **televisão**. Aplicá-la a um slide é analogia, não subsunção: onde a norma
+diz "tela do televisor", o auditor lê "área útil do slide". A analogia é defensável e é o melhor
+parâmetro brasileiro disponível, mas **deve ser declarada como analogia no relatório**, e não
+apresentada como conformidade formal com a norma.
+
+Em 16:9 (33,87 cm × 19,05 cm), os mínimos ficam em **9,53 cm de altura** e **8,47 cm de
+largura** — o que, na prática, é uma janela grande. Um avatar miniaturizado no canto reprova.
+
+Complementarmente, a **ABNT NBR 15610-3:2016** (TV digital terrestre — Parte 3: Língua de Sinais)
+trata especificamente do transporte de Libras e vale a consulta quando o entregável for vídeo.
+
+### Demais regras da camada J
+
 - **Permanência:** a janela não pode aparecer e sumir entre slides do mesmo bloco de conteúdo.
 - **Controle:** nunca em autoplay em loop (I04); o usuário controla a reprodução.
 
@@ -99,5 +141,7 @@ pessoa surda** (regra J05). Como em D05, saída de modelo não revisada não é 
 - Repositórios — https://github.com/spbgovbr-vlibras
 - `vlibras-translate` — PyPI
 - VLibras Vídeo — https://video.vlibras.gov.br/
-- ABNT NBR 15290:2005 — Acessibilidade em comunicação na televisão
+- **ABNT NBR 15290:2016** — Acessibilidade em comunicação na televisão (seção 7). Ficha e texto
+  integral no acervo ABNT Coleção/MPF: https://www.abntcolecao.com.br/mpf/grid.aspx
+- **ABNT NBR 15610-3:2016** — TV digital terrestre — Acessibilidade — Parte 3: Língua de Sinais
 - Lei 10.436/2002 · Decreto 5.626/2005 · Lei 13.146/2015

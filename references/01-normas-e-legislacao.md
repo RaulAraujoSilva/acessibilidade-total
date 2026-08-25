@@ -63,16 +63,40 @@ em `section508.gov`, úteis como segunda opinião ao catálogo de auditoria.
 | **Lei 10.436/2002** + **Decreto 5.626/2005** | Reconhecem a Libras como língua e regulamentam seu uso e difusão | Fundamento da janela de Libras |
 | **e-MAG 3.1** | Modelo de Acessibilidade em Governo Eletrônico | Padrão brasileiro de referência para conteúdo digital público |
 | **Cartilha de Acessibilidade gov.br, v2.1 (ago/2023)** | Orientação prática de conteúdo acessível na administração federal | Boas práticas em PT-BR |
-| **ABNT NBR 15290:2005** | Acessibilidade em comunicação na televisão: legenda oculta, audiodescrição e **janela de Libras** | Parâmetros da janela de Libras |
-| **ABNT NBR 16452:2016** | Acessibilidade na comunicação — **audiodescrição** | Diretrizes da faixa de AD |
+
+### Normas ABNT — situação verificada no acervo do CB-040
+
+Conferido em 25/08/2026 no acervo **ABNT Coleção / MPF**
+(`abntcolecao.com.br/mpf/grid.aspx`), que reúne **45 normas de acessibilidade** com o texto
+integral disponível. Todas as edições abaixo constam como **Em Vigor**.
+
+| Norma | Título | Situação | Uso no deck |
+|---|---|---|---|
+| **ABNT NBR 15290:2016** | Acessibilidade em comunicação na televisão | 19/12/2016, confirmada em 11.12.2025, 19 p. | **Parâmetros da janela de Libras** |
+| **ABNT NBR 16452:2016** | Acessibilidade na comunicação — audiodescrição | 01/09/2016 | Diretrizes da faixa de AD |
+| **ABNT NBR 15610-3:2016** | TV digital terrestre — Acessibilidade — Parte 3: Língua de Sinais (LIBRAS) | 15/12/2016 | Norma específica de Libras; complementa a 15290 |
+| **ABNT NBR 15610-1:2011** e **15610-2:2012** | TV digital — Ferramentas de texto · Funcionalidades sonoras | Em vigor | Legendagem e áudio |
+| **ABNT NBR 15599:2008** | Acessibilidade — Comunicação na prestação de serviços | Confirmada em 23.08.2023, 39 p. | Aplica-se ao contexto de **aula, palestra e evento**, não só ao arquivo |
+| **ABNT NBR ISO 24495-1:2024** | Linguagem Simples — Parte 1: Princípios e diretrizes norteadores | 25/07/2024 | Acessibilidade cognitiva do texto dos slides |
+| **ABNT NBR 17225:2025** | Acessibilidade em conteúdo e aplicações web — Requisitos | 11/03/2025, 69 p. | Expressão normativa brasileira das diretrizes WCAG — **escopo web**, ver ressalva abaixo |
+
+> **Atenção à edição.** A NBR 15290 circula muito na internet na **primeira edição, de 2005**
+> (há PDF integral no portal do CNMP). Essa edição está **superada** pela de 2016. Ao citar,
+> escrever `ABNT NBR 15290:2016`. Os parâmetros dimensionais da janela de Libras, lidos no texto
+> integral da edição de 2005 (item 7.1.3) e corroborados por fontes secundárias para a edição de
+> 2016, seguem descritos em `06-libras.md`.
 
 ### Armadilhas de citação — o auditor deve reprovar estas
 
 - **ABNT NBR 17060:2022 não é norma de documentos.** Ela trata de acessibilidade em
-  **aplicativos de dispositivos móveis e páginas web** (54 requisitos derivados da WCAG).
-  Citá-la como fundamento de um `.pptx` é erro conceitual, e é um erro comum.
+  **aplicativos de dispositivos móveis** (54 requisitos derivados da WCAG). Citá-la como
+  fundamento de um `.pptx` é erro conceitual, e é um erro comum.
+- **ABNT NBR 17225:2025 também é de escopo web**, não de documento. É a norma brasileira certa
+  para *site*; para um `.pptx` o caminho normativo continua sendo WCAG 2.2 + WCAG2ICT. Citá-la
+  como contexto é correto; citá-la como requisito aplicável ao arquivo, não.
 - **ABNT NBR 9050 é ambiente construído** (rampas, pisos, sinalização física). Não tem
   qualquer relação com documento digital.
+- **Citar a NBR 15290 como "de 2005"** — a edição vigente é a de **2016**.
 - **WCAG sozinho, sem WCAG2ICT**, é fundamentação incompleta para arquivo não-web.
 - **"Conformidade com a LBI"** não é um selo técnico verificável: a LBI é o dever legal;
   a verificação técnica se faz contra WCAG 2.2 AA + PDF/UA. Escrever "conforme a LBI" sem
@@ -99,4 +123,9 @@ O slide de acessibilidade do deck deve declarar, de forma verificável:
 - Section 508, presentations — https://www.section508.gov/create/presentations/
 - LBI — Lei 13.146/2015, Planalto
 - Cartilha gov.br de acessibilidade digital, v2.1
-- ABNT NBR 15290:2005 · ABNT NBR 16452:2016
+- **ABNT Coleção / MPF** — https://www.abntcolecao.com.br/mpf/grid.aspx — acervo com 45 normas
+  de acessibilidade do CB-040, com texto integral disponível. É a via correta para conferir
+  **edição vigente e data de confirmação** antes de citar qualquer NBR. O texto integral abre
+  no visualizador próprio da ABNT; a ficha de cada norma (edição, páginas, objetivo, status)
+  é consultável direto na página.
+- ABNT NBR 15290:2016 · 16452:2016 · 15610-3:2016 · 15599:2008 · ISO 24495-1:2024 · 17225:2025

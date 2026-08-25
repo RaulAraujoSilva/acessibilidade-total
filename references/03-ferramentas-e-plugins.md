@@ -144,7 +144,28 @@ Detalhes de implantação e dos caminhos automatizáveis: `06-libras.md`.
 
 ---
 
-## 8. Guias de referência para conferir o catálogo
+## 8. Acesso ao texto das normas
+
+**ABNT Coleção / MPF** — https://www.abntcolecao.com.br/mpf/grid.aspx
+
+Acervo com **45 normas de acessibilidade** do comitê ABNT/CB-040, com texto integral disponível.
+É a via correta para checar, antes de citar qualquer NBR:
+
+- **edição vigente** (a 15290, por exemplo, é de **2016**, não de 2005, apesar de a de 2005 ser a
+  que circula na internet);
+- **data de confirmação** (a 15290:2016 foi confirmada em 11.12.2025; a 15599:2008, em
+  23.08.2023);
+- número de páginas, comitê e objetivo declarado.
+
+A ficha de cada norma é consultável direto na página. O texto integral abre no visualizador
+próprio da ABNT, que exige o componente de visualização instalado — não é raspável.
+
+> Fluxo de trabalho: **sempre conferir a edição aqui antes de citar**. Citar edição superada é a
+> forma mais fácil de invalidar uma fundamentação inteira.
+
+---
+
+## 9. Guias de referência para conferir o catálogo
 
 - **WebAIM — Word and PowerPoint Accessibility Evaluation Guide**: procedimento de avaliação,
   campo a campo.
