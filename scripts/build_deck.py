@@ -186,11 +186,24 @@ def _corpo(slide, linhas, tema, tamanho=22, idx=1):
     return ph
 
 
-def _imagem(slide, fig, tema, esq, topo, larg, alt_):
-    """Imagem com alt text obrigatorio e cartao de fundo nos modos escuros."""
+def _resolver_arquivo(fig, modo):
+    """
+    'arquivo' pode ser um caminho unico ou um mapa por modo de exibicao.
+
+    Diagrama gerado por HTML sai numa versao por paleta; cada modo recebe a
+    sua, em vez de reaproveitar a versao clara sobre fundo preto.
+    """
     arq = fig["arquivo"]
+    if isinstance(arq, dict):
+        return arq.get(modo) or arq.get("padrao") or next(iter(arq.values()))
+    return arq
+
+
+def _imagem(slide, fig, tema, esq, topo, larg, alt_, modo="padrao"):
+    """Imagem com alt text obrigatorio e cartao de fundo nos modos escuros."""
+    arq = _resolver_arquivo(fig, modo)
     if not os.path.exists(arq):
-        raise ErroDeRoteiro("figura nao encontrada: %s" % arq)
+        raise ErroDeRoteiro("figura do modo %r nao encontrada: %s" % (modo, arq))
     if not fig.get("alt", "").strip():
         raise ErroDeRoteiro("figura sem alt text: %s" % arq)
     if not fig.get("descricao_longa", "").strip():
@@ -301,7 +314,7 @@ def _rodape_decorativo(slide, tema):
 # ==========================================================================
 # Montagem de um slide
 # ==========================================================================
-def montar_slide(prs, spec, tema, sufixo=""):
+def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
     tipo = spec.get("tipo", "conteudo")
     titulo = spec["titulo"] + sufixo
 
@@ -350,7 +363,7 @@ def montar_slide(prs, spec, tema, sufixo=""):
         if tem_figura:
             esq = MARGEM + larg_corpo + Inches(0.4) if (linhas or links) else Inches(3.2)
             _imagem(slide, spec["figura"], tema, esq, topo,
-                    LARGURA - esq - MARGEM, Inches(3.6))
+                    LARGURA - esq - MARGEM, Inches(3.6), modo)
         if tem_tabela:
             topo_tab = topo + alt_corpo + Inches(0.2) if (linhas or links) else topo
             _tabela(slide, spec["tabela"], tema, MARGEM, topo_tab,
@@ -436,7 +449,7 @@ def construir(roteiro, saida, com_modos=False):
         sufixo = "" if modo == "padrao" else " · %s" % tema.nome.replace("Modo ", "")
         primeiro = len(prs.slides._sldIdLst)
         for spec in roteiro["slides"]:
-            montar_slide(prs, spec, tema, sufixo)
+            montar_slide(prs, spec, tema, sufixo, modo)
         indices[modo] = (primeiro, len(prs.slides._sldIdLst) - 1)
 
     cp = prs.core_properties

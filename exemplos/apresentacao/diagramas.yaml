@@ -1,0 +1,138 @@
+# Diagramas da apresentação sobre o projeto.
+# Cada um sai em três paletas: padrão, alto contraste e daltônico-seguro.
+#
+#   python scripts/gen_diagramas.py exemplos/apresentacao/diagramas.yaml -o figuras
+#
+# alt e descricao_longa são OBRIGATÓRIOS aqui — a geração falha sem eles.
+
+diagramas:
+  - nome: cadeia-normativa
+    tipo: cadeia
+    titulo: "De onde vem a exigência"
+    subtitulo: "A WCAG foi escrita para a web. O elo que a torna aplicável a um arquivo do PowerPoint é o WCAG2ICT."
+    altura: 620
+    alt: "A WCAG 2.2 chega ao arquivo .pptx pelo WCAG2ICT e termina no PDF/UA"
+    descricao_longa: >
+      Diagrama de quatro elos ligados por setas da esquerda para a direita.
+      Primeiro elo: WCAG 2.2, as diretrizes do W3C organizadas em quatro
+      princípios — perceptível, operável, compreensível e robusto. Segundo elo:
+      WCAG2ICT, o documento que traduz cada critério da WCAG para software e
+      documentos que não são páginas web. Terceiro elo: o arquivo .pptx, onde
+      os critérios viram estrutura real do documento, como placeholder de
+      título e cabeçalho de tabela. Quarto elo: PDF/UA, a norma ISO 14289, que
+      é o destino final quando a apresentação é distribuída. A conclusão do
+      diagrama é que citar a WCAG sozinha, sem o WCAG2ICT, deixa a fundamentação
+      incompleta para um arquivo que não é web.
+    itens:
+      - titulo: "WCAG 2.2"
+        detalhe: "W3C, 2023. Perceptível, operável, compreensível, robusto"
+      - titulo: "WCAG2ICT"
+        detalhe: "Traduz cada critério para software e documento não-web"
+      - titulo: "Arquivo .pptx"
+        detalhe: "O critério vira estrutura: placeholder, cabeçalho, ordem"
+      - titulo: "PDF/UA"
+        detalhe: "ISO 14289. O formato em que a apresentação circula"
+    rodape: "No Brasil, o dever vem da Lei 13.146/2015 (LBI). A verificação técnica vem daqui."
+
+  - nome: camadas-catalogo
+    tipo: camadas
+    titulo: "As 13 camadas do catálogo de auditoria"
+    subtitulo: "98 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
+    altura: 1180
+    largura: 1200
+    alt: "As 13 camadas do catálogo, de metadados do documento até confirmação humana"
+    descricao_longa: >
+      Lista vertical de treze camadas, identificadas pelas letras A a M, cada
+      uma com o número de regras. Camada A, documento e metadados, 6 regras.
+      Camada B, estrutura semântica, 10 regras. Camada C, ordem de leitura, 6
+      regras. Camada D, texto alternativo, 11 regras. Camada E, cor e contraste,
+      10 regras. Camada F, tipografia e legibilidade, 10 regras. Camada G,
+      tabelas, 6 regras. Camada H, hiperlinks, 4 regras. Camada I, mídia,
+      movimento e interação, 9 regras. Camada J, Libras e público surdo, 8
+      regras. Camada K, público cego e audiodescrição, 5 regras. Camada L,
+      exportação e PDF/UA, 7 regras. Camada M, confirmação humana, 6 itens. As
+      camadas A a I são verificadas automaticamente pelo auditor; as camadas J a
+      M dependem de mídia, do PDF exportado ou de uma pessoa, e por isso saem no
+      relatório como não verificadas, nunca como aprovadas.
+    itens:
+      - {id: "A", titulo: "Documento e metadados", detalhe: "6 regras · automática"}
+      - {id: "B", titulo: "Estrutura semântica", detalhe: "10 regras · automática"}
+      - {id: "C", titulo: "Ordem de leitura", detalhe: "6 regras · automática"}
+      - {id: "D", titulo: "Texto alternativo", detalhe: "11 regras · automática"}
+      - {id: "E", titulo: "Cor e contraste", detalhe: "10 regras · automática"}
+      - {id: "F", titulo: "Tipografia e legibilidade", detalhe: "10 regras · automática"}
+      - {id: "G", titulo: "Tabelas", detalhe: "6 regras · automática"}
+      - {id: "H", titulo: "Hiperlinks", detalhe: "4 regras · automática"}
+      - {id: "I", titulo: "Mídia, movimento e interação", detalhe: "9 regras · automática"}
+      - {id: "J", titulo: "Libras e público surdo", detalhe: "8 regras · mídia"}
+      - {id: "K", titulo: "Público cego e audiodescrição", detalhe: "5 regras · mídia"}
+      - {id: "L", titulo: "Exportação e PDF/UA", detalhe: "7 regras · veraPDF e PAC"}
+      - {id: "M", titulo: "Confirmação humana", detalhe: "6 itens · pessoa"}
+    rodape: "Ausência de evidência não é conformidade: o que não pôde ser verificado entra como não verificado."
+
+  - nome: pipeline
+    tipo: passos
+    titulo: "Do roteiro ao PDF validado"
+    subtitulo: "Cada estágio tem um portão. O laço corrige o roteiro, nunca o arquivo gerado."
+    altura: 760
+    alt: "Pipeline de sete estágios, do roteiro em YAML até o PDF validado no veraPDF"
+    descricao_longa: >
+      Sequência numerada de sete estágios. Um: roteiro declarativo em YAML, com
+      um bloco por slide. Dois: diagramas gerados em HTML e convertidos em
+      imagem, uma versão por paleta. Três: construção do .pptx acessível por
+      construção, com placeholder, idioma, contraste e ordem de leitura já
+      corretos. Quatro: modos de cor, um hub e três seções paralelas no mesmo
+      arquivo. Cinco: auditoria do .pptx contra as camadas A a I, que precisa
+      fechar com zero erros e zero avisos. Seis: exportação para PDF com marcas
+      de estrutura, corrigindo idioma e título e gravando o identificador
+      PDF/UA. Sete: validação do PDF no veraPDF contra a ISO 14289, e conferência
+      no PAC. Se um portão reprova, a correção volta para o roteiro, no estágio
+      um, e não para o arquivo gerado — remediar o .pptx à mão é dívida que se
+      perde no build seguinte.
+    itens:
+      - titulo: "Roteiro"
+        detalhe: "um bloco YAML por slide, com alt text e descrição longa juntos"
+      - titulo: "Diagramas"
+        detalhe: "HTML para imagem, uma versão por paleta, texto sempre exato"
+      - titulo: "Construção"
+        detalhe: "o slide nasce conforme, ou o build interrompe e diz o porquê"
+      - titulo: "Modos de cor"
+        detalhe: "hub e três seções no mesmo arquivo, sem macro"
+      - titulo: "Auditoria do .pptx"
+        detalhe: "camadas A a I; portão exige zero erros e zero avisos"
+      - titulo: "Exportação"
+        detalhe: "PDF marcado, idioma e título corrigidos, identificador PDF/UA"
+      - titulo: "Validação do PDF"
+        detalhe: "veraPDF contra a ISO 14289, e o PAC como conferência humana"
+    rodape: "Reprovou? A correção vai para o estágio 1. Nunca para o arquivo."
+
+  - nome: ecossistema-skills
+    tipo: hub
+    titulo: "Uma skill, muitos agentes"
+    subtitulo: "Agent Skills é padrão aberto: a mesma pasta funciona em produtos concorrentes, sem adaptação."
+    altura: 700
+    nucleo: "SKILL.md + scripts + references + assets"
+    satelites:
+      - "Claude Code"
+      - "OpenAI Codex"
+      - "Cursor"
+      - "GitHub Copilot"
+      - "VS Code"
+      - "Gemini CLI"
+      - "JetBrains Junie"
+      - "Goose"
+      - "OpenCode"
+      - "e mais de 30 outros"
+    alt: "A mesma pasta de skill roda em Claude Code, Codex, Cursor, Copilot e mais de 30 agentes"
+    descricao_longa: >
+      No centro do diagrama está a estrutura de uma skill: um arquivo SKILL.md
+      com metadados e instruções, mais as pastas opcionais scripts, references e
+      assets. Ao redor, os produtos que leem esse mesmo formato: Claude Code,
+      OpenAI Codex, Cursor, GitHub Copilot, VS Code, Gemini CLI, JetBrains Junie,
+      Goose, OpenCode e mais de trinta outros. O formato foi criado pela
+      Anthropic e liberado como especificação aberta em dezembro de 2025, e foi
+      adotado por produtos concorrentes em poucas semanas. A consequência
+      prática é que esta ferramenta não fica presa a um agente: instalar em
+      Claude Code é copiar a pasta para o diretório de skills, e no Codex é
+      copiar a mesma pasta para o diretório equivalente.
+    rodape: "Claude Code: ~/.claude/skills/ · Codex e demais: ~/.agents/skills/ ou .agents/skills/ no repositório"
