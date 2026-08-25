@@ -10,3 +10,5 @@ secrets.env
 ~$*
 tests/*.pptx
 tests/_fig*.png
+tests/*-auditoria.md
+tests/*-leitura-simulada.md

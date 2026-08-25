@@ -54,6 +54,24 @@ Remediar depois é caro e frágil; nascer certo é barato.
 
 ---
 
+## Antes de qualquer coisa: conferir o ambiente
+
+```bash
+python scripts/verificar_ambiente.py
+```
+
+Diz o que está instalado, o que falta, **para que serve cada peça** e o comando exato de
+instalação. O auditor roda com **uma** biblioteca (`python-pptx`); todo o resto é opcional e
+desliga um pedaço específico, nunca o conjunto. Se faltar algo, `instalar.ps1` (Windows) ou
+`instalar.sh` (macOS/Linux) resolve.
+
+**NVDA não é requisito de produção.** Não é preciso para criar, converter nem auditar. Cobre
+só a regra K03 — a evidência de que a ordem de leitura funciona na prática. Para inspecionar a
+ordem sem instalar nada, use `scripts/simular_leitura.py`, que escreve o que o leitor de tela
+anunciaria. É um modelo do comportamento, não o comportamento: não satisfaz a K03.
+
+---
+
 ## Fluxo de produção
 
 ### 0. Enquadrar
@@ -98,6 +116,9 @@ no mínimo 24×24 px CSS (228600 EMU).
 `audit_pptx.py` + `audit_contrast.py` + `audit_pdf.py` produzem o relatório por regra. O laço
 volta ao passo 3 **até zerar Erros e Avisos**. A camada M do catálogo (confirmação humana) sai
 como lista de pendências com instruções — nunca como item aprovado sem evidência.
+
+Antes de fechar, rode `simular_leitura.py` e **leia a saída**: é a forma mais barata de
+perceber que a ordem de leitura está certa no XML mas errada no sentido.
 
 ---
 

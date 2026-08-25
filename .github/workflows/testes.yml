@@ -1,0 +1,41 @@
+name: testes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  auditor:
+    name: auditor (${{ matrix.os }}, Python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.9", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      # O nucleo do auditor depende de UMA biblioteca. Instalar so ela aqui
+      # e proposital: se algum script passar a exigir mais, o CI quebra e nos
+      # avisa antes de quebrar na maquina de quem clonou.
+      - name: Instalar o minimo (so python-pptx)
+        run: python -m pip install --quiet "python-pptx>=1.0.2"
+
+      - name: Suite completa (deteccao + falso positivo)
+        run: python tests/run_all.py
+
+      - name: Simulador de leitura
+        run: |
+          python scripts/simular_leitura.py tests/deck_bom.pptx
+          python scripts/simular_leitura.py tests/deck_ruim.pptx --ignorados
+
+      - name: Verificador de ambiente
+        run: python scripts/verificar_ambiente.py

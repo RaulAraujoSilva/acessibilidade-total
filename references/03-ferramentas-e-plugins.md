@@ -72,7 +72,7 @@ Libras**, que é língua própria e não tradução do português.
 
 | Ferramenta | Uso | Comando |
 |---|---|---|
-| **PAC 2024** | Padrão-ouro gratuito. Testa o Protocolo Matterhorn e mostra a árvore de tags e a pré-visualização de leitor de tela | Interface gráfica, Windows |
+| **PAC** | Padrão-ouro gratuito. Testa o Protocolo Matterhorn e mostra a árvore de tags e a pré-visualização de leitor de tela | Interface gráfica, Windows |
 | **veraPDF** | Validador aberto PDF/A e PDF/UA, com CLI e Docker — é o que entra no pipeline automatizado | `verapdf --flavour ua1 arquivo.pdf` |
 | **Adobe Acrobat Pro** | Remediação fina: Table Editor (define `/Scope` dos `TH`), Tag Tree, painel Ordem | Interface gráfica |
 | **speedata/pdfa11y** | Validador de linha de comando alternativo | CLI |

@@ -1,0 +1,40 @@
+# Dependências Python da skill acessibilidade-total
+# Instale com:  pip install -r requirements.txt
+#
+# Cada linha diz PARA QUE serve. Nada aqui é supérfluo, e o que é opcional
+# está marcado como tal — o auditor roda só com a primeira.
+
+# --- NÚCLEO: sem isto nada funciona --------------------------------------
+# Lê e escreve o .pptx. Traz junto lxml (XML), Pillow (imagens) e XlsxWriter.
+# É a única obrigatória para AUDITAR uma apresentação.
+python-pptx>=1.0.2
+
+# --- EXPORTAÇÃO E VALIDAÇÃO DE PDF ---------------------------------------
+# Lê a estrutura interna do PDF exportado: /Lang, /Title, /MarkInfo,
+# árvore de tags. Usado por audit_pdf.py.
+pypdf>=5.0.0
+
+# Controla o PowerPoint instalado (COM) para exportar PDF COM marcas de
+# estrutura. Sem isto, o PDF sai sem acessibilidade nenhuma.
+# Só existe no Windows — em Linux/macOS a linha é ignorada.
+pywin32>=306; sys_platform == "win32"
+
+# --- LEITURA DO MATERIAL-FONTE -------------------------------------------
+# Extrai texto e imagens de PDFs de origem, para virar roteiro de slides.
+PyMuPDF>=1.24.0
+
+# --- GERAÇÃO DE CONTEÚDO (opcional) --------------------------------------
+# Figuras via gpt-image-2. Só necessária se você for gerar ilustrações.
+# Exige OPENAI_API_KEY.
+openai>=1.40.0
+
+# Chamadas HTTP: audiodescrição (ElevenLabs) e VLibras.
+requests>=2.31.0
+
+# Transcrição linear em .docx acessível, com estilos de título reais.
+python-docx>=1.1.0
+
+# --- JANELA DE LIBRAS (opcional) -----------------------------------------
+# Dirige o Chrome para capturar o avatar do VLibras em vídeo.
+# Depois de instalar, rode também:  playwright install chromium
+playwright>=1.46.0

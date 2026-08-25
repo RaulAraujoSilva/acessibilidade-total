@@ -105,7 +105,7 @@ verapdf --flavour ua1 deck.pdf
 pdfa11y deck.pdf
 ```
 
-E o **PAC 2024** na interface gráfica, que testa o Protocolo Matterhorn e traz uma
+E o **PAC** na interface gráfica, que testa o Protocolo Matterhorn e traz uma
 pré-visualização de leitor de tela e a árvore de tags.
 
 Rode os dois: o veraPDF responde "está conforme a norma?"; o PAC responde "é utilizável por

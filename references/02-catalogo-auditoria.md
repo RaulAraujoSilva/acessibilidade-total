@@ -182,7 +182,7 @@
 | L04 | E | 1.3.1 | Árvore de tags sem H1..Hn, ou com hierarquia quebrada | AUTO (veraPDF/PAC) + HUM | Corrigir no Acrobat Pro |
 | L05 | E | 1.3.1 | `TH` sem `/Scope` de linha ou coluna | AUTO | Table Editor do Acrobat Pro |
 | L06 | E | 1.1.1 | Objeto decorativo que virou conteúdo em vez de `/Artifact` | AUTO | Remarcar |
-| L07 | E | ISO 14289 | PAC 2024 ou veraPDF acusando erro de PDF/UA | AUTO | Remediar e revalidar |
+| L07 | E | ISO 14289 | PAC ou veraPDF acusando erro de PDF/UA | AUTO | Remediar e revalidar |
 
 ## M — Confirmação humana (nenhuma entrega fecha sem esta camada)
 

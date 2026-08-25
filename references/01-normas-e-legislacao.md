@@ -45,7 +45,7 @@ Versão corrente: `wcag2ict-22`.
 ### ISO 14289-1 — PDF/UA
 Padrão de acessibilidade do PDF. É o destino final do deck quando ele vira PDF.
 Operacionalizado na prática pelo **Protocolo Matterhorn** (PDF Association), que lista as
-condições de falha verificáveis — é exatamente o que o PAC 2024 testa.
+condições de falha verificáveis — é exatamente o que o PAC testa.
 
 ### EN 301 549 (Europa) e Section 508 (EUA)
 Ambas incorporam WCAG por referência. Relevantes quando o material circula fora do Brasil ou
