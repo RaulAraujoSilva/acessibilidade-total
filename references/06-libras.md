@@ -54,6 +54,38 @@ Em ambos, o MP4 resultante entra no slide como janela de Libras.
 
 Gera-se o `.srt` do roteiro e submete-se ao portal. Passo manual, com login.
 
+### O que o spike de 25/08/2026 apurou
+
+Vale registrar para ninguém reinvestigar do zero.
+
+**Caminho A (captura do Widget):** o widget carrega e inicializa
+(`window.VLibras` presente, sem erro de console), mas o botão de acesso não é
+clicável numa página sintética montada por `set_content` — o player Unity só
+carrega depois desse clique. Faltou servir a página por HTTP de verdade.
+
+**Caminho B (renderização local):** avançou bem mais. O renderizador **existe e é
+invocável direto**, sem RabbitMQ nem MongoDB. Dentro de
+`vlibras/translator-video:3.1.0` (436 MB):
+
+| Caminho | O que é |
+|---|---|
+| `/dist/player/VLibras-Video.x86_64` | binário Unity standalone do avatar |
+| `/usr/bin/xvfb-run`, `/usr/bin/Xvfb` | display virtual, já instalados |
+| `/usr/bin/ffmpeg` | montagem dos quadros em vídeo |
+
+A chamada, lida em `/dist/player/playerwrapper.py`:
+
+```
+VLibras-Video.x86_64 --id <tag> --glosapath <arquivo> --videopath <dir>     --width 720 --height 900 --speed 150 --framerate 24     --avatar icaro --subtitle off --bundlespath <BUNDLES>
+```
+
+O arquivo de glosa tem o formato `0#GLOSA EM MAIÚSCULAS`.
+
+**O bloqueio:** os *bundles* de sinais (`VIDEOMAKER_BUNDLES_DIR`) não estão nessa
+imagem nem em `vlibras/video-core:4.0.0` — são servidos em execução pelo serviço
+`dicionario` (`vlibras/dicionario`, ~347 MB). **Quem retomar deve começar por
+subir o `dicionario` e descobrir por onde ele publica os bundles.**
+
 ### Nível 3 — Degrade documentado
 
 Glosa gerada por `vlibras-translate`, `.srt` do roteiro entregue junto, e um slide de

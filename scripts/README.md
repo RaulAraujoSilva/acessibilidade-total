@@ -10,10 +10,12 @@
 | `build_deck.py` | pronto | Constroi o deck acessivel POR CONSTRUCAO a partir de um roteiro YAML/JSON; recusa roteiro que geraria slide inacessivel |
 | `export_pdfua.py` | pronto | Exportacao COM com `DocStructureTags=True`, corrige `/Lang` e `/Title`, grava o identificador PDF/UA-1 no XMP |
 | `audit_pdf.py` | pronto | Camada L: pypdf (rapido) + veraPDF (ISO 14289) + PAC como passo humano |
+| `gen_diagramas.py` | pronto | Diagramas tecnicos via HTML->PNG, uma versao por paleta; texto sempre exato |
+| `montar_tudo.py` | pronto | Roda os 7 estagios com portao em cada um |
 | `gen_images.py` | a fazer | Figuras via gpt-image-2, com alt text e descricao longa no mesmo passo |
-| `gen_audiodesc.py` | a fazer | Audiodescricao narrada + transcricao |
-| `gen_libras.py` | a fazer | Janela de Libras via VLibras |
-| `gen_transcricao.py` | a fazer | Transcricao linear em `.docx` acessivel |
+| `gen_audiodesc.py` | pronto | Audiodescricao narrada (ElevenLabs) + transcricao obrigatoria |
+| `gen_libras.py` | parcial | Roteiro SRT e glosa; o video de avatar esbarrou nos bundles do VLibras (ver o cabecalho do script) |
+| `gen_transcricao.py` | pronto | Transcricao linear em `.docx` com estilos de titulo reais |
 
 ## Auditar um arquivo
 

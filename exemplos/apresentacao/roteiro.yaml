@@ -35,13 +35,15 @@ slides:
       - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste de texto em AAA (16,3:1)."
       - "Entregue: alt text e descrição longa, ordem de leitura, três modos de cor."
       - "Entregue: transcrição linear em .docx, audiodescrição narrada, PDF/UA."
-      - "Entregue: vídeo-resumo com janela de Libras e legenda em SRT."
-      - "NÃO entregue: janela de Libras em cada slide, e leitura por pessoa cega."
-      - "Relatório completo de auditoria acompanha o arquivo."
+      - "Entregue: roteiro em SRT, pronto para gerar a janela de Libras."
+      - "NÃO entregue: a janela de Libras em si — o motivo está no relatório."
+      - "NÃO entregue: leitura por pessoa cega. Conformidade técnica é piso."
     notas: >
       Uma declaração de acessibilidade que só lista acertos é propaganda. A que
-      lista as lacunas é documento técnico. Por isso as duas últimas linhas
-      existem.
+      lista as lacunas é documento técnico. As duas últimas linhas mudaram
+      durante a produção: o material chegou a prometer o vídeo em Libras, e a
+      promessa caiu quando o spike de renderização local esbarrou nos bundles de
+      sinais. Corrigir a declaração é parte do método, não uma derrota.
 
   - titulo: "O problema em um número"
     conteudo:
