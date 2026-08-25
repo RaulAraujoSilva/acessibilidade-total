@@ -1,0 +1,115 @@
+{
+  "_sobre": "Paleta cega-segura Okabe-Ito com variantes calculadas para WCAG 2.2. Todos os contrastes foram computados, nao estimados.",
+  "_fonte": "Okabe, M.; Ito, K. Color Universal Design (CUD). Contrastes calculados pela formula WCAG 2.x de luminancia relativa.",
+  "_atencao": "A paleta Okabe-Ito CRUA nao cumpre 1.4.11 (>=3:1) sobre fundo claro: laranja 2.11, azul_ceu 2.16, amarelo 1.24, roxo 2.86, cinza 2.67. Use as variantes 'marca_min_3_1' para preenchimentos e bordas, ou aplique contorno escuro.",
+  "fundos": {
+    "padrao": "#FAF7F2",
+    "daltonico_seguro": "#F5F5F0",
+    "alto_contraste": "#000000"
+  },
+  "textos": {
+    "sobre_claro": "#1A1A1A",
+    "sobre_escuro": "#FFFFFF"
+  },
+  "contraste_texto_corpo": {
+    "#1A1A1A sobre #FAF7F2": 16.29,
+    "#1A1A1A sobre #F5F5F0": 15.91,
+    "#FFFFFF sobre #000000": 21.0
+  },
+  "series": [
+    {
+      "nome": "laranja",
+      "base": "#E69F00",
+      "marca_min_3_1": "#BF8400",
+      "contraste_marca": 3.02,
+      "texto_min_4_5_1": "#986900",
+      "contraste_texto": 4.51,
+      "texto_sobre_preenchimento": "#1A1A1A",
+      "contraste_branco_sobre_base": 2.25,
+      "contraste_escuro_sobre_base": 7.73
+    },
+    {
+      "nome": "azul_ceu",
+      "base": "#56B4E9",
+      "marca_min_3_1": "#4897C4",
+      "contraste_marca": 3.02,
+      "texto_min_4_5_1": "#39779A",
+      "contraste_texto": 4.59,
+      "texto_sobre_preenchimento": "#1A1A1A",
+      "contraste_branco_sobre_base": 2.31,
+      "contraste_escuro_sobre_base": 7.54
+    },
+    {
+      "nome": "verde_azulado",
+      "base": "#009E73",
+      "marca_min_3_1": "#009E73",
+      "contraste_marca": 3.2,
+      "texto_min_4_5_1": "#00825E",
+      "contraste_texto": 4.51,
+      "texto_sobre_preenchimento": "#1A1A1A",
+      "contraste_branco_sobre_base": 3.42,
+      "contraste_escuro_sobre_base": 5.09
+    },
+    {
+      "nome": "amarelo",
+      "base": "#F0E442",
+      "marca_min_3_1": "#9A922A",
+      "contraste_marca": 3.01,
+      "texto_min_4_5_1": "#7A7422",
+      "contraste_texto": 4.52,
+      "texto_sobre_preenchimento": "#1A1A1A",
+      "contraste_branco_sobre_base": 1.32,
+      "contraste_escuro_sobre_base": 13.16
+    },
+    {
+      "nome": "azul",
+      "base": "#0072B2",
+      "marca_min_3_1": "#0072B2",
+      "contraste_marca": 4.85,
+      "texto_min_4_5_1": "#0072B2",
+      "contraste_texto": 4.85,
+      "texto_sobre_preenchimento": "#FFFFFF",
+      "contraste_branco_sobre_base": 5.19,
+      "contraste_escuro_sobre_base": 3.36
+    },
+    {
+      "nome": "vermelhao",
+      "base": "#D55E00",
+      "marca_min_3_1": "#D55E00",
+      "contraste_marca": 3.62,
+      "texto_min_4_5_1": "#BB5300",
+      "contraste_texto": 4.52,
+      "texto_sobre_preenchimento": "#1A1A1A",
+      "contraste_branco_sobre_base": 3.87,
+      "contraste_escuro_sobre_base": 4.5
+    },
+    {
+      "nome": "roxo_avermelhado",
+      "base": "#CC79A7",
+      "marca_min_3_1": "#C675A2",
+      "contraste_marca": 3.04,
+      "texto_min_4_5_1": "#9D5D81",
+      "contraste_texto": 4.55,
+      "texto_sobre_preenchimento": "#1A1A1A",
+      "contraste_branco_sobre_base": 3.06,
+      "contraste_escuro_sobre_base": 5.69
+    },
+    {
+      "nome": "cinza",
+      "base": "#999999",
+      "marca_min_3_1": "#8E8E8E",
+      "contraste_marca": 3.07,
+      "texto_min_4_5_1": "#717171",
+      "contraste_texto": 4.57,
+      "texto_sobre_preenchimento": "#1A1A1A",
+      "contraste_branco_sobre_base": 2.85,
+      "contraste_escuro_sobre_base": 6.11
+    }
+  ],
+  "regra_de_uso": [
+    "Cor nunca sozinha: cada serie recebe TAMBEM forma, hachura ou rotulo direto (WCAG 1.4.1).",
+    "As luminancias das series sao distintas, entao o material sobrevive a escala de cinza.",
+    "Para texto colorido sobre fundo claro use a coluna texto_min_4_5_1, nunca a cor base.",
+    "Para preenchimento de grafico sobre fundo claro use marca_min_3_1 ou contorne com #1A1A1A."
+  ]
+}
