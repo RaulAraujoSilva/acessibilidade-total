@@ -451,9 +451,19 @@ def audit_typography(prs, rep: Report):
                     rep.fail("F04", "E", "—", onde(i, el),
                              "paragrafo justificado — cria 'rios de branco' que "
                              "interrompem a leitura: %r" % txt[:40])
-                if pp["line_pct"] is not None and pp["line_pct"] < 150000:
+                # F05 vale para CORPO de texto. Entrelinha apertada em titulo de
+                # display e tipografia normal e nao produz o efeito de troca de
+                # linha que a regra combate; exigir 1,5 num titulo de duas linhas
+                # so afasta as linhas sem ganho de legibilidade.
+                if (not titulo and pp["line_pct"] is not None
+                        and pp["line_pct"] < 150000):
                     rep.fail("F05", "A", "—", onde(i, el),
-                             "entrelinha %.2f, abaixo de 1,5" % (pp["line_pct"] / 100000))
+                             "entrelinha %.2f no corpo de texto, abaixo de 1,5"
+                             % (pp["line_pct"] / 100000))
+                if titulo and pp["line_pct"] is not None and pp["line_pct"] < 90000:
+                    rep.fail("F05", "A", "—", onde(i, el),
+                             "entrelinha %.2f no titulo — abaixo de 0,9 as linhas colidem"
+                             % (pp["line_pct"] / 100000))
                 if len(txt) > 90:
                     rep.fail("F07", "A", "—", onde(i, el),
                              "linha com %d caracteres — acima de ~70 o olho perde o "

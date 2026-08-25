@@ -32,6 +32,9 @@ jobs:
       - name: Suite completa (deteccao + falso positivo)
         run: python tests/run_all.py
 
+      - name: Construtor -> auditor (sem PyYAML, roteiro embutido)
+        run: python tests/test_build.py
+
       - name: Simulador de leitura
         run: |
           python scripts/simular_leitura.py tests/deck_bom.pptx

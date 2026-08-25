@@ -104,7 +104,7 @@
 | F02 | E | 1.4.4 | Corpo de texto abaixo de 18pt (`sz` menor que 1800) | AUTO, com herança de layout e master | Aumentar; alvo 24pt ou mais |
 | F03 | A | — | Título abaixo de 32pt | AUTO | Aumentar |
 | F04 | E | — | Parágrafo justificado (`algn="just"`) — cria "rios de branco" | AUTO | Alinhar à esquerda |
-| F05 | A | — | Entrelinha menor que 1,5 (`a:lnSpc/a:spcPct` abaixo de 150000) | AUTO | Ajustar |
+| F05 | A | — | **No corpo de texto**, entrelinha menor que 1,5 (`a:lnSpc/a:spcPct` abaixo de 150000). Em título, entrelinha abaixo de 0,9, que faz as linhas colidirem | AUTO | Ajustar |
 | F06 | A | — | Itálico em bloco, sublinhado fora de link, ou frase inteira em CAIXA ALTA | AUTO | Usar negrito para destaque |
 | F07 | A | — | Mais de 6 marcadores por slide, ou linha acima de ~70 caracteres | AUTO | Dividir o slide |
 | F08 | D | — | Fonte não incorporada e fora do conjunto seguro | AUTO | Incorporar fontes ao salvar |
@@ -121,6 +121,11 @@
 | G04 | A | 1.3.1 | Linha ou coluna inteiramente vazia usada como espaçador | AUTO | Espaçar pelas margens da célula |
 | G05 | A | 1.1.1 | Tabela sem alt text ou sem resumo do que ela mostra | AUTO | Descrever |
 | G06 | A | 1.3.1 | Tabela usada como recurso de layout (imagens lado a lado, coluna única) | SEMI | Substituir por *placeholders* de conteúdo |
+
+> **Por que F05 não vale para título.** A entrelinha de 1,5 combate a troca involuntária de
+> linha durante a leitura de parágrafos. Título de display tem uma ou duas linhas e corpo
+> grande: aplicar 1,5 ali só afasta as linhas, sem ganho de legibilidade. O limite no título
+> é o oposto — não deixar as linhas colidirem.
 
 > Uma célula mesclada corrompe a contagem de colunas do leitor de tela e desalinha a grade
 > inteira a partir dali. Tabela que "precisa" de mesclagem é tabela complexa demais para um

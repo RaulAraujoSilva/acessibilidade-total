@@ -1,0 +1,53 @@
+# Roteiro de exemplo — mostra todos os tipos de slide que o build_deck aceita.
+#
+#   python scripts/build_deck.py exemplos/roteiro-exemplo.yaml -o exemplo.pptx
+#
+# Regras que o proprio build faz cumprir, falhando o build se voce violar:
+#   - todo slide tem titulo, e os titulos sao unicos          (B01, B02, B03)
+#   - toda figura tem alt text E descricao longa              (D01, D07)
+#   - toda tabela tem alt text e linha de cabecalho           (G01, G05)
+#   - nenhum link e "clique aqui" nem URL crua                (H01, H02)
+#   - no maximo 6 paragrafos por slide                        (F07)
+
+apresentacao:
+  titulo: "Exemplo de deck acessível por construção"
+  autor: "Nome do autor"
+  idioma: pt-BR
+  assunto: "Demonstração do build_deck"
+  palavras_chave: "acessibilidade, WCAG, PowerPoint"
+
+slides:
+  - tipo: capa
+    titulo: "Exemplo de deck acessível"
+    subtitulo: "Gerado por acessibilidade-total"
+    notas: "Slide de abertura."
+
+  - tipo: secao
+    titulo: "Primeira seção"
+    conteudo:
+      - "Um cabeçalho de seção organiza o deck e aparece no índice do leitor de tela."
+
+  - titulo: "Slide só de texto"
+    conteudo:
+      - "Cada linha vira um parágrafo com marcador nativo."
+      - "O tamanho mínimo do corpo é 18pt; o padrão aqui é 22pt."
+      - "O alinhamento é sempre à esquerda, nunca justificado."
+    notas: "Notas do orador viram descrição longa e transcrição."
+
+  - titulo: "Slide com tabela"
+    conteudo:
+      - "Tabela só para dados, nunca para diagramar a página."
+    tabela:
+      nome: "Tabela de limiares de contraste"
+      alt: "Limiares mínimos de contraste por tamanho de texto, níveis AA e AAA"
+      cabecalho: ["Texto", "AA", "AAA"]
+      linhas:
+        - ["Normal", "4,5:1", "7:1"]
+        - ["Grande", "3:1", "4,5:1"]
+
+  - titulo: "Slide com link descritivo"
+    conteudo:
+      - "O texto do link diz para onde ele leva."
+    links:
+      - texto: "Diretrizes WCAG 2.2 do W3C"
+        url: "https://www.w3.org/TR/WCAG22/"

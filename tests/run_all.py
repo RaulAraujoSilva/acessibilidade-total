@@ -4,7 +4,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PASSOS = [("gera deck-armadilha", "make_deck_ruim.py"),
           ("gera deck de controle", "make_deck_bom.py"),
           ("detecta o que foi plantado", "test_auditor.py"),
-          ("nao acusa o que esta certo", "test_falso_positivo.py")]
+          ("nao acusa o que esta certo", "test_falso_positivo.py"),
+          ("constroi o que o auditor aprova", "test_build.py")]
 falhou = 0
 for titulo, script in PASSOS:
     print("\n>>> %s (%s)" % (titulo, script))
