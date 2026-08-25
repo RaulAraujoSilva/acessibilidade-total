@@ -128,6 +128,11 @@
 > é o oposto — não deixar as linhas colidirem. E uma célula guarda um valor curto:
 > 1,5 ali só infla a altura da linha e atrapalha a varredura da tabela.
 
+> **Cor de célula que veio do estilo da tabela não é auditável.** O preenchimento padrão
+> de uma tabela mora em `tableStyles.xml`, fora do alcance de quem lê o slide. O auditor
+> devolve *não verificado* em vez de supor o fundo do slide e aprovar um contraste que
+> não mediu. A saída é escrever `a:solidFill` em `a:tcPr` — cor explícita é cor auditável.
+
 > Uma célula mesclada corrompe a contagem de colunas do leitor de tela e desalinha a grade
 > inteira a partir dali. Tabela que "precisa" de mesclagem é tabela complexa demais para um
 > slide.

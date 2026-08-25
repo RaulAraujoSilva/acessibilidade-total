@@ -139,11 +139,29 @@ def main():
     dados = [["Camada", "Cobertura nativa"],
              ["Texto alternativo", "Presença, não qualidade"],
              ["Tipografia", "Nenhuma"]]
+    # Cor EXPLICITA na celula. Sem isto a cor vem do estilo da tabela, que mora
+    # em tableStyles.xml, e o auditor honestamente responde "nao consigo medir".
+    def pinta(cel, hexv):
+        tcPr = cel._tc.get_or_add_tcPr()
+        fill = etree.SubElement(tcPr, A.q("a:solidFill"))
+        etree.SubElement(fill, A.q("a:srgbClr")).set("val", hexv)
+        tcPr.remove(fill)
+        tcPr.insert(0, fill)
+
+    tblPr = t._tbl.find(A.q("a:tblPr"))
+    if tblPr is not None:
+        tblPr.set("bandRow", "0")
     for ri, linha in enumerate(dados):
         for ci, v in enumerate(linha):
             cel = t.cell(ri, ci)
             cel.text = v
+            pinta(cel, "0072B2" if ri == 0 else "FFFFFF")
             formata(cel.text_frame, 20)
+            if ri == 0:
+                for p_ in cel.text_frame.paragraphs:
+                    for r_ in p_.runs:
+                        r_.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+                        r_.font.bold = True
 
     # -- metadados corretos ------------------------------------------------
     cp = prs.core_properties

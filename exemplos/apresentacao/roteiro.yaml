@@ -31,7 +31,6 @@ slides:
       entrega.
 
   - titulo: "Acessibilidade deste material"
-    tamanho: 20
     conteudo:
       - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste de texto em AAA (16,3:1)."
       - "Entregue: alt text e descrição longa, ordem de leitura, três modos de cor."
@@ -90,7 +89,6 @@ slides:
       a algo que não é web, sem dizer com que autoridade.
 
   - titulo: "A lei brasileira"
-    tamanho: 20
     conteudo:
       - "Lei 13.146/2015 (LBI): acessibilidade é direito, não cortesia."
       - "A LBI define formato acessível como o que o leitor de tela reconhece."
@@ -122,7 +120,6 @@ slides:
       antes de citar é o que separa fundamentação de citação decorativa.
 
   - titulo: "Três citações erradas que este projeto recusa"
-    tamanho: 20
     conteudo:
       - "NBR 17060:2022 é sobre aplicativos móveis. Não é norma de documento."
       - "NBR 17225:2025 é sobre conteúdo web. Também não alcança um .pptx."
@@ -194,7 +191,6 @@ slides:
       existe porque descrição automática não revisada não é descrição.
 
   - titulo: "O que o auditor vê e o nativo não"
-    tamanho: 20
     conteudo:
       - "Uma amostra da diferença de cobertura."
     tabela:
@@ -258,7 +254,6 @@ slides:
       build. Por isso o laço volta para o roteiro.
 
   - titulo: "Acessível por construção, não por remediação"
-    tamanho: 20
     conteudo:
       - "O construtor recusa roteiro que geraria slide inacessível."
       - "Título repetido: o build para e diz em quais slides."
@@ -284,7 +279,6 @@ slides:
       cabeçalho: Camada, Cobertura nativa.'
 
   - titulo: "Três modos de cor no mesmo arquivo"
-    tamanho: 20
     conteudo:
       - "Padrão, alto contraste e daltônico-seguro, com o mesmo conteúdo."
       - "Um slide-hub e três seções paralelas, sem macro nenhuma."
@@ -328,7 +322,6 @@ slides:
       Quem usa Codex instala exatamente a mesma pasta, em outro diretório.
 
   - titulo: "Instalação em três passos"
-    tamanho: 20
     conteudo:
       - "Passo 1: clonar o repositório público."
       - "Passo 2: rodar instalar.ps1 no Windows, ou instalar.sh no Linux e macOS."
@@ -356,7 +349,6 @@ slides:
       É o que permite manter um catálogo de 98 regras sem ocupar contexto à toa.
 
   - titulo: "O que a ferramenta não faz"
-    tamanho: 20
     conteudo:
       - "Não escreve o conteúdo por você: o roteiro é humano."
       - "Não julga se o alt text está correto, só se ele é plausível."
@@ -374,7 +366,6 @@ slides:
       - "Um auditor não testado é uma opinião com sotaque técnico."
 
   - titulo: "Testado nos dois sentidos"
-    tamanho: 20
     conteudo:
       - "Primeiro teste: um deck com 33 defeitos plantados, cada um com gabarito."
       - "Resultado: 33 de 33 detectados."
@@ -387,7 +378,6 @@ slides:
       E01, mas 20 pontos é texto grande, e a regra correta é a E02.
 
   - titulo: "Ausência de evidência não é conformidade"
-    tamanho: 20
     conteudo:
       - "O que não pôde ser verificado entra como não verificado."
       - "Nunca como aprovado."
@@ -399,7 +389,6 @@ slides:
       técnica é piso, não prova.
 
   - titulo: "Esta apresentação foi auditada por si mesma"
-    tamanho: 20
     conteudo:
       - "Gerada por código a partir do roteiro que a acompanha."
       - "Auditada contra as camadas A a I, com zero erros e zero avisos."

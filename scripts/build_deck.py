@@ -60,9 +60,11 @@ class ErroDeRoteiro(Exception):
 class Tema:
     """Cores e tipografia de um modo de exibicao."""
 
-    def __init__(self, nome, fundo, texto, destaque, sobre_destaque, series):
+    def __init__(self, nome, fundo, texto, destaque, sobre_destaque, series,
+                 fundo_celula=None):
         self.nome = nome
         self.fundo = fundo
+        self.fundo_celula = fundo_celula or fundo
         self.texto = texto
         self.destaque = destaque
         self.sobre_destaque = sobre_destaque
@@ -86,15 +88,16 @@ def carregar_temas():
             "Modo padrão", p["fundos"]["padrao"], p["textos"]["sobre_claro"],
             txt["azul"], "#FFFFFF",
             [marcas["azul"], marcas["laranja"], marcas["verde_azulado"],
-             marcas["roxo_avermelhado"]]),
+             marcas["roxo_avermelhado"]], fundo_celula="#FFFFFF"),
         "alto_contraste": Tema(
             "Modo alto contraste", p["fundos"]["alto_contraste"],
             p["textos"]["sobre_escuro"], "#F0E442", "#000000",
-            ["#56B4E9", "#E69F00", "#009E73", "#F0E442"]),
+            ["#56B4E9", "#E69F00", "#009E73", "#F0E442"], fundo_celula="#000000"),
         "daltonico": Tema(
             "Modo daltônico-seguro", p["fundos"]["daltonico_seguro"],
             p["textos"]["sobre_claro"], txt["azul"], "#FFFFFF",
-            [marcas["azul"], marcas["laranja"], marcas["cinza"], marcas["vermelhao"]]),
+            [marcas["azul"], marcas["laranja"], marcas["cinza"],
+             marcas["vermelhao"]], fundo_celula="#FFFFFF"),
     }
 
 
@@ -209,8 +212,12 @@ def _imagem(slide, fig, tema, esq, topo, larg, alt_, modo="padrao"):
     if not fig.get("descricao_longa", "").strip():
         raise ErroDeRoteiro("figura sem descricao longa: %s" % arq)
 
-    # Em fundo escuro, a figura clara precisa de um cartao para nao "flutuar".
-    if C.relative_luminance(C.hex_to_rgb(tema.fundo)) < 0.2:
+    # Cartao branco atras da figura SO quando ela nao tem versao por modo.
+    # Se a figura ja vem numa versao escura, o cartao vira uma moldura branca
+    # em volta de um diagrama preto — pior que nao ter cartao nenhum.
+    tem_versao_do_modo = isinstance(fig.get("arquivo"), dict)
+    if (not tem_versao_do_modo
+            and C.relative_luminance(C.hex_to_rgb(tema.fundo)) < 0.2):
         cartao = slide.shapes.add_shape(
             MSO_SHAPE.ROUNDED_RECTANGLE, esq - Inches(0.12), topo - Inches(0.12),
             larg + Inches(0.24), alt_ + Inches(0.24))
@@ -225,6 +232,26 @@ def _imagem(slide, fig, tema, esq, topo, larg, alt_, modo="padrao"):
     nomear(pic, fig.get("nome") or "Figura")
     A.set_alt_text(pic._element, fig["alt"].strip())
     return pic
+
+
+def _pintar_celula(cel, hexv):
+    """
+    Preenchimento explicito na celula.
+
+    Sem isto a cor vem do ESTILO da tabela, que mora em tableStyles.xml e o
+    auditor de contraste nao consegue resolver — ele acabava aprovando a
+    tabela sem enxergar a cor real. Cor explicita e cor auditavel.
+    """
+    tcPr = cel._tc.get_or_add_tcPr()
+    for antigo in list(tcPr):
+        if A.local(antigo) in ("solidFill", "noFill", "gradFill", "blipFill",
+                               "pattFill"):
+            tcPr.remove(antigo)
+    fill = etree.SubElement(tcPr, A.q("a:solidFill"))
+    etree.SubElement(fill, A.q("a:srgbClr")).set("val", hexv.lstrip("#").upper())
+    # a:solidFill precisa vir antes das bordas na ordem do schema
+    tcPr.remove(fill)
+    tcPr.insert(0, fill)
 
 
 def _tabela(slide, tab, tema, esq, topo, larg):
@@ -247,12 +274,16 @@ def _tabela(slide, tab, tema, esq, topo, larg):
     A.set_alt_text(gf._element, tab["alt"].strip())
     t = gf.table
     t.first_row = True
+    tblPr = t._tbl.find(A.q("a:tblPr"))
+    if tblPr is not None:
+        tblPr.set("bandRow", "0")  # faixa vem do estilo; aqui a cor e explicita
     if tab.get("primeira_coluna"):
         t.first_col = True
     for ci, v in enumerate(cab):
         cel = t.cell(0, ci)
         cel.text = str(v)
         cel.vertical_anchor = MSO_ANCHOR.MIDDLE
+        _pintar_celula(cel, tema.destaque)
         formatar(cel.text_frame, tema, tab.get("tamanho", 18),
                  cor=tema.sobre_destaque, negrito=True, entrelinha=100000)
     for ri, linha in enumerate(linhas, 1):
@@ -260,6 +291,7 @@ def _tabela(slide, tab, tema, esq, topo, larg):
             cel = t.cell(ri, ci)
             cel.text = str(v)
             cel.vertical_anchor = MSO_ANCHOR.MIDDLE
+            _pintar_celula(cel, tema.fundo_celula)
             formatar(cel.text_frame, tema, tab.get("tamanho", 18),
                      entrelinha=100000)
     return gf
@@ -353,23 +385,26 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
         topo = Inches(1.85)
         linhas = spec.get("conteudo", [])
         links = spec.get("links", [])
-        larg_corpo = Inches(5.4) if tem_figura else LARGURA - 2 * MARGEM
-        alt_corpo = Inches(1.7) if tem_tabela else Inches(4.3)
+        larg_corpo = Inches(4.9) if tem_figura else LARGURA - 2 * MARGEM
+        alt_corpo = Inches(1.6) if tem_tabela else Inches(4.6)
 
         corpo = slide.placeholders[1]
         nomear(corpo, "Conteúdo principal")
         corpo.left, corpo.top = MARGEM, topo
         corpo.width, corpo.height = larg_corpo, alt_corpo
         corpo.text_frame.word_wrap = True
+        # Slide so de texto tem a folga toda: 26pt, bem acima do piso de 18pt
+        # e dentro do alvo de 24pt ou mais da referencia de tipografia.
+        padrao = 22 if (tem_figura or tem_tabela) else 26
         _escrever_corpo(corpo.text_frame, linhas, links, tema,
-                        spec.get("tamanho", 22))
+                        spec.get("tamanho", padrao))
 
         # A ordem de insercao (titulo, corpo, figura/tabela) ja e o fluxo
         # visual esquerda->direita, cima->baixo (regra C02).
         if tem_figura:
             esq = MARGEM + larg_corpo + Inches(0.4) if (linhas or links) else Inches(3.2)
             _imagem(slide, spec["figura"], tema, esq, topo,
-                    LARGURA - esq - MARGEM, Inches(3.6), modo)
+                    LARGURA - esq - MARGEM, Inches(4.6), modo)
         if tem_tabela:
             topo_tab = topo + alt_corpo + Inches(0.2) if (linhas or links) else topo
             _tabela(slide, spec["tabela"], tema, MARGEM, topo_tab,

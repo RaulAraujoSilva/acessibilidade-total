@@ -10,7 +10,7 @@ diagramas:
     tipo: cadeia
     titulo: "De onde vem a exigência"
     subtitulo: "A WCAG foi escrita para a web. O elo que a torna aplicável a um arquivo do PowerPoint é o WCAG2ICT."
-    altura: 620
+    altura: 460
     alt: "A WCAG 2.2 chega ao arquivo .pptx pelo WCAG2ICT e termina no PDF/UA"
     descricao_longa: >
       Diagrama de quatro elos ligados por setas da esquerda para a direita.
@@ -38,7 +38,7 @@ diagramas:
     tipo: camadas
     titulo: "As 13 camadas do catálogo de auditoria"
     subtitulo: "98 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
-    altura: 1180
+    altura: 1080
     largura: 1200
     alt: "As 13 camadas do catálogo, de metadados do documento até confirmação humana"
     descricao_longa: >
@@ -74,7 +74,7 @@ diagramas:
     tipo: passos
     titulo: "Do roteiro ao PDF validado"
     subtitulo: "Cada estágio tem um portão. O laço corrige o roteiro, nunca o arquivo gerado."
-    altura: 760
+    altura: 640
     alt: "Pipeline de sete estágios, do roteiro em YAML até o PDF validado no veraPDF"
     descricao_longa: >
       Sequência numerada de sete estágios. Um: roteiro declarativo em YAML, com
@@ -110,7 +110,7 @@ diagramas:
     tipo: hub
     titulo: "Uma skill, muitos agentes"
     subtitulo: "Agent Skills é padrão aberto: a mesma pasta funciona em produtos concorrentes, sem adaptação."
-    altura: 700
+    altura: 560
     nucleo: "SKILL.md + scripts + references + assets"
     satelites:
       - "Claude Code"

@@ -182,9 +182,14 @@ def montar_html(spec, pal):
     else:
         raise ValueError("tipo de diagrama desconhecido: %r" % tipo)
 
-    cabecalho = "<h1>%s</h1>" % spec["titulo"]
-    if spec.get("subtitulo"):
-        cabecalho += '<div class="sub">%s</div>' % spec["subtitulo"]
+    # Por padrao o diagrama NAO repete o proprio titulo: quem o carrega e o
+    # titulo do slide, e repetir rouba espaco e faz o leitor de tela ouvir a
+    # mesma frase duas vezes. cabecalho: true so para uso avulso.
+    cabecalho = ""
+    if spec.get("cabecalho"):
+        cabecalho = "<h1>%s</h1>" % spec["titulo"]
+        if spec.get("subtitulo"):
+            cabecalho += '<div class="sub">%s</div>' % spec["subtitulo"]
     rodape = ('<div class="rodape">%s</div>' % spec["rodape"]) if spec.get("rodape") else ""
 
     css = CSS % dict(w=larg, h=alt, **pal)

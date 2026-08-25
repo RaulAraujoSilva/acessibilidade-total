@@ -328,6 +328,29 @@ def slide_background(slide, resolver):
     return None, "fundo indeterminado"
 
 
+def cell_fill(tc, slide, resolver):
+    """
+    Cor de fundo da celula, quando declarada em a:tcPr.
+
+    Se vier do ESTILO da tabela (tableStyles.xml), devolve (None, motivo) e a
+    regra sai como NAO VERIFICADA — melhor do que supor o fundo do slide e
+    aprovar um contraste que nao foi medido.
+    """
+    tcPr = tc.find(q("a:tcPr"))
+    fill = _first_fill(tcPr)
+    if fill is None:
+        return None, "cor vem do estilo da tabela (nao resolvivel)"
+    t = local(fill)
+    if t == "noFill":
+        return None, "noFill"
+    if t == "solidFill":
+        for child in fill:
+            rgb, d = resolver.resolve(child, slide)
+            if rgb:
+                return rgb, d
+    return None, t
+
+
 def run_color(r_el, slide, resolver):
     """Cor declarada no run. (None, motivo) se herdada."""
     rPr = r_el.find(q("a:rPr"))

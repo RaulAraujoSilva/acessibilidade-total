@@ -382,7 +382,12 @@ def audit_contrast_rules(prs, rep: Report):
             fill, fill_desc = C.shape_fill(el, slide, resolver)
             fundo, fundo_desc = (fill, fill_desc) if fill else (bg, bg_desc)
 
-            for p_el in A.iter_paragraphs(el):
+            # celula de tabela tem o proprio fundo: usar o dela, nao o do slide
+            for p_el, cel in A.iter_all_paragraphs(el):
+                if cel is not None:
+                    fundo, fundo_desc = C.cell_fill(cel["tc"], slide, resolver)
+                else:
+                    fundo, fundo_desc = (fill, fill_desc) if fill else (bg, bg_desc)
                 for r_el in A.iter_runs(p_el):
                     txt = A.run_text(r_el).strip()
                     if not txt:
@@ -453,7 +458,8 @@ def audit_typography(prs, rep: Report):
                 if not txt:
                     continue
                 pp = A.paragraph_props(p_el)
-                onde_txt = onde(i, el, "célula %d,%d" % celula if celula else "")
+                onde_txt = onde(i, el, "célula %d,%d" % (celula["ri"], celula["ci"])
+                                if celula else "")
 
                 if pp["algn"] == "just":
                     rep.fail("F04", "E", "—", onde_txt,

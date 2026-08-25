@@ -254,7 +254,10 @@ def iter_all_paragraphs(el):
                 if tx is None:
                     continue
                 for p_el in tx.findall(q("a:p")):
-                    yield p_el, (ri, ci)
+                    # devolve a PROPRIA celula: casar depois por id() nao
+                    # funciona, porque o lxml recria o proxy Python a cada
+                    # travessia e o id muda.
+                    yield p_el, {"tc": tc, "ri": ri, "ci": ci}
 
 
 def paragraph_text(p_el) -> str:
