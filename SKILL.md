@@ -1,6 +1,5 @@
 ---
 name: acessibilidade-total
-version: 0.1.0
 description: >
   Produção e auditoria de apresentações acessíveis (PowerPoint .pptx e PDF/UA) segundo
   WCAG 2.2 AA via WCAG2ICT, ISO 14289 (PDF/UA), LBI 13.146/2015 e e-MAG. Cobre texto
@@ -10,10 +9,15 @@ description: >
   converter ou auditar qualquer apresentação de slides, ao receber pedido de "deck
   acessível", "acessibilidade em PowerPoint", "alt text", "ordem de leitura", "Libras",
   "audiodescrição", "daltonismo", "WCAG", "PDF/UA" ou "leitor de tela".
+license: MIT
 compatibility: >
-  Windows com PowerPoint instalado (COM) · Python com python-pptx, pywin32, pypdf, pymupdf.
-  Opcionais: OPENAI_API_KEY (figuras), ELEVENLABS_API_KEY (audiodescrição),
-  Docker e ffmpeg (Libras), veraPDF (validação PDF/UA).
+  Auditor roda em qualquer sistema com Python e python-pptx. Exportação de PDF
+  marcado exige Windows com PowerPoint instalado (COM). Opcionais:
+  OPENAI_API_KEY, ELEVENLABS_API_KEY, Docker, ffmpeg, veraPDF.
+metadata:
+  version: "0.4.0"
+  author: RaulAraujoSilva
+  repositorio: https://github.com/RaulAraujoSilva/acessibilidade-total
 ---
 
 # Acessibilidade Total — apresentações
@@ -54,6 +58,21 @@ Remediar depois é caro e frágil; nascer certo é barato.
 
 ---
 
+## Onde esta skill mora
+
+`Agent Skills` é especificação aberta (agentskills.io). A mesma pasta funciona em
+produtos diferentes — muda só o diretório:
+
+| Agente | Diretório |
+|---|---|
+| Claude Code | `~/.claude/skills/acessibilidade-total/` |
+| Codex, Cursor, Copilot, Gemini CLI e demais | `~/.agents/skills/acessibilidade-total/` |
+| Só para um repositório | `.agents/skills/acessibilidade-total/` no próprio repo |
+
+O nome do diretório **precisa** ser igual ao campo `name` do frontmatter.
+
+---
+
 ## Antes de qualquer coisa: conferir o ambiente
 
 ```bash
@@ -69,6 +88,18 @@ desliga um pedaço específico, nunca o conjunto. Se faltar algo, `instalar.ps1`
 só a regra K03 — a evidência de que a ordem de leitura funciona na prática. Para inspecionar a
 ordem sem instalar nada, use `scripts/simular_leitura.py`, que escreve o que o leitor de tela
 anunciaria. É um modelo do comportamento, não o comportamento: não satisfaz a K03.
+
+---
+
+## Atalho: o pipeline inteiro num comando
+
+```bash
+python scripts/montar_tudo.py pasta-do-roteiro/ -o entrega/
+```
+
+Roda os sete estágios com portão em cada um. O portão do estágio 3 **para** o
+pipeline se sobrar Erro ou Aviso: exportar PDF de um `.pptx` reprovado só propaga
+o defeito para o formato em que o material de fato circula.
 
 ---
 
@@ -111,6 +142,8 @@ no mínimo 24×24 px CSS (228600 EMU).
 
 ### 6. Exportar
 `scripts/export_pdfua.py` — COM, `DocStructureTags=True`. Nunca "Imprimir para PDF".
+Ele ainda corrige `/Lang` e `/Title`, que o PowerPoint entrega errados, e grava o
+identificador PDF/UA-1 no XMP — sem ele o veraPDF reprova.
 
 ### 7. Auditar
 `audit_pptx.py` + `audit_contrast.py` + `audit_pdf.py` produzem o relatório por regra. O laço

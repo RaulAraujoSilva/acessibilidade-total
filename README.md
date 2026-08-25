@@ -10,8 +10,9 @@ Funciona como skill do Claude Code **e** como ferramenta de linha de comando avu
 
 *[English version](README.en.md)*
 
-> **Status:** base de conhecimento, catálogo de auditoria, auditor e simulador de leitura
-> prontos. Construtor de decks e geradores de mídia em construção.
+> **Status:** catálogo, auditor, construtor, simulador, transcrição, diagramas e
+> exportação PDF/UA prontos e testados. Audiodescrição narrada e janela de Libras
+> em construção.
 
 ---
 
@@ -63,6 +64,21 @@ python scripts/verificar_ambiente.py
 
 Lista tudo, e para cada item que falta diz **para que serve**, **o que deixa de funcionar
 sem ele** e **o comando exato para instalar**.
+
+### Como skill de um agente
+
+`Agent Skills` é **especificação aberta** (agentskills.io), criada pela Anthropic e
+adotada por cerca de 40 produtos. A mesma pasta funciona em todos — muda só o
+diretório de destino:
+
+| Agente | Onde copiar a pasta |
+|---|---|
+| Claude Code | `~/.claude/skills/acessibilidade-total/` |
+| Codex, Cursor, Copilot, Gemini CLI e demais | `~/.agents/skills/acessibilidade-total/` |
+| Só para um repositório | `.agents/skills/acessibilidade-total/` dentro dele |
+
+O nome da pasta precisa ser igual ao campo `name` do `SKILL.md`. Depois disso, basta
+pedir em linguagem natural: *"audite esta apresentação e me diga o que corrigir"*.
 
 ---
 
@@ -182,6 +198,8 @@ severidade, critério de origem, como detectar e como corrigir.
 |---|---|
 | **Catálogo de auditoria** | 13 camadas, 98 regras — de metadados a PDF/UA e confirmação humana |
 | **Auditor automático** | Camadas A a I; as demais saem como *não verificado*, nunca aprovadas sem evidência |
+| **Construtor** | Gera o deck a partir de um roteiro YAML e **recusa** o que produziria slide inacessível |
+| **Exportação PDF/UA** | Corrige o que o PowerPoint erra e grava o identificador PDF/UA-1 |
 | **Simulador de leitura** | O que o leitor de tela anunciaria, sem instalar leitor de tela |
 | **Cookbook OOXML** | Onde cada recurso mora no XML, extraído de arquivos reais, não de memória |
 | **Paleta cega-segura calculada** | Okabe-Ito com variantes que de fato passam em contraste, com os números medidos |
@@ -211,12 +229,32 @@ severidade, critério de origem, como detectar e como corrigir.
 
 ## Uso
 
+### O pipeline inteiro num comando
+
 ```bash
+python scripts/montar_tudo.py pasta-do-roteiro/ -o entrega/
+```
+
+Sete estágios com portão em cada um: diagramas → construção → auditoria do `.pptx`
+→ leitura simulada → transcrição → PDF marcado → validação no veraPDF. O portão do
+terceiro estágio **para** o pipeline se sobrar Erro ou Aviso, porque exportar PDF
+de um arquivo reprovado só propaga o defeito.
+
+### Passo a passo
+
+```bash
+# construir a partir de um roteiro declarativo
+python scripts/build_deck.py roteiro.yaml -o deck.pptx --modos
+
 # auditar
 python scripts/audit_pptx.py deck.pptx --md relatorio.md --json achados.json
 
 # ver a ordem de leitura como um leitor de tela veria
 python scripts/simular_leitura.py deck.pptx --md leitura.md
+
+# exportar PDF marcado e validar contra a ISO 14289
+python scripts/export_pdfua.py deck.pptx -o deck.pdf
+python scripts/audit_pdf.py deck.pdf
 
 # conferir o ambiente
 python scripts/verificar_ambiente.py
@@ -261,7 +299,8 @@ references/05-alt-text-e-audiodescricao.md
 references/06-libras.md
 references/07-cor-e-tipografia.md
 references/08-exportacao-pdfua.md
-scripts/                              auditor, simulador, verificador
+scripts/                              construtor, auditor, simulador, exportador
+exemplos/apresentacao/                roteiro e diagramas de um deck real
 tests/                                deck-armadilha e deck de controle
 assets/paleta-okabe-ito.json          contrastes calculados, não estimados
 ```

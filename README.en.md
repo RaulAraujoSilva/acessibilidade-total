@@ -12,8 +12,9 @@ Works as a Claude Code skill **and** as a standalone command-line tool.
 *[Versão em português](README.md)* — the reference material is written in Brazilian
 Portuguese.
 
-> **Status:** knowledge base, audit catalogue, auditor and screen-reader simulator are done.
-> Deck builder and media generators in progress.
+> **Status:** catalogue, auditor, deck builder, simulator, transcript, diagrams and
+> PDF/UA export are done and tested. Narrated audio description and the sign
+> language window are in progress.
 
 ---
 
@@ -64,6 +65,31 @@ python scripts/verificar_ambiente.py
 
 Lists everything, and for each missing item states **what it is for**, **what stops working
 without it**, and **the exact install command**.
+
+### As an agent skill
+
+`Agent Skills` is an **open specification** (agentskills.io), created by Anthropic and
+adopted by around 40 products. The same folder works in all of them — only the
+destination directory changes:
+
+| Agent | Where to copy the folder |
+|---|---|
+| Claude Code | `~/.claude/skills/acessibilidade-total/` |
+| Codex, Cursor, Copilot, Gemini CLI and others | `~/.agents/skills/acessibilidade-total/` |
+| Scoped to one repository | `.agents/skills/acessibilidade-total/` inside it |
+
+The folder name must match the `name` field in `SKILL.md`. After that, just ask in
+plain language: *"audit this presentation and tell me what to fix"*.
+
+### The whole pipeline in one command
+
+```bash
+python scripts/montar_tudo.py roteiro-folder/ -o delivery/
+```
+
+Seven stages, each with a gate: diagrams, build, `.pptx` audit, simulated reading,
+transcript, tagged PDF, veraPDF validation. The third gate **stops** the pipeline on
+any Error or Warning — exporting a PDF from a failing file only propagates the defect.
 
 ---
 
