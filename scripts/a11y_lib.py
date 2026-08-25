@@ -237,6 +237,26 @@ def iter_paragraphs(el):
         yield p_el
 
 
+def iter_all_paragraphs(el):
+    """
+    Paragrafos da forma E das celulas de tabela.
+
+    iter_paragraphs so alcanca o txBody direto da forma. Numa tabela, o texto
+    vive em a:tbl/a:tr/a:tc/a:txBody, mais fundo, e ficava invisivel para as
+    regras de tipografia e de idioma — celula a 15pt passava batido.
+    """
+    for p_el in iter_paragraphs(el):
+        yield p_el, None
+    for tbl in el.iter(q("a:tbl")):
+        for ri, tr in enumerate(tbl.findall(q("a:tr"))):
+            for ci, tc in enumerate(tr.findall(q("a:tc"))):
+                tx = tc.find(q("a:txBody"))
+                if tx is None:
+                    continue
+                for p_el in tx.findall(q("a:p")):
+                    yield p_el, (ri, ci)
+
+
 def paragraph_text(p_el) -> str:
     return "".join(t.text or "" for t in p_el.iter(q("a:t")))
 
@@ -563,6 +583,35 @@ def is_all_caps_sentence(s: str, min_words: int = 3) -> bool:
     if len(words) < min_words:
         return False
     return all(w.isupper() for w in words)
+
+
+# Palavras que, escritas assim, estao necessariamente sem o acento devido.
+# Sem esta lista, D08 acusava frases legitimas que simplesmente nao tem nenhuma
+# palavra acentuada — como "A WCAG 2.2 chega ao arquivo pelo WCAG2ICT".
+PALAVRAS_SEM_ACENTO = {
+    "nao", "sao", "tambem", "voce", "ate", "apos", "alem", "atraves", "porem",
+    "assessoria", "codigo", "pagina", "paginas", "tecnica", "tecnico", "publico",
+    "publica", "unico", "unica", "ultimo", "ultima", "proprio", "propria",
+    "criterio", "criterios", "referencia", "referencias", "descricao",
+    "descricoes", "informacao", "informacoes", "acao", "acoes", "versao",
+    "versoes", "opcao", "opcoes", "secao", "secoes", "atencao", "conteudo",
+    "audio", "video", "videos", "area", "areas", "ideia", "titulo", "titulos",
+    "numero", "numeros", "musica", "grafico", "graficos", "imagens",
+    "acessivel", "acessiveis", "possivel", "possiveis", "nivel", "niveis",
+    "minimo", "maximo", "obrigatorio", "necessario", "usuario", "usuarios",
+    "relatorio", "auditoria", "sera", "esta", "tres", "ja", "so", "e",
+    "orgao", "orgaos", "servico", "servicos", "excecao", "duvida", "voces",
+    "aqui", "ambito", "avaliacao", "aplicacao", "traducao", "legenda",
+}
+RE_PALAVRA = re.compile(r"[a-zà-ÿ]+", re.I)
+
+
+def falta_acento(s: str) -> bool:
+    """True se o texto contem palavra que deveria estar acentuada e nao esta."""
+    for w in RE_PALAVRA.findall(s.lower()):
+        if w in PALAVRAS_SEM_ACENTO and w not in ("e", "so", "ja"):
+            return True
+    return False
 
 
 def has_pt_accent(s: str) -> bool:

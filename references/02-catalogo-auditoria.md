@@ -101,10 +101,10 @@
 | ID | Sev | Critério | O que caracteriza a falha | Detecção | Correção |
 |---|---|---|---|---|---|
 | F01 | A | — | Fonte com serifa ou decorativa no corpo do texto | AUTO — conjunto seguro: Arial, Calibri, Verdana, Tahoma, Segoe UI, Open Sans, Atkinson Hyperlegible | Trocar |
-| F02 | E | 1.4.4 | Corpo de texto abaixo de 18pt (`sz` menor que 1800) | AUTO, com herança de layout e master | Aumentar; alvo 24pt ou mais |
+| F02 | E | 1.4.4 | Corpo de texto abaixo de 18pt (`sz` menor que 1800), **incluindo célula de tabela** | AUTO, com herança de layout e master | Aumentar; alvo 24pt ou mais. Tabela que só cabe menor é densa demais para um slide |
 | F03 | A | — | Título abaixo de 32pt | AUTO | Aumentar |
 | F04 | E | — | Parágrafo justificado (`algn="just"`) — cria "rios de branco" | AUTO | Alinhar à esquerda |
-| F05 | A | — | **No corpo de texto**, entrelinha menor que 1,5 (`a:lnSpc/a:spcPct` abaixo de 150000). Em título, entrelinha abaixo de 0,9, que faz as linhas colidirem | AUTO | Ajustar |
+| F05 | A | — | **Em parágrafo de texto corrido**, entrelinha menor que 1,5 (`a:lnSpc/a:spcPct` abaixo de 150000). Em título, entrelinha abaixo de 0,9, que faz as linhas colidirem. Não se aplica a célula de tabela | AUTO | Ajustar |
 | F06 | A | — | Itálico em bloco, sublinhado fora de link, ou frase inteira em CAIXA ALTA | AUTO | Usar negrito para destaque |
 | F07 | A | — | Mais de 6 marcadores por slide, ou linha acima de ~70 caracteres | AUTO | Dividir o slide |
 | F08 | D | — | Fonte não incorporada e fora do conjunto seguro | AUTO | Incorporar fontes ao salvar |
@@ -122,10 +122,11 @@
 | G05 | A | 1.1.1 | Tabela sem alt text ou sem resumo do que ela mostra | AUTO | Descrever |
 | G06 | A | 1.3.1 | Tabela usada como recurso de layout (imagens lado a lado, coluna única) | SEMI | Substituir por *placeholders* de conteúdo |
 
-> **Por que F05 não vale para título.** A entrelinha de 1,5 combate a troca involuntária de
+> **Por que F05 não vale para título nem para célula de tabela.** A entrelinha de 1,5 combate a troca involuntária de
 > linha durante a leitura de parágrafos. Título de display tem uma ou duas linhas e corpo
 > grande: aplicar 1,5 ali só afasta as linhas, sem ganho de legibilidade. O limite no título
-> é o oposto — não deixar as linhas colidirem.
+> é o oposto — não deixar as linhas colidirem. E uma célula guarda um valor curto:
+> 1,5 ali só infla a altura da linha e atrapalha a varredura da tabela.
 
 > Uma célula mesclada corrompe a contagem de colunas do leitor de tela e desalinha a grade
 > inteira a partir dali. Tabela que "precisa" de mesclagem é tabela complexa demais para um

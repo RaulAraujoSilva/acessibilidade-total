@@ -1,0 +1,415 @@
+# Apresentação sobre o próprio projeto — Trabalho 1, TCE 00191 (PPGEP/UFF).
+#
+# Este roteiro é a FONTE do deck. Correção de auditoria vem para cá, nunca
+# para o .pptx gerado.
+#
+#   python scripts/montar_tudo.py exemplos/apresentacao/ -o entrega/
+
+apresentacao:
+  titulo: "Acessibilidade Total: uma ferramenta para produzir e auditar apresentações acessíveis"
+  autor: "Raul Araujo Silva"
+  idioma: pt-BR
+  assunto: "Produção e auditoria de apresentações acessíveis segundo WCAG 2.2, ISO 14289 e LBI"
+  palavras_chave: "acessibilidade, WCAG, PDF/UA, PowerPoint, Libras, audiodescrição, LBI"
+  resumo: >
+    Apresentação do projeto acessibilidade-total, uma skill de código aberto que
+    produz apresentações acessíveis por construção e as audita contra 98 regras.
+
+slides:
+  # ===================== ABERTURA =====================
+  - tipo: capa
+    titulo: "Acessibilidade Total"
+    subtitulo:
+      - "Uma ferramenta para produzir e auditar apresentações acessíveis"
+      - "Trabalho 1 · TCE 00191 — Documentos Acessíveis"
+      - "Doutorado em Engenharia de Produção · UFF"
+      - "Raul Araujo Silva"
+    notas: >
+      Esta apresentação é sobre a ferramenta que a construiu. Ela foi gerada por
+      código a partir de um roteiro, auditada contra 98 regras e exportada em
+      PDF validado contra a ISO 14289. O relatório de auditoria acompanha a
+      entrega.
+
+  - titulo: "Acessibilidade deste material"
+    tamanho: 20
+    conteudo:
+      - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste de texto em AAA (16,3:1)."
+      - "Entregue: alt text e descrição longa, ordem de leitura, três modos de cor."
+      - "Entregue: transcrição linear em .docx, audiodescrição narrada, PDF/UA."
+      - "Entregue: vídeo-resumo com janela de Libras e legenda em SRT."
+      - "NÃO entregue: janela de Libras em cada slide, e leitura por pessoa cega."
+      - "Relatório completo de auditoria acompanha o arquivo."
+    notas: >
+      Uma declaração de acessibilidade que só lista acertos é propaganda. A que
+      lista as lacunas é documento técnico. Por isso as duas últimas linhas
+      existem.
+
+  - titulo: "O problema em um número"
+    conteudo:
+      - "O Verificador de Acessibilidade do PowerPoint cobre 10 regras."
+      - "Ele não vê tamanho de fonte, texto justificado nem entrelinha."
+      - "Não vê o idioma dos trechos de texto, nem texto sobre foto."
+      - "Não vê daltonismo, nem cor usada como único meio de informação."
+      - "Aceita 'foto1.png' como texto alternativo válido."
+      - "E não vê absolutamente nada do PDF exportado."
+    notas: >
+      As dez regras estão documentadas pela própria Microsoft. Não são um
+      defeito: são um piso. O problema é tratá-las como teto. Um arquivo pode
+      passar limpo no verificador nativo e ainda assim ser inutilizável.
+
+  # ===================== FUNDAMENTAÇÃO =====================
+  - tipo: secao
+    titulo: "Fundamentação: por que isto é obrigação, não gentileza"
+    conteudo:
+      - "A cadeia normativa técnica, a lei brasileira e as armadilhas de citação."
+
+  - titulo: "De onde vem a exigência"
+    tamanho: 19
+    conteudo:
+      - "A WCAG foi escrita para a web."
+      - "O WCAG2ICT é o que a torna aplicável a um arquivo."
+      - "Sem citá-lo, a fundamentação fica incompleta."
+    figura:
+      nome: "Cadeia normativa"
+      arquivo:
+        padrao: "figuras/cadeia-normativa-padrao.png"
+        alto_contraste: "figuras/cadeia-normativa-alto_contraste.png"
+        daltonico: "figuras/cadeia-normativa-daltonico.png"
+      alt: "A WCAG 2.2 chega ao arquivo .pptx pelo WCAG2ICT e termina no PDF/UA"
+      descricao_longa: >
+        Diagrama de quatro elos ligados por setas da esquerda para a direita.
+        Primeiro elo: WCAG 2.2, do W3C, com os quatro princípios perceptível,
+        operável, compreensível e robusto. Segundo elo: WCAG2ICT, que traduz cada
+        critério para software e documentos que não são páginas web. Terceiro
+        elo: o arquivo .pptx, onde o critério vira estrutura real, como
+        placeholder de título e cabeçalho de tabela. Quarto elo: PDF/UA, a norma
+        ISO 14289, formato em que a apresentação de fato circula.
+    notas: >
+      Este é o elo que quase todo trabalho de acessibilidade documental pula.
+      Aplicar WCAG a um .pptx sem mencionar o WCAG2ICT é aplicar uma norma de web
+      a algo que não é web, sem dizer com que autoridade.
+
+  - titulo: "A lei brasileira"
+    tamanho: 20
+    conteudo:
+      - "Lei 13.146/2015 (LBI): acessibilidade é direito, não cortesia."
+      - "A LBI define formato acessível como o que o leitor de tela reconhece."
+      - "Lei 10.436/2002 e Decreto 5.626/2005: a Libras é língua, não legenda."
+      - "e-MAG 3.1 e a Cartilha gov.br: a prática na administração federal."
+      - "A LBI é o dever. A verificação técnica se faz contra WCAG e PDF/UA."
+    notas: >
+      Escrever "conforme a LBI" sem apontar o critério técnico é retórica, não
+      auditoria. A lei diz que tem de ser acessível; quem diz se está acessível é
+      a norma técnica.
+
+  - titulo: "As normas ABNT que se aplicam"
+    tamanho: 19
+    conteudo:
+      - "Conferidas no acervo ABNT Coleção do MPF: 45 normas do CB-040."
+    tabela:
+      nome: "Normas ABNT aplicáveis"
+      alt: "Normas ABNT aplicáveis ao material e o uso de cada uma"
+      cabecalho: ["Norma vigente", "Uso neste material"]
+      linhas:
+        - ["NBR 15290:2016", "Parâmetros da janela de Libras"]
+        - ["NBR 16452:2016", "Diretrizes da audiodescrição"]
+        - ["NBR 15610-3:2016", "Libras na TV digital"]
+        - ["NBR 15599:2008", "Comunicação na prestação de serviços"]
+        - ["ISO 24495-1:2024", "Linguagem simples"]
+    notas: >
+      A NBR 15290 vigente é a de 2016, confirmada em dezembro de 2025. A edição
+      que circula livremente na internet é a de 2005, superada. Conferir a edição
+      antes de citar é o que separa fundamentação de citação decorativa.
+
+  - titulo: "Três citações erradas que este projeto recusa"
+    tamanho: 20
+    conteudo:
+      - "NBR 17060:2022 é sobre aplicativos móveis. Não é norma de documento."
+      - "NBR 17225:2025 é sobre conteúdo web. Também não alcança um .pptx."
+      - "NBR 9050 é ambiente construído: rampas e pisos, não arquivos."
+      - "NBR 15290:2005 está superada pela edição de 2016."
+      - "O auditor sinaliza cada uma delas como fundamentação inválida."
+    notas: >
+      Estas quatro aparecem com frequência em trabalhos de acessibilidade
+      documental. Todas foram verificadas no acervo do CB-040, uma a uma, e a
+      constatação virou regra no catálogo.
+
+  # ===================== O QUE A FERRAMENTA FAZ =====================
+  - tipo: secao
+    titulo: "O que a ferramenta faz"
+    conteudo:
+      - "Um catálogo explícito, um auditor que o executa e um construtor que o obedece."
+
+  - titulo: "O que foi construído"
+    conteudo:
+      - "98 regras auditáveis, organizadas em 13 camadas."
+      - "Um auditor automático que cobre as camadas A a I."
+      - "Um construtor que produz decks acessíveis por construção."
+      - "Um simulador que mostra o que o leitor de tela anunciaria."
+      - "Exportação para PDF/UA validada contra a ISO 14289."
+      - "Tudo em código aberto, sob licença MIT."
+    notas: >
+      A ordem importa: primeiro o catálogo, depois o auditor que o executa,
+      depois o construtor que já nasce obedecendo. Construir antes de saber o que
+      seria verificado teria produzido mais um gerador de slides bonitos.
+
+  - titulo: "As 13 camadas do catálogo"
+    tamanho: 19
+    conteudo:
+      - "Cada regra tem identificador estável, severidade e critério de origem."
+      - "E também: como detectar e como corrigir."
+      - "As camadas A a I são automáticas; J a M dependem de mídia ou de pessoa."
+    figura:
+      nome: "Camadas do catálogo"
+      arquivo:
+        padrao: "figuras/camadas-catalogo-padrao.png"
+        alto_contraste: "figuras/camadas-catalogo-alto_contraste.png"
+        daltonico: "figuras/camadas-catalogo-daltonico.png"
+      alt: "As 13 camadas do catálogo, de metadados do documento até confirmação humana"
+      descricao_longa: >
+        Lista vertical de treze camadas identificadas pelas letras A a M, com o
+        número de regras de cada uma. A, documento e metadados, 6 regras. B,
+        estrutura semântica, 10. C, ordem de leitura, 6. D, texto alternativo,
+        11. E, cor e contraste, 10. F, tipografia e legibilidade, 10. G, tabelas,
+        6. H, hiperlinks, 4. I, mídia, movimento e interação, 9. J, Libras e
+        público surdo, 8. K, público cego e audiodescrição, 5. L, exportação e
+        PDF/UA, 7. M, confirmação humana, 6 itens. As camadas A a I são
+        verificadas automaticamente; as camadas J a M dependem de mídia, do PDF
+        ou de uma pessoa, e saem no relatório como não verificadas.
+    notas: >
+      A camada M nunca é aprovada por script. Ela lista o que só um humano pode
+      confirmar, e fica no relatório como pendência explícita.
+
+  - titulo: "Anatomia de uma regra"
+    tamanho: 19
+    conteudo:
+      - "Regra D05, severidade Erro, critério WCAG 1.1.1."
+      - "Falha: alt text com resíduo 'Descrição gerada automaticamente'."
+      - "Detecção: automática, por expressão regular sobre o atributo descr."
+      - "Correção: reescrever com curadoria humana e apagar o aviso."
+      - "Sem os cinco campos, uma regra é opinião. Com eles, é auditável."
+    notas: >
+      O Microsoft 365 gera alt text por visão computacional e carimba o
+      resultado. O carimbo é útil: ele denuncia que ninguém revisou. A regra
+      existe porque descrição automática não revisada não é descrição.
+
+  - titulo: "O que o auditor vê e o nativo não"
+    tamanho: 20
+    conteudo:
+      - "Uma amostra da diferença de cobertura."
+    tabela:
+      nome: "Comparação de cobertura"
+      alt: "Comparação entre a cobertura do verificador nativo e a deste projeto"
+      cabecalho: ["Verificação", "Nativo", "Aqui"]
+      linhas:
+        - ["Alt text presente", "sim", "sim"]
+        - ["Qualidade do alt text", "não", "sim"]
+        - ["Tamanho de fonte", "não", "sim"]
+        - ["Texto justificado", "não", "sim"]
+        - ["Idioma de cada trecho", "não", "sim"]
+        - ["Contraste sobre foto", "não", "manda ao humano"]
+    notas: >
+      A última linha é a mais honesta da tabela. Texto sobre fotografia não tem
+      resposta automática confiável: o auditor marca como não verificado e manda
+      para o olho humano, em vez de chutar.
+
+  - titulo: "Achados que só apareceram porque medimos"
+    tamanho: 19
+    conteudo:
+      - "A paleta Okabe-Ito crua reprova no critério 1.4.11 sobre fundo claro."
+      - "Amarelo dá 1,24:1 e laranja 2,11:1, contra o mínimo de 3:1."
+      - "Só três das oito cores passam. O repositório traz variantes corrigidas."
+      - "O PDF exportado saiu com idioma 'en', e não português."
+      - "E com título vazio, fazendo o leitor anunciar o nome do arquivo."
+    notas: >
+      Nenhum desses três achados estava em nenhuma fonte consultada. Todos
+      apareceram ao medir arquivos reais nesta máquina. É a diferença entre
+      repetir a literatura e verificar.
+
+  # ===================== FLUXO DE TRABALHO =====================
+  - tipo: secao
+    titulo: "Fluxo de trabalho"
+    conteudo:
+      - "Do roteiro ao PDF validado, com um portão em cada estágio."
+
+  - titulo: "O pipeline em sete estágios"
+    tamanho: 19
+    conteudo:
+      - "Cada estágio tem um portão que pode reprovar."
+      - "A correção volta para o roteiro, nunca para o arquivo gerado."
+    figura:
+      nome: "Pipeline"
+      arquivo:
+        padrao: "figuras/pipeline-padrao.png"
+        alto_contraste: "figuras/pipeline-alto_contraste.png"
+        daltonico: "figuras/pipeline-daltonico.png"
+      alt: "Pipeline de sete estágios, do roteiro em YAML até o PDF validado"
+      descricao_longa: >
+        Sequência numerada de sete estágios. Um, roteiro declarativo em YAML, com
+        um bloco por slide. Dois, diagramas gerados em HTML e convertidos em
+        imagem, uma versão por paleta. Três, construção do arquivo, com
+        placeholder, idioma, contraste e ordem de leitura já corretos. Quatro,
+        modos de cor: um hub e três seções no mesmo arquivo. Cinco, auditoria do
+        pptx contra as camadas A a I, exigindo zero erros e zero avisos. Seis,
+        exportação para PDF com marcas de estrutura. Sete, validação do PDF no
+        veraPDF. Se um portão reprova, a correção volta para o estágio um.
+    notas: >
+      Remediar o .pptx à mão é dívida técnica: a correção se perde no próximo
+      build. Por isso o laço volta para o roteiro.
+
+  - titulo: "Acessível por construção, não por remediação"
+    tamanho: 20
+    conteudo:
+      - "O construtor recusa roteiro que geraria slide inacessível."
+      - "Título repetido: o build para e diz em quais slides."
+      - "Figura sem alt text ou sem descrição longa: o build para."
+      - "Link escrito como 'clique aqui': o build para."
+      - "Não existe a opção de gerar errado e consertar depois."
+    notas: >
+      Isto inverte o custo. Remediar é caro e some no próximo build; nascer certo
+      é barato e permanente. O construtor é a aplicação do catálogo no momento da
+      escrita, e não da conferência.
+
+  - titulo: "O simulador de leitura"
+    tamanho: 19
+    conteudo:
+      - "Escreve o que um leitor de tela anunciaria, na ordem em que anunciaria."
+      - "Torna a ordem de leitura visível para quem enxerga."
+      - "Não exige instalar leitor de tela nenhum."
+      - "É um modelo do comportamento, não o comportamento."
+      - "Não substitui o teste real: a regra K03 continua exigindo NVDA."
+    notas: >
+      Exemplo de saída: 'Slide 2 de 16, O que o verificador nativo não enxerga.
+      Link, Diretrizes WCAG 2.2 do W3C. Tabela, 3 linhas, 2 colunas. Linha de
+      cabeçalho: Camada, Cobertura nativa.'
+
+  - titulo: "Três modos de cor no mesmo arquivo"
+    tamanho: 20
+    conteudo:
+      - "Padrão, alto contraste e daltônico-seguro, com o mesmo conteúdo."
+      - "Um slide-hub e três seções paralelas, sem macro nenhuma."
+      - "O .pptx não permite trocar paleta durante a exibição."
+      - "Macro resolveria, mas vem bloqueada em arquivo baixado da internet."
+      - "Conteúdo diferente por deficiência seria segregação, não acessibilidade."
+    notas: >
+      A alternativa com macro exigiria .pptm, que chega com macro bloqueada por
+      Mark-of-the-Web e não funciona no PowerPoint Web. O hub com seções roda em
+      qualquer lugar.
+
+  # ===================== COMO USAR =====================
+  - tipo: secao
+    titulo: "Como usar"
+    conteudo:
+      - "A ferramenta é uma skill, e skill hoje é formato aberto."
+
+  - titulo: "Uma skill, muitos agentes"
+    tamanho: 19
+    conteudo:
+      - "Agent Skills é especificação aberta, publicada em dezembro de 2025."
+      - "Uma pasta com SKILL.md, scripts, references e assets."
+      - "A mesma pasta roda em produtos concorrentes, sem adaptação."
+    figura:
+      nome: "Ecossistema Agent Skills"
+      arquivo:
+        padrao: "figuras/ecossistema-skills-padrao.png"
+        alto_contraste: "figuras/ecossistema-skills-alto_contraste.png"
+        daltonico: "figuras/ecossistema-skills-daltonico.png"
+      alt: "A mesma pasta de skill roda em Claude Code, Codex, Cursor e mais de 30 agentes"
+      descricao_longa: >
+        No centro, a estrutura de uma skill: o arquivo SKILL.md com metadados e
+        instruções, mais as pastas opcionais scripts, references e assets. Ao
+        redor, os produtos que leem esse mesmo formato: Claude Code, OpenAI
+        Codex, Cursor, GitHub Copilot, VS Code, Gemini CLI, JetBrains Junie,
+        Goose, OpenCode e mais de trinta outros. O formato foi criado pela
+        Anthropic e liberado como especificação aberta, e foi adotado por
+        produtos concorrentes em poucas semanas.
+    notas: >
+      A consequência prática é que a ferramenta não fica presa a um fornecedor.
+      Quem usa Codex instala exatamente a mesma pasta, em outro diretório.
+
+  - titulo: "Instalação em três passos"
+    tamanho: 20
+    conteudo:
+      - "Passo 1: clonar o repositório público."
+      - "Passo 2: rodar instalar.ps1 no Windows, ou instalar.sh no Linux e macOS."
+      - "Passo 3: arrastar um arquivo .pptx para cima de auditar.bat."
+      - "O instalador cria um ambiente isolado e não toca no Python do sistema."
+      - "Ferramentas de sistema só são instaladas se você confirmar."
+    links:
+      - texto: "Repositório do projeto no GitHub"
+        url: "https://github.com/RaulAraujoSilva/acessibilidade-total"
+    notas: >
+      O auditor roda com uma única biblioteca, o python-pptx. Todo o resto é
+      opcional e desliga um pedaço específico, nunca o conjunto.
+
+  - titulo: "Uso dentro do agente"
+    tamanho: 19
+    conteudo:
+      - "Claude Code: copiar a pasta para ~/.claude/skills/."
+      - "Codex e demais: copiar para ~/.agents/skills/, ou .agents/skills/ no repo."
+      - "Depois disso, basta pedir em linguagem natural."
+      - "Exemplo: 'audite esta apresentação e me diga o que corrigir'."
+      - "O agente carrega o catálogo sob demanda e executa os scripts."
+    notas: >
+      O carregamento é progressivo: o agente lê só o nome e a descrição da skill
+      no início, e carrega o corpo e as referências apenas quando a tarefa pede.
+      É o que permite manter um catálogo de 98 regras sem ocupar contexto à toa.
+
+  - titulo: "O que a ferramenta não faz"
+    tamanho: 20
+    conteudo:
+      - "Não escreve o conteúdo por você: o roteiro é humano."
+      - "Não julga se o alt text está correto, só se ele é plausível."
+      - "Não substitui teste com pessoa com deficiência."
+      - "Não avalia contraste de texto sobre foto: manda para o olho humano."
+      - "Não roda o verificador nativo: não existe API para isso."
+    notas: >
+      Ferramenta que promete resolver acessibilidade sozinha vende conformidade,
+      não acessibilidade. O limite declarado é parte do produto.
+
+  # ===================== RIGOR =====================
+  - tipo: secao
+    titulo: "Rigor: como sei que a ferramenta funciona"
+    conteudo:
+      - "Um auditor não testado é uma opinião com sotaque técnico."
+
+  - titulo: "Testado nos dois sentidos"
+    tamanho: 20
+    conteudo:
+      - "Primeiro teste: um deck com 33 defeitos plantados, cada um com gabarito."
+      - "Resultado: 33 de 33 detectados."
+      - "Segundo teste: um deck correto de propósito."
+      - "Resultado: zero falsos positivos."
+      - "Auditor que acusa tudo é tão inútil quanto o que não acusa nada."
+    notas: >
+      Na primeira execução o resultado foi 32 de 33, e a falha era do gabarito,
+      não do auditor: eu havia plantado texto cinza a 20 pontos esperando a regra
+      E01, mas 20 pontos é texto grande, e a regra correta é a E02.
+
+  - titulo: "Ausência de evidência não é conformidade"
+    tamanho: 20
+    conteudo:
+      - "O que não pôde ser verificado entra como não verificado."
+      - "Nunca como aprovado."
+      - "A camada M lista o que só um humano confirma."
+      - "Verificador nativo, NVDA, escala de cinza, simulação de daltonismo."
+      - "E a leitura por uma pessoa com deficiência, que vale mais que o resto."
+    notas: >
+      Este é o princípio que impede a ferramenta de virar um selo. Conformidade
+      técnica é piso, não prova.
+
+  - titulo: "Esta apresentação foi auditada por si mesma"
+    tamanho: 20
+    conteudo:
+      - "Gerada por código a partir do roteiro que a acompanha."
+      - "Auditada contra as camadas A a I, com zero erros e zero avisos."
+      - "Exportada em PDF com marcas de estrutura e identificador PDF/UA."
+      - "Validada no veraPDF contra a ISO 14289, sem erros."
+      - "O relatório de auditoria acompanha a entrega."
+    links:
+      - texto: "Repositório com o código, o catálogo e este roteiro"
+        url: "https://github.com/RaulAraujoSilva/acessibilidade-total"
+    notas: >
+      O relatório é a prova. Sem ele, esta lista seria só uma afirmação sobre a
+      própria qualidade, que é exatamente o tipo de coisa que a ferramenta existe
+      para não aceitar.

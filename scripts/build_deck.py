@@ -232,11 +232,16 @@ def _tabela(slide, tab, tema, esq, topo, larg):
     linhas = tab["linhas"]
     if not tab.get("alt", "").strip():
         raise ErroDeRoteiro("tabela sem alt text")
+    if tab.get("tamanho", 18) < 18:
+        raise ErroDeRoteiro(
+            "tabela pedindo %dpt: celula tambem e texto e o piso e 18pt "
+            "(regra F02). Tabela que so cabe menor e densa demais para um "
+            "slide — reduza colunas ou quebre em duas" % tab["tamanho"])
     for l in linhas:
         if len(l) != len(cab):
             raise ErroDeRoteiro("linha com %d celulas para %d colunas"
                                 % (len(l), len(cab)))
-    altura = Inches(0.5) * (len(linhas) + 1)
+    altura = Inches(0.55) * (len(linhas) + 1)
     gf = slide.shapes.add_table(len(linhas) + 1, len(cab), esq, topo, larg, altura)
     nomear(gf, tab.get("nome") or "Tabela de dados")
     A.set_alt_text(gf._element, tab["alt"].strip())
@@ -248,14 +253,14 @@ def _tabela(slide, tab, tema, esq, topo, larg):
         cel = t.cell(0, ci)
         cel.text = str(v)
         cel.vertical_anchor = MSO_ANCHOR.MIDDLE
-        formatar(cel.text_frame, tema, tab.get("tamanho", 16),
+        formatar(cel.text_frame, tema, tab.get("tamanho", 18),
                  cor=tema.sobre_destaque, negrito=True, entrelinha=100000)
     for ri, linha in enumerate(linhas, 1):
         for ci, v in enumerate(linha):
             cel = t.cell(ri, ci)
             cel.text = str(v)
             cel.vertical_anchor = MSO_ANCHOR.MIDDLE
-            formatar(cel.text_frame, tema, tab.get("tamanho", 16),
+            formatar(cel.text_frame, tema, tab.get("tamanho", 18),
                      entrelinha=100000)
     return gf
 
@@ -324,10 +329,11 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
         _titulo(slide, titulo, tema, 48)
         sub = spec.get("subtitulo", "")
         if sub:
+            linhas = sub if isinstance(sub, list) else [sub]
             ph = slide.placeholders[1]
             nomear(ph, "Subtítulo")
-            ph.text_frame.text = sub
-            formatar(ph.text_frame, tema, 22)
+            ph.text_frame.word_wrap = True
+            _escrever_corpo(ph.text_frame, linhas, [], tema, 22)
     elif tipo == "secao":
         slide = prs.slides.add_slide(prs.slide_layouts[LAYOUT_SECAO])
         pintar_fundo(slide, tema)

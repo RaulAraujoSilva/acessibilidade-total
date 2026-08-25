@@ -119,7 +119,7 @@ def audit_run_language(prs, rep: Report):
     ruins = defaultdict(list)
     for i, slide in enumerate(prs.slides, 1):
         for el in A.iter_shape_elements(slide.shapes._spTree, recurse_groups=True):
-            for p_el in A.iter_paragraphs(el):
+            for p_el, _cel in A.iter_all_paragraphs(el):
                 for r_el in A.iter_runs(p_el):
                     txt = A.run_text(r_el).strip()
                     if not txt:
@@ -322,9 +322,12 @@ def audit_alt_text(prs, rep: Report):
                 rep.fail("D06", "A", "1.1.1", onde(i, el),
                          "alt text com %d caracteres; acima de 150 alguns leitores "
                          "truncam — leve o detalhe para as Notas" % len(alt))
-            if len(alt) > 25 and not A.has_pt_accent(alt) and _parece_pt(alt):
+            # Nao basta "nao tem acento": frase legitima pode nao ter nenhuma
+            # palavra acentuada. Acusa so quando ha palavra que EXIGE acento.
+            if A.falta_acento(alt):
                 rep.fail("D08", "A", "3.1.1", onde(i, el),
-                         "alt text em portugues sem nenhum acento: %r" % alt[:60])
+                         "alt text com palavra que deveria estar acentuada: %r"
+                         % alt[:70])
 
             kind = A.media_kind(el)
             if kind and not alt.strip():
@@ -433,29 +436,38 @@ def audit_typography(prs, rep: Report):
     for i, slide in enumerate(prs.slides, 1):
         for el in A.iter_shape_elements(slide.shapes._spTree, recurse_groups=True):
             titulo = A.is_title_placeholder(el)
-            paras = list(A.iter_paragraphs(el))
-            n_bullets = sum(1 for p in paras if A.paragraph_text(p).strip())
+            paras_forma = list(A.iter_paragraphs(el))
+            n_bullets = sum(1 for p in paras_forma if A.paragraph_text(p).strip())
+            # celula de tabela tambem e texto: a 15pt passava batido antes
+            paras = [(p, None) for p in paras_forma]
+            paras += [(p, cel) for p, cel in A.iter_all_paragraphs(el)
+                      if cel is not None]
 
             if not titulo and n_bullets > 6:
                 rep.fail("F07", "A", "—", onde(i, el),
                          "%d paragrafos num so bloco — carga cognitiva; divida o slide"
                          % n_bullets)
 
-            for p_el in paras:
+            for p_el, celula in paras:
                 txt = A.paragraph_text(p_el).strip()
                 if not txt:
                     continue
                 pp = A.paragraph_props(p_el)
+                onde_txt = onde(i, el, "célula %d,%d" % celula if celula else "")
 
                 if pp["algn"] == "just":
-                    rep.fail("F04", "E", "—", onde(i, el),
+                    rep.fail("F04", "E", "—", onde_txt,
                              "paragrafo justificado — cria 'rios de branco' que "
                              "interrompem a leitura: %r" % txt[:40])
                 # F05 vale para CORPO de texto. Entrelinha apertada em titulo de
                 # display e tipografia normal e nao produz o efeito de troca de
                 # linha que a regra combate; exigir 1,5 num titulo de duas linhas
                 # so afasta as linhas sem ganho de legibilidade.
-                if (not titulo and pp["line_pct"] is not None
+                # Nem titulo nem celula de tabela: a entrelinha de 1,5 combate
+                # a troca involuntaria de linha ao ler PARAGRAFO. Numa celula com
+                # um valor curto, ela so infla a linha e atrapalha a varredura.
+                if (not titulo and celula is None
+                        and pp["line_pct"] is not None
                         and pp["line_pct"] < 150000):
                     rep.fail("F05", "A", "—", onde(i, el),
                              "entrelinha %.2f no corpo de texto, abaixo de 1,5"
@@ -464,12 +476,12 @@ def audit_typography(prs, rep: Report):
                     rep.fail("F05", "A", "—", onde(i, el),
                              "entrelinha %.2f no titulo — abaixo de 0,9 as linhas colidem"
                              % (pp["line_pct"] / 100000))
-                if len(txt) > 90:
-                    rep.fail("F07", "A", "—", onde(i, el),
+                if len(txt) > 90 and celula is None:
+                    rep.fail("F07", "A", "—", onde_txt,
                              "linha com %d caracteres — acima de ~70 o olho perde o "
                              "retorno de linha" % len(txt))
                 if A.is_all_caps_sentence(txt):
-                    rep.fail("F06", "A", "—", onde(i, el),
+                    rep.fail("F06", "A", "—", onde_txt,
                              "frase inteira em CAIXA ALTA: %r — suprime ascendentes e "
                              "descendentes" % txt[:40])
                 for sigla in re.findall(r"\b([A-ZÀ-Ý]{3,6})\b", txt):
@@ -490,12 +502,12 @@ def audit_typography(prs, rep: Report):
                     if sz is None:
                         rep.unverified("F02", "E", "1.4.4",
                                        "tamanho de fonte indeterminado (%s) para %r"
-                                       % (origem, rtxt[:30]), onde(i, el))
+                                       % (origem, rtxt[:30]), onde_txt)
                     elif titulo and sz < 3200:
-                        rep.fail("F03", "A", "—", onde(i, el),
+                        rep.fail("F03", "A", "—", onde_txt,
                                  "titulo com %.0fpt, abaixo de 32pt" % (sz / 100))
                     elif not titulo and sz < 1800:
-                        rep.fail("F02", "E", "1.4.4", onde(i, el),
+                        rep.fail("F02", "E", "1.4.4", onde_txt,
                                  "corpo com %.0fpt, abaixo do minimo de 18pt "
                                  "(fonte: %s)" % (sz / 100, origem))
                     if props["i"]:
