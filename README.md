@@ -1,5 +1,8 @@
 # Acessibilidade Total
 
+[![testes](https://github.com/RaulAraujoSilva/acessibilidade-total/actions/workflows/testes.yml/badge.svg)](https://github.com/RaulAraujoSilva/acessibilidade-total/actions/workflows/testes.yml)
+[![licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
+
 **Produz e audita apresentações acessíveis** — PowerPoint `.pptx` e PDF/UA — segundo
 WCAG 2.2 AA (via WCAG2ICT), ISO 14289, LBI 13.146/2015 e e-MAG.
 

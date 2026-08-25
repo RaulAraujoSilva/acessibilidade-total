@@ -1,5 +1,8 @@
 # Acessibilidade Total (Total Accessibility)
 
+[![testes](https://github.com/RaulAraujoSilva/acessibilidade-total/actions/workflows/testes.yml/badge.svg)](https://github.com/RaulAraujoSilva/acessibilidade-total/actions/workflows/testes.yml)
+[![licence MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
+
 **Builds and audits accessible presentations** — PowerPoint `.pptx` and PDF/UA — against
 WCAG 2.2 AA (through WCAG2ICT), ISO 14289, Brazil's Inclusion Act (Law 13.146/2015) and
 e-MAG.
