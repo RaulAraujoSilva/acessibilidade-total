@@ -8,3 +8,5 @@ out/
 .env
 secrets.env
 ~$*
+tests/*.pptx
+tests/_fig*.png
