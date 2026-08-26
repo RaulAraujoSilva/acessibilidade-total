@@ -13,7 +13,7 @@ apresentacao:
   palavras_chave: "acessibilidade, WCAG, PDF/UA, PowerPoint, Libras, audiodescrição, LBI"
   resumo: >
     Apresentação do projeto acessibilidade-total, uma skill de código aberto que
-    produz apresentações acessíveis por construção e as audita contra 98 regras.
+    produz apresentações acessíveis por construção e as audita contra 108 regras.
 
 slides:
   # ===================== ABERTURA =====================
@@ -26,7 +26,7 @@ slides:
       - "Raul Araujo Silva"
     notas: >
       Esta apresentação é sobre a ferramenta que a construiu. Ela foi gerada por
-      código a partir de um roteiro, auditada contra 98 regras e exportada em
+      código a partir de um roteiro, auditada contra 108 regras e exportada em
       PDF validado contra a ISO 14289. O relatório de auditoria acompanha a
       entrega.
 
@@ -45,12 +45,14 @@ slides:
       promessa caiu quando o spike de renderização local esbarrou nos bundles de
       sinais. Corrigir a declaração é parte do método, não uma derrota.
 
-  - titulo: "O problema em um número"
+  - tipo: destaque
+    titulo: "O problema em um número"
+    numero: "10"
+    rotulo: "regras no verificador nativo"
     conteudo:
-      - "O Verificador de Acessibilidade do PowerPoint cobre 10 regras."
       - "Ele não vê tamanho de fonte, texto justificado nem entrelinha."
-      - "Não vê o idioma dos trechos de texto, nem texto sobre foto."
-      - "Não vê daltonismo, nem cor usada como único meio de informação."
+      - "Não vê o idioma dos trechos, nem texto sobre foto."
+      - "Não vê daltonismo, nem cor como único meio de informação."
       - "Aceita 'foto1.png' como texto alternativo válido."
       - "E não vê absolutamente nada do PDF exportado."
     notas: >
@@ -139,32 +141,35 @@ slides:
     conteudo:
       - "Um catálogo explícito, um auditor que o executa e um construtor que o obedece."
 
-  - titulo: "O que foi construído"
-    conteudo:
-      - "98 regras auditáveis, organizadas em 13 camadas."
-      - "Um auditor automático que cobre as camadas A a I."
-      - "Um construtor que produz decks acessíveis por construção."
-      - "Um simulador que mostra o que o leitor de tela anunciaria."
-      - "Exportação para PDF/UA validada contra a ISO 14289."
-      - "Tudo em código aberto, sob licença MIT."
+  - tipo: cartoes
+    titulo: "O que foi construído"
+    cartoes:
+      - titulo: "Catálogo"
+        texto: ["108 regras auditáveis", "em 14 camadas, de metadados a composição"]
+      - titulo: "Auditor"
+        texto: ["Camadas A a I e N", "as demais saem como não verificadas"]
+      - titulo: "Construtor"
+        texto: ["Deck acessível por construção", "recusa roteiro que sairia errado"]
+      - titulo: "Exportação"
+        texto: ["PDF/UA validado", "contra a ISO 14289, no veraPDF"]
     notas: >
       A ordem importa: primeiro o catálogo, depois o auditor que o executa,
       depois o construtor que já nasce obedecendo. Construir antes de saber o que
       seria verificado teria produzido mais um gerador de slides bonitos.
 
-  - titulo: "As 13 camadas do catálogo"
+  - titulo: "As 14 camadas do catálogo"
     tamanho: 19
     conteudo:
       - "Cada regra tem identificador estável, severidade e critério de origem."
       - "E também: como detectar e como corrigir."
-      - "As camadas A a I são automáticas; J a M dependem de mídia ou de pessoa."
+      - "As camadas A a I e N são automáticas; J a M dependem de mídia ou de pessoa."
     figura:
       nome: "Camadas do catálogo"
       arquivo:
         padrao: "figuras/camadas-catalogo-padrao.png"
         alto_contraste: "figuras/camadas-catalogo-alto_contraste.png"
         daltonico: "figuras/camadas-catalogo-daltonico.png"
-      alt: "As 13 camadas do catálogo, de metadados do documento até confirmação humana"
+      alt: "As 14 camadas do catálogo, de metadados do documento até design e composição"
       descricao_longa: >
         Lista vertical de treze camadas identificadas pelas letras A a M, com o
         número de regras de cada uma. A, documento e metadados, 6 regras. B,
@@ -172,9 +177,10 @@ slides:
         11. E, cor e contraste, 10. F, tipografia e legibilidade, 10. G, tabelas,
         6. H, hiperlinks, 4. I, mídia, movimento e interação, 9. J, Libras e
         público surdo, 8. K, público cego e audiodescrição, 5. L, exportação e
-        PDF/UA, 7. M, confirmação humana, 6 itens. As camadas A a I são
-        verificadas automaticamente; as camadas J a M dependem de mídia, do PDF
-        ou de uma pessoa, e saem no relatório como não verificadas.
+        PDF/UA, 7. M, confirmação humana, 6 itens. N, design e composição, 10.
+        As camadas A a I e N são verificadas automaticamente; as camadas J a M
+        dependem de mídia, do PDF ou de uma pessoa, e saem no relatório como não
+        verificadas.
     notas: >
       A camada M nunca é aprovada por script. Ela lista o que só um humano pode
       confirmar, e fica no relatório como pendência explícita.
@@ -211,14 +217,16 @@ slides:
       resposta automática confiável: o auditor marca como não verificado e manda
       para o olho humano, em vez de chutar.
 
-  - titulo: "Achados que só apareceram porque medimos"
-    tamanho: 19
+  - tipo: destaque
+    titulo: "Achados que só apareceram porque medimos"
+    numero: "3 de 8"
+    rotulo: "cores da paleta Okabe-Ito passam em contraste"
     conteudo:
-      - "A paleta Okabe-Ito crua reprova no critério 1.4.11 sobre fundo claro."
+      - "A paleta crua reprova no critério 1.4.11 sobre fundo claro."
       - "Amarelo dá 1,24:1 e laranja 2,11:1, contra o mínimo de 3:1."
-      - "Só três das oito cores passam. O repositório traz variantes corrigidas."
       - "O PDF exportado saiu com idioma 'en', e não português."
-      - "E com título vazio, fazendo o leitor anunciar o nome do arquivo."
+      - "E com título vazio: o leitor anunciava o nome do arquivo."
+      - "Nada disso estava na literatura. Apareceu ao medir."
     notas: >
       Nenhum desses três achados estava em nenhuma fonte consultada. Todos
       apareceram ao medir arquivos reais nesta máquina. É a diferença entre
@@ -367,25 +375,32 @@ slides:
     conteudo:
       - "Um auditor não testado é uma opinião com sotaque técnico."
 
-  - titulo: "Testado nos dois sentidos"
-    conteudo:
-      - "Primeiro teste: um deck com 33 defeitos plantados, cada um com gabarito."
-      - "Resultado: 33 de 33 detectados."
-      - "Segundo teste: um deck correto de propósito."
-      - "Resultado: zero falsos positivos."
-      - "Auditor que acusa tudo é tão inútil quanto o que não acusa nada."
+  - tipo: comparacao
+    titulo: "Testado nos dois sentidos"
+    colunas:
+      - titulo: "Enxerga o que foi plantado?"
+        texto:
+          - "Um deck com defeitos plantados, cada um com gabarito."
+          - "Resultado: todos detectados."
+          - "Regra do gabarito não acusada é defeito do auditor."
+      - titulo: "Cala diante do que está certo?"
+        texto:
+          - "Um deck correto de propósito."
+          - "Resultado: zero falsos positivos."
+          - "Auditor que acusa tudo é tão inútil quanto o que não acusa nada."
     notas: >
       Na primeira execução o resultado foi 32 de 33, e a falha era do gabarito,
       não do auditor: eu havia plantado texto cinza a 20 pontos esperando a regra
       E01, mas 20 pontos é texto grande, e a regra correta é a E02.
 
-  - titulo: "Ausência de evidência não é conformidade"
-    conteudo:
-      - "O que não pôde ser verificado entra como não verificado."
-      - "Nunca como aprovado."
-      - "A camada M lista o que só um humano confirma."
-      - "Verificador nativo, NVDA, escala de cinza, simulação de daltonismo."
-      - "E a leitura por uma pessoa com deficiência, que vale mais que o resto."
+  - tipo: citacao
+    titulo: "Ausência de evidência não é conformidade."
+    credito: "O princípio que impede a ferramenta de virar um selo"
+    notas: >
+      O que não pôde ser verificado entra no relatório como não verificado,
+      nunca como aprovado. A camada M lista o que só um humano confirma:
+      verificador nativo, NVDA, escala de cinza, simulação de daltonismo, e a
+      leitura por uma pessoa com deficiência — que vale mais que todo o resto.
     notas: >
       Este é o princípio que impede a ferramenta de virar um selo. Conformidade
       técnica é piso, não prova.
@@ -393,7 +408,7 @@ slides:
   - titulo: "Esta apresentação foi auditada por si mesma"
     conteudo:
       - "Gerada por código a partir do roteiro que a acompanha."
-      - "Auditada contra as camadas A a I, com zero erros e zero avisos."
+      - "Auditada contra as camadas A a I e N, com zero erros e zero avisos."
       - "Exportada em PDF com marcas de estrutura e identificador PDF/UA."
       - "Validada no veraPDF contra a ISO 14289, sem erros."
       - "O relatório de auditoria acompanha a entrega."

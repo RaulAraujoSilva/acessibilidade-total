@@ -48,13 +48,14 @@ Remediar depois é caro e frágil; nascer certo é barato.
 | Arquivo | Quando ler |
 |---|---|
 | `references/01-normas-e-legislacao.md` | Fundamentar; evitar as citações erradas (NBR 17060 e NBR 9050 **não** se aplicam a documento) |
-| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 98 regras em 13 camadas, com ID, severidade, detecção e correção |
+| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 108 regras em 14 camadas, com ID, severidade, detecção e correção |
 | `references/03-ferramentas-e-plugins.md` | Escolher ferramenta e saber o que ela não vê |
 | `references/04-ooxml-cookbook.md` | Mexer no XML: alt text, decorativo, ordem, tabela, tema |
 | `references/05-alt-text-e-audiodescricao.md` | Escrever alt text, descrição longa, roteiro de AD |
 | `references/06-libras.md` | Janela de Libras e VLibras |
 | `references/07-cor-e-tipografia.md` | Paleta, contraste, fonte, os três modos |
 | `references/08-exportacao-pdfua.md` | Exportar e validar o PDF |
+| `references/09-design-e-composicao.md` | **Composição**: grade, proporção, eixo Z, tipos de slide. Um slide acessível não é um slide feio |
 
 ---
 
@@ -123,7 +124,9 @@ mesmo passo**:
 **Figura sem esse par não entra no deck.** Regra do pipeline, não recomendação.
 
 ### 3. Construir
-`scripts/build_deck.py` monta o `.pptx` a partir de layouts do Slide Master:
+`scripts/gerar_modelo.py` produz `assets/modelo-acessivel.pptx` — **não use o template padrão
+do Office**: ele traz `cap="all"` no layout de seção e posiciona o corpo acima do título.
+`scripts/build_deck.py` monta o `.pptx` sobre esse modelo e a grade de `scripts/grade.py`:
 *placeholders* reais, títulos únicos, `lang="pt-BR"` em todo run, paleta de
 `assets/paleta-okabe-ito.json`, `firstRow` nas tabelas, decorativos marcados, ordem de leitura
 explícita no `spTree`, metadados preenchidos.

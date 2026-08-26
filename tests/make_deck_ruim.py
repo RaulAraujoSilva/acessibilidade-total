@@ -35,6 +35,8 @@ GABARITO = [
     "G01", "G03", "G04", "G05",
     "H01", "H02",
     "I07",
+    # camada N — defeitos de composicao
+    "N01", "N02", "N04", "N09",
 ]
 
 
@@ -189,6 +191,26 @@ def main():
     rm.text = "x"
     rm.hyperlink.address = "https://exemplo.org/mini"
 
+    # -- slide 5: defeitos de COMPOSICAO (camada N) -------------------------
+    s5 = prs.slides.add_slide(prs.slide_layouts[2])   # Section Header do Office
+    s5.shapes.title.text = "Seção com defeitos de composição"   # N09: cap=all
+    formata_titulo = s5.shapes.title.text_frame
+    for p_ in formata_titulo.paragraphs:
+        for r_ in p_.runs:
+            r_.font.size = Pt(36)
+    s5.placeholders[1].text_frame.text = "Este apoio fica ACIMA do título"  # N04
+
+    # figura esticada de proposito: 3:2 nativa forcada em 1:2 (N01)
+    img2 = png_solido(os.path.join(HERE, "_fig_larga.png"), (0, 114, 178), 300, 200)
+    s5.shapes.add_picture(img2, Inches(8.5), Inches(0.6), Inches(2.0), Inches(4.0))
+
+    # bloco invadindo a faixa do rodape (N02)
+    baixo = s5.shapes.add_textbox(Inches(0.9), Inches(6.9), Inches(8), Inches(0.9))
+    baixo.text_frame.text = "Este bloco entra na faixa reservada do rodapé"
+    for p_ in baixo.text_frame.paragraphs:
+        for r_ in p_.runs:
+            r_.font.size = Pt(20)
+
     # -- metadados propositalmente ruins ------------------------------------
     cp = prs.core_properties
     cp.title = ""                                                       # A01
@@ -197,6 +219,9 @@ def main():
 
     prs.save(SAIDA)
     os.remove(img)
+    for extra in (os.path.join(HERE, '_fig_larga.png'),):
+        if os.path.exists(extra):
+            os.remove(extra)
     print("gerado:", SAIDA)
     print("gabarito com %d regras:" % len(GABARITO), ", ".join(GABARITO))
 

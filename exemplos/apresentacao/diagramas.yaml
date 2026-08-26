@@ -36,11 +36,11 @@ diagramas:
 
   - nome: camadas-catalogo
     tipo: camadas
-    titulo: "As 13 camadas do catálogo de auditoria"
-    subtitulo: "98 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
-    altura: 1080
+    titulo: "As 14 camadas do catálogo de auditoria"
+    subtitulo: "108 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
+    altura: 1160
     largura: 1200
-    alt: "As 13 camadas do catálogo, de metadados do documento até confirmação humana"
+    alt: "As 14 camadas do catálogo, de metadados do documento até design e composição"
     descricao_longa: >
       Lista vertical de treze camadas, identificadas pelas letras A a M, cada
       uma com o número de regras. Camada A, documento e metadados, 6 regras.
@@ -50,10 +50,11 @@ diagramas:
       tabelas, 6 regras. Camada H, hiperlinks, 4 regras. Camada I, mídia,
       movimento e interação, 9 regras. Camada J, Libras e público surdo, 8
       regras. Camada K, público cego e audiodescrição, 5 regras. Camada L,
-      exportação e PDF/UA, 7 regras. Camada M, confirmação humana, 6 itens. As
-      camadas A a I são verificadas automaticamente pelo auditor; as camadas J a
-      M dependem de mídia, do PDF exportado ou de uma pessoa, e por isso saem no
-      relatório como não verificadas, nunca como aprovadas.
+      exportação e PDF/UA, 7 regras. Camada M, confirmação humana, 6 itens.
+      Camada N, design e composição, 10 regras. As camadas A a I e N são
+      verificadas automaticamente pelo auditor; as camadas J a M dependem de
+      mídia, do PDF exportado ou de uma pessoa, e por isso saem no relatório
+      como não verificadas, nunca como aprovadas.
     itens:
       - {id: "A", titulo: "Documento e metadados", detalhe: "6 regras · automática"}
       - {id: "B", titulo: "Estrutura semântica", detalhe: "10 regras · automática"}
@@ -68,6 +69,7 @@ diagramas:
       - {id: "K", titulo: "Público cego e audiodescrição", detalhe: "5 regras · mídia"}
       - {id: "L", titulo: "Exportação e PDF/UA", detalhe: "7 regras · veraPDF e PAC"}
       - {id: "M", titulo: "Confirmação humana", detalhe: "6 itens · pessoa"}
+      - {id: "N", titulo: "Design e composição", detalhe: "10 regras · automática"}
     rodape: "Ausência de evidência não é conformidade: o que não pôde ser verificado entra como não verificado."
 
   - nome: pipeline

@@ -2,6 +2,9 @@
 
 | Arquivo | Estado | O que faz |
 |---|---|---|
+| `grade.py` | pronto | A regua do projeto: margens, faixas, 12 colunas, escala tipografica e tolerancias |
+| `gerar_modelo.py` | pronto | Produz o modelo proprio: mata a CAIXA ALTA do template do Office e poe cada placeholder na grade |
+| `audit_design.py` | pronto | Camada N: proporcao, margem, sobreposicao, ordem visual com heranca, area ociosa, caixa alta herdada |
 | `verificar_ambiente.py` | pronto | Diz o que voce tem, o que falta, **para que serve cada coisa** e o comando exato para instalar |
 | `a11y_lib.py` | pronto | Acesso ao que o `python-pptx` nao expoe: alt text, marca de decorativo, ordem de leitura, idioma dos runs, heranca de tamanho de fonte, tabelas, secoes |
 | `audit_contrast.py` | pronto | Resolve cor efetiva (tema + `clrMap` + `lumMod`/`lumOff`/`tint`/`shade`) e calcula contraste WCAG |

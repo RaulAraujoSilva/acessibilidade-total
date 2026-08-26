@@ -23,6 +23,7 @@ from pptx import Presentation
 
 import a11y_lib as A
 import audit_contrast as C
+import audit_design
 
 EMU_MIN_TARGET = 228600  # 24 px CSS a 96 dpi = 0,25 pol
 
@@ -231,13 +232,19 @@ def audit_reading_order(prs, rep: Report):
                              "o titulo nao e o primeiro na ordem de leitura; "
                              "o leitor anuncia %r antes" % (A.shape_name(primeiro) or "?"))
 
-        posicionados = [(s, A.get_xfrm(s)) for s in relevantes]
+        # posicao RESOLVIDA (slide -> layout -> master): ler so o xfrm do
+        # slide deixava passar o slide cujos placeholders herdam a posicao
+        posicionados = [(s, A.resolve_xfrm(slide, s)[0]) for s in relevantes]
         posicionados = [(s, b) for s, b in posicionados if b is not None]
         if len(posicionados) > 1:
             atual = [s for s, _ in posicionados]
             esperado = [s for s, _ in sorted(
                 posicionados, key=lambda t: (t[1][1] // banda, t[1][0]))]
-            if atual != esperado:
+            por_coluna = [s for s, _ in sorted(
+                posicionados, key=lambda t: (t[1][0], t[1][1]))]
+            colunas_paralelas = len({b[0] for _s, b in posicionados}) >= 2
+            if atual != esperado and not (atual == por_coluna
+                                          and colunas_paralelas):
                 fora = [A.shape_name(s) or A.local(s) for s in atual[:6]]
                 rep.fail("C02", "E", "1.3.2", onde(i),
                          "ordem do spTree diverge do fluxo visual "
@@ -255,7 +262,11 @@ def audit_reading_order(prs, rep: Report):
                         r"content placeholder|espa[cç]o reservado)\s*\d+$", nome.strip(), re.I):
                 rep.fail("C05", "A", "—", onde(i, el),
                          "nome automatico %r — dificulta a navegacao no Painel de Selecao" % nome)
-            if A.is_offslide(el, slide_w, slide_h) and not A.is_decorative(el):
+            box_res = A.resolve_xfrm(slide, el)[0]
+            fora = (box_res is not None and (box_res[0] + box_res[2] <= 0
+                    or box_res[1] + box_res[3] <= 0
+                    or box_res[0] >= slide_w or box_res[1] >= slide_h))
+            if fora and not A.is_decorative(el):
                 if not A.is_title_placeholder(el):
                     rep.fail("C06", "A", "1.3.2", onde(i, el),
                              "objeto fora da area do slide mas ainda na ordem de leitura")
@@ -472,7 +483,12 @@ def audit_typography(prs, rep: Report):
                 # Nem titulo nem celula de tabela: a entrelinha de 1,5 combate
                 # a troca involuntaria de linha ao ler PARAGRAFO. Numa celula com
                 # um valor curto, ela so infla a linha e atrapalha a varredura.
-                if (not titulo and celula is None
+                # tamanho do primeiro run, para saber se e display ou leitura
+                _szs = [A.resolve_font_size(slide, el, p_el, r)[0]
+                        for r in A.iter_runs(p_el)]
+                _szs = [z for z in _szs if z]
+                display = bool(_szs) and max(_szs) >= 4000
+                if (not titulo and celula is None and not display
                         and pp["line_pct"] is not None
                         and pp["line_pct"] < 150000):
                     rep.fail("F05", "A", "—", onde(i, el),
@@ -486,6 +502,11 @@ def audit_typography(prs, rep: Report):
                     rep.fail("F07", "A", "—", onde_txt,
                              "linha com %d caracteres — acima de ~70 o olho perde o "
                              "retorno de linha" % len(txt))
+                cap_herdado, cap_origem = A.resolve_caps(slide, el, p_el)
+                if cap_herdado in ("all", "small"):
+                    rep.fail("F06", "A", "—", onde_txt,
+                             "renderizado em CAIXA ALTA por heranca do %s "
+                             "(cap=%r): %r" % (cap_origem, cap_herdado, txt[:40]))
                 if A.is_all_caps_sentence(txt):
                     rep.fail("F06", "A", "—", onde_txt,
                              "frase inteira em CAIXA ALTA: %r — suprime ascendentes e "
@@ -737,6 +758,7 @@ def audit(caminho: str) -> Report:
     audit_tables(prs, rep)
     audit_links(prs, rep)
     audit_media(prs, rep)
+    audit_design.auditar(prs, rep)
     declare_unverified(rep)
     return rep
 

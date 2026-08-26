@@ -3,6 +3,8 @@
 > **É isto que o auditor procura.** Cada regra tem ID estável, severidade, critério de origem,
 > o que caracteriza a falha, como detectá-la e como corrigi-la.
 >
+> **Camadas:** A a I e N são automáticas · J a M dependem de mídia, do PDF ou de uma pessoa.
+>
 > **Severidade:** `E` Erro (bloqueia a entrega) · `A` Aviso (corrigir salvo justificativa
 > escrita) · `D` Dica (melhoria).
 >
@@ -194,6 +196,34 @@
 | L05 | E | 1.3.1 | `TH` sem `/Scope` de linha ou coluna | AUTO | Table Editor do Acrobat Pro |
 | L06 | E | 1.1.1 | Objeto decorativo que virou conteúdo em vez de `/Artifact` | AUTO | Remarcar |
 | L07 | E | ISO 14289 | PAC ou veraPDF acusando erro de PDF/UA | AUTO | Remediar e revalidar |
+
+## N — Design e composição
+
+> **Por que esta camada existe.** Um deck deste projeto passou nas 98 regras de A a M com
+> **zero erros** — e tinha figura esticada em 48%, tabela cortada pela faixa do rodapé, slide
+> de seção com o apoio acima do título e título em CAIXA ALTA herdada do layout. Acessível e
+> bem-feito não são a mesma coisa. Todas as regras abaixo nasceram de defeitos medidos, não
+> de gosto.
+>
+> As medidas vêm de `scripts/grade.py`, para construtor e auditor lerem a mesma régua.
+
+| ID | Sev | Critério | O que caracteriza a falha | Detecção | Correção |
+|---|---|---|---|---|---|
+| N01 | E | composição | Figura com proporção alterada acima de 1% (largura **e** altura forçadas no lugar de encaixe) | AUTO — compara a razão nativa da imagem com a renderizada | Encaixar na caixa preservando a razão, centralizando a sobra |
+| N02 | E | composição | Elemento fora da margem de segurança, ou invadindo a faixa reservada do rodapé — **conteúdo cortado** | AUTO | Reposicionar na grade; se for tabela, reduzir linhas ou dividir |
+| N03 | A | composição | Sobreposição acima de 10% entre elementos não decorativos | AUTO | Separar; se o de trás for estético, marcá-lo como decorativo |
+| N04 | E | 1.3.2 | Ordem visual divergente da ordem de leitura, **com a posição resolvida por herança** (slide → layout → master) | AUTO | Reordenar. Leitura por coluna é aceita quando há colunas paralelas |
+| N05 | A | composição | Mais de 42% da faixa de conteúdo ociosa | AUTO — isenta capa, seção, citação e encerramento, que são slides de respiro | Aumentar o bloco ou trazer mais conteúdo |
+| N06 | A | composição | Duas bordas que quase se alinham e não alinham | AUTO | Levar as duas para a mesma coluna da grade |
+| N07 | A | composição | Título em alturas diferentes entre slides do mesmo layout | AUTO | Posição de título vem do modelo, não do slide |
+| N08 | A | composição | Mais de 4 tamanhos de fonte ou 4 cores de texto no mesmo slide | AUTO | Reduzir a hierarquia: quando tudo é destaque, nada é |
+| N09 | E | 1.4.8 | `cap="all"` ou `cap="small"` herdado do layout ou do master | AUTO — `resolve_caps` | Remover a transformação no modelo. **A regra F06 não vê isto**: o texto no XML está em caixa mista |
+| N10 | A | composição | Figura com o menor lado abaixo de 6 cm | AUTO | Ampliar; figura larga precisa de mais colunas |
+
+> **A cegueira que a camada N corrigiu.** As regras C02 (ordem visual) e F06 (caixa alta) liam
+> apenas o que estava no slide. Posição e transformação de caixa costumam vir do **layout**, e
+> por isso as duas passavam batido. Agora ambas usam `resolve_xfrm` e `resolve_caps`, com a
+> mesma cadeia de herança que já era usada para tamanho de fonte.
 
 ## M — Confirmação humana (nenhuma entrega fecha sem esta camada)
 

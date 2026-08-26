@@ -360,8 +360,8 @@ def _find_ph_in_part(part_el, want_type, want_idx):
             continue
         if want_idx is not None and i == want_idx:
             return sp
-        if t == want_type:
-            fallback = fallback or sp
+        if t == want_type and fallback is None:
+            fallback = sp
         if want_type in TITLE_TYPES and t in TITLE_TYPES:
             return sp
     return fallback
@@ -448,6 +448,91 @@ def _default_text_style_size(slide, lvl: int):
     if d is not None and d.get("sz"):
         return int(d.get("sz"))
     return None
+
+
+def resolve_xfrm(slide, shape_el):
+    """
+    Posicao EFETIVA da forma: slide -> layout -> master.
+
+    Ler so o xfrm do slide e a cegueira que deixou passar o slide de secao com
+    o corpo ACIMA do titulo: nenhum dos dois tinha posicao propria, entao a
+    regra de ordem visual simplesmente pulava os dois.
+
+    Devolve ((x, y, cx, cy), origem) ou (None, motivo).
+    """
+    box = get_xfrm(shape_el)
+    if box is not None:
+        return box, "slide"
+
+    t, i = ph_type(shape_el), ph_idx(shape_el)
+    if t is None:
+        return None, "sem posicao e sem placeholder"
+
+    layout = getattr(slide, "slide_layout", None)
+    if layout is not None:
+        lay_ph = _find_ph_in_part(layout._element, t, i)
+        if lay_ph is not None:
+            box = get_xfrm(lay_ph)
+            if box is not None:
+                return box, "layout"
+        master = getattr(layout, "slide_master", None)
+        if master is not None:
+            mas_ph = _find_ph_in_part(master._element, t, i)
+            if mas_ph is not None:
+                box = get_xfrm(mas_ph)
+                if box is not None:
+                    return box, "master"
+    return None, "indeterminada"
+
+
+def resolve_caps(slide, shape_el, p_el=None, r_el=None):
+    """
+    Transformacao de caixa EFETIVA: run -> paragrafo -> layout -> master.
+
+    O template padrao do Office traz cap="all" no layout de secao. O texto no
+    XML continua em caixa mista, entao olhar so o texto nao acusa nada — e o
+    slide sai em CAIXA ALTA na tela, contra a regra F06.
+
+    Devolve ("all" | "small" | None, origem).
+    """
+    if r_el is not None:
+        rPr = r_el.find(q("a:rPr"))
+        if rPr is not None and rPr.get("cap"):
+            return rPr.get("cap"), "run"
+    if p_el is not None:
+        pPr = p_el.find(q("a:pPr"))
+        if pPr is not None:
+            d = pPr.find(q("a:defRPr"))
+            if d is not None and d.get("cap"):
+                return d.get("cap"), "paragrafo"
+
+    t, i = ph_type(shape_el), ph_idx(shape_el)
+    if t is None:
+        return None, "sem heranca"
+
+    layout = getattr(slide, "slide_layout", None)
+    if layout is not None:
+        lay_ph = _find_ph_in_part(layout._element, t, i)
+        if lay_ph is not None:
+            for d in lay_ph.iter(q("a:defRPr")):
+                if d.get("cap") in ("all", "small"):
+                    return d.get("cap"), "layout"
+        master = getattr(layout, "slide_master", None)
+        if master is not None:
+            mas_ph = _find_ph_in_part(master._element, t, i)
+            if mas_ph is not None:
+                for d in mas_ph.iter(q("a:defRPr")):
+                    if d.get("cap") in ("all", "small"):
+                        return d.get("cap"), "master (placeholder)"
+            styles = master._element.find(q("p:txStyles"))
+            if styles is not None:
+                nome = _MASTER_STYLE_FOR_PH.get(t, "otherStyle")
+                st = styles.find(q("p:%s" % nome))
+                if st is not None:
+                    for d in st.iter(q("a:defRPr")):
+                        if d.get("cap") in ("all", "small"):
+                            return d.get("cap"), "master (%s)" % nome
+    return None, "sem transformacao"
 
 
 def resolve_bold(shape_el, p_el, r_el) -> bool:
