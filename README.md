@@ -230,16 +230,42 @@ severidade, critério de origem, como detectar e como corrigir.
 
 ## Uso
 
+### Começando de onde você está
+
+O ponto de partida quase nunca é um roteiro em branco. É um `.pptx` que precisa ficar acessível,
+ou um texto que precisa virar apresentação:
+
+```bash
+python scripts/importar.py apresentacao.pptx -o meu-material/
+python scripts/importar.py artigo.md         -o meu-material/
+```
+
+Sai um `roteiro.yaml` com título, texto, tabelas, figuras e notas recuperados — e marcadores
+`[FALTA: ...]` onde a origem não tinha o que é obrigatório. **A importação não inventa conteúdo**:
+alt text adivinhado passa despercebido, ausência de alt text não.
+
 ### O pipeline inteiro num comando
 
 ```bash
 python scripts/montar_tudo.py pasta-do-roteiro/ -o entrega/
 ```
 
-Sete estágios com portão em cada um: diagramas → construção → auditoria do `.pptx`
-→ leitura simulada → transcrição → PDF marcado → validação no veraPDF. O portão do
-terceiro estágio **para** o pipeline se sobrar Erro ou Aviso, porque exportar PDF
-de um arquivo reprovado só propaga o defeito.
+Onze estágios com portão em cada um: diagramas → construção → auditoria dos `.pptx`
+→ leitura simulada → transcrição → PDF marcado → veraPDF → Libras → audiodescrição →
+reauditoria do arquivo **como entregue** → paridade entre versões. O portão do terceiro estágio
+**para** o pipeline se sobrar Erro ou Aviso, porque exportar PDF de um arquivo reprovado só
+propaga o defeito.
+
+### Versões por público
+
+```bash
+python scripts/montar_tudo.py meu-material/ -o entrega/     --perfis completo,libras,leitura_facil --libras-por-slide
+```
+
+Além das três paletas, dois perfis: **`libras`**, com texto reduzido e janela de Libras em todo
+slide (LBI art. 28 IV: *"Libras como primeira língua"*), e **`leitura_facil`**, uma ideia por
+slide, para deficiência cognitiva e TDAH. As versões são verificadas umas contra as outras — o
+que separa acesso de segregação está em `references/10-versoes-por-publico.md`, e é auditável.
 
 ### Passo a passo
 

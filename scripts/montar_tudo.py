@@ -82,7 +82,8 @@ def _mostrar(rep, md):
 def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
            parar_no_portao=True, com_diagramas=True, arquivo_unico=False,
            pasta_audio=None, pdf_todos_os_modos=False,
-           video_libras=None) -> int:
+           video_libras=None, perfis=("completo",),
+           libras_por_slide=False, perfis_todos_os_modos=False) -> int:
     import build_deck
     import gen_transcricao
     import simular_leitura
@@ -121,8 +122,8 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
     try:
         os.chdir(saida)   # os caminhos de figura no roteiro sao relativos
         feitos = build_deck.construir_conjunto(
-            roteiro, saida, nome_base, modos=modos,
-            arquivo_unico=arquivo_unico)
+            roteiro, saida, nome_base, modos=modos, perfis=perfis,
+            arquivo_unico=arquivo_unico, todos_os_modos=perfis_todos_os_modos)
     except build_deck.ErroDeRoteiro as e:
         print("\nERRO DE ROTEIRO: %s" % e)
         print("\nO build parou de proposito. Corrija o ROTEIRO, nao o .pptx.")
@@ -131,19 +132,20 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
         os.chdir(anterior)
 
     from pptx import Presentation
-    for modo, caminho in feitos.items():
-        print("   %-16s %s (%d slides)"
-              % (modo, os.path.basename(caminho),
+    for chave, caminho in feitos.items():
+        print("   %-22s %s (%d slides)"
+              % (chave, os.path.basename(caminho),
                  len(Presentation(caminho).slides._sldIdLst)))
 
-    principal = feitos.get("padrao") or list(feitos.values())[0]
+    principal = (feitos.get("completo/padrao") or feitos.get("padrao")
+                 or list(feitos.values())[0])
 
     # ---- 3. auditoria de cada deck ---------------------------------------
     titulo(3, "Auditoria dos .pptx (camadas A a N)")
     reprovado = False
-    for modo, caminho in feitos.items():
+    for chave, caminho in feitos.items():
         print("   -- %s" % os.path.basename(caminho))
-        rep, md = _auditar_deck(caminho, saida, modo)
+        rep, md = _auditar_deck(caminho, saida, chave.replace("/", "-"))
         c = _mostrar(rep, md)
         reprovado = reprovado or bool(c.get("E", 0) or c.get("A", 0))
 
@@ -235,14 +237,40 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
                     codigo = codigo or 1
 
     # ---- 8 e 9. midia embutida + reauditoria ------------------------------
-    if video_libras:
-        titulo(8, "Janela de Libras embutida na capa (em TODOS os modos)")
+    if libras_por_slide:
+        titulo(8, "Janela de Libras POR SLIDE (perfil libras)")
         try:
             import embutir_libras
-            for modo, caminho in feitos.items():
+            import gen_libras_slides
+            pasta_v = os.path.join(saida, "libras", "slides")
+            alvos = [c for k, c in feitos.items() if k.startswith("libras/")]
+            if alvos:
+                r = gen_libras_slides.gerar(alvos[0], pasta_v)
+                print("   %d de %d slides com janela"
+                      % (r["com_video"], r["slides"]))
+                if r["abaixo_de_15fps"]:
+                    print("   AVISO J07: %d vídeo(s) abaixo de 15 fps"
+                          % r["abaixo_de_15fps"])
+                for caminho in alvos:
+                    e = embutir_libras.embutir_por_slide(caminho, pasta_v)
+                    print("   %-22s %d slides · %.1f × %.1f cm · %.1f MB"
+                          % (os.path.basename(caminho), e["slides_com_janela"],
+                             e["caixa_cm"][0], e["caixa_cm"][1],
+                             e["bytes"] / 1048576))
+        except Exception as e:
+            print("   Libras por slide não embutida: %s" % e)
+            codigo = codigo or 3
+
+    if video_libras:
+        titulo(8, "Janela de Libras embutida na capa")
+        try:
+            import embutir_libras
+            for chave, caminho in feitos.items():
+                if chave.startswith("libras/") and libras_por_slide:
+                    continue          # esses recebem uma janela POR SLIDE
                 r = embutir_libras.embutir(caminho, video_libras)
-                print("   %-16s slide %d · %.1f × %.1f cm"
-                      % (modo, r["slide"], r["caixa_cm"][0], r["caixa_cm"][1]))
+                print("   %-22s slide %d · %.1f × %.1f cm"
+                      % (chave, r["slide"], r["caixa_cm"][0], r["caixa_cm"][1]))
         except Exception as e:
             print("   Libras nao embutida: %s" % e)
             codigo = codigo or 3
@@ -253,10 +281,10 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
         # por deficiencia, que e o que a regra O02 existe para impedir.
         try:
             import embutir_audio
-            for modo, caminho in feitos.items():
+            for chave, caminho in feitos.items():
                 r = embutir_audio.embutir(caminho, pasta_audio)
-                print("   %-16s %d slides · %.1f MB"
-                      % (modo, r["slides_com_audio"], r["bytes"] / 1048576))
+                print("   %-22s %d slides · %.1f MB"
+                      % (chave, r["slides_com_audio"], r["bytes"] / 1048576))
         except Exception as e:
             print("   audio nao embutido: %s" % e)
             print("   (exige Windows com PowerPoint instalado)")
@@ -267,9 +295,9 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
     # vale e o do arquivo COMO ENTREGUE, nao o de antes da midia.
     if video_libras or pasta_audio:
         titulo(10, "Reauditoria dos arquivos COMO ENTREGUES")
-        for modo, caminho in feitos.items():
+        for chave, caminho in feitos.items():
             print("   -- %s" % os.path.basename(caminho))
-            rep, md = _auditar_deck(caminho, saida, modo)
+            rep, md = _auditar_deck(caminho, saida, chave.replace("/", "-"))
             c = _mostrar(rep, md)
             if c.get("E", 0) or c.get("A", 0):
                 codigo = codigo or 1
@@ -317,6 +345,13 @@ def main():
     ap.add_argument("--sem-pdf", action="store_true")
     ap.add_argument("--pdf-todos-os-modos", action="store_true",
                     help="exporta um PDF por modo, nao so o padrao")
+    ap.add_argument("--perfis", default="completo",
+                    help="perfis de público, separados por vírgula: "
+                         "completo,libras,leitura_facil")
+    ap.add_argument("--perfis-todos-os-modos", action="store_true",
+                    help="gera cada perfil nas 3 paletas (9 arquivos)")
+    ap.add_argument("--libras-por-slide", action="store_true",
+                    help="grava uma janela de Libras POR SLIDE no perfil libras")
     ap.add_argument("--com-libras", metavar="VIDEO",
                     help="embute a janela de Libras na capa de TODOS os modos")
     ap.add_argument("--com-audio", metavar="PASTA",
@@ -333,6 +368,9 @@ def main():
                   arquivo_unico=args.arquivo_unico,
                   pasta_audio=args.com_audio,
                   video_libras=args.com_libras,
+                  perfis=tuple(p.strip() for p in args.perfis.split(",") if p.strip()),
+                  libras_por_slide=args.libras_por_slide,
+                  perfis_todos_os_modos=args.perfis_todos_os_modos,
                   pdf_todos_os_modos=args.pdf_todos_os_modos,
                   parar_no_portao=not args.seguir_mesmo_reprovado)
 

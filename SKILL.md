@@ -56,6 +56,7 @@ Remediar depois é caro e frágil; nascer certo é barato.
 | `references/07-cor-e-tipografia.md` | Paleta, contraste, fonte, os três modos |
 | `references/08-exportacao-pdfua.md` | Exportar e validar o PDF |
 | `references/09-design-e-composicao.md` | **Composição**: grade, proporção, eixo Z, tipos de slide. Um slide acessível não é um slide feio |
+| `references/10-versoes-por-publico.md` | **Versões por público**: Libras como primeira língua e leitura fácil. O que separa acesso de segregação, e a base legal de cada um |
 
 ---
 

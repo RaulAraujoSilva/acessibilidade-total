@@ -890,7 +890,8 @@ def _gravar_metadados(prs, ap, tema, perfil="completo"):
 
 
 def construir_conjunto(roteiro, pasta, base, modos=MODOS,
-                       perfis=("completo",), arquivo_unico=False):
+                       perfis=("completo",), arquivo_unico=False,
+                       todos_os_modos=False):
     """
     Constroi um deck por modo e devolve {modo: caminho}.
 
@@ -906,7 +907,12 @@ def construir_conjunto(roteiro, pasta, base, modos=MODOS,
 
     feitos = {}
     for perfil in perfis:
-        for modo in modos:
+        # Perfil de publico so no modo padrao, por omissao. Os tres modos x tres
+        # perfis dariam nove arquivos e 137 MB — e o deck de Libras sozinho, com
+        # 28 videos, ja passa de 40 MB. Quem precisar do produto cartesiano pede
+        # com --perfis-todos-os-modos, e o LEIA-ME declara a escolha.
+        modos_deste = modos if (perfil == "completo" or todos_os_modos) else ("padrao",)
+        for modo in modos_deste:
             nome = base + SUFIXO_PERFIL[perfil] + SUFIXO[modo] + ".pptx"
             saida = os.path.join(pasta, nome)
             construir(roteiro, saida, modo, perfil)

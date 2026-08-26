@@ -156,12 +156,20 @@ def _selecionar(pg):
     pg.mouse.up()
 
 
-def _duracao_estimada(texto, folga=6.0):
-    """
-    Quanto tempo gravar. A mesma taxa que o gerador de SRT usa (145 ppm),
-    com folga para o avatar terminar o ultimo sinal.
-    """
-    return max(8.0, len(texto.split()) / 145.0 * 60.0 + folga)
+# Segundos por palavra na SINALIZACAO. Nao e a taxa da fala.
+#
+# A primeira versao usava 145 palavras por minuto, que e a taxa do gerador de
+# SRT — ou seja, a taxa da FALA. Libras e muito mais lenta: o resumo de 97
+# palavras levou 156 s, dando ~1,6 s por palavra. Com a estimativa errada, a
+# gravacao terminava com o avatar ainda sinalizando, a selecao seguinte caia
+# num player ocupado e era ignorada — e o lote travava no quinto video.
+SEGUNDOS_POR_PALAVRA = 1.8
+FOLGA = 8.0
+
+
+def _duracao_estimada(texto, folga=FOLGA):
+    """Quanto tempo gravar, pela taxa de SINALIZACAO, com folga para o fim."""
+    return max(12.0, len(texto.split()) * SEGUNDOS_POR_PALAVRA + folga)
 
 
 def gravar(texto: str, saida: str, segundos: int = None, largura: int = 1280,
@@ -241,7 +249,9 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
                     "segundos": dur,
                     "bytes": os.path.getsize(alvo) if os.path.exists(alvo) else 0,
                 }
-                time.sleep(1.0)
+                # respiro antes do proximo: selecionar com o player ocupado nao
+                # dispara traducao nova, e o lote trava sem dizer por que
+                time.sleep(2.5)
 
             caixa_final = (_par(larg_c * escala), _par(alt_c * escala))
             nav.close()

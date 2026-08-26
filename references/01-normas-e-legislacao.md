@@ -60,7 +60,9 @@ em `section508.gov`, úteis como segunda opinião ao catálogo de auditoria.
 |---|---|---|
 | **Lei 13.146/2015 (LBI / Estatuto da Pessoa com Deficiência)** | Acessibilidade como direito; define formatos acessíveis como os reconhecíveis por leitor de tela e tecnologias assistivas | Fundamento jurídico principal |
 | Lei 10.098/2000 | Normas gerais de acessibilidade | Fundamento anterior à LBI |
-| **Lei 10.436/2002** + **Decreto 5.626/2005** | Reconhecem a Libras como língua e regulamentam seu uso e difusão | Fundamento da janela de Libras |
+| **Lei 10.436/2002** + **Decreto 5.626/2005** | Reconhecem a Libras como língua e regulamentam seu uso e difusão. **Dec. art. 24**: a *programação visual* de cursos deve ter janela de Libras — melhor âncora que a NBR 15290 para material de ensino. **Lei art. 4º pu**: a Libras não pode *substituir* o português escrito | Fundamento da janela e da versão Libras-first |
+| **LBI, art. 28, IV** | *"Libras como primeira língua e na modalidade escrita da língua portuguesa como segunda língua"* | Fundamento do perfil `libras`: para a pessoa surda, o português é L2 |
+| **LBI, art. 3º, V** + **Lei 14.129/2021, art. 3º, VII** | Põem *linguagem simples* na definição legal de comunicação e *linguagem clara e compreensível* como princípio | Fundamento do perfil `leitura_facil` |
 | **e-MAG 3.1** | Modelo de Acessibilidade em Governo Eletrônico | Padrão brasileiro de referência para conteúdo digital público |
 | **Cartilha de Acessibilidade gov.br, v2.1 (ago/2023)** | Orientação prática de conteúdo acessível na administração federal | Boas práticas em PT-BR |
 
@@ -98,6 +100,20 @@ integral disponível. Todas as edições abaixo constam como **Em Vigor**.
   qualquer relação com documento digital.
 - **Citar a NBR 15290 como "de 2005"** — a edição vigente é a de **2016**.
 - **WCAG sozinho, sem WCAG2ICT**, é fundamentação incompleta para arquivo não-web.
+- **"Versão alternativa em conformidade" (WCAG) não vale para Libras.** A definição exige que a
+  alternativa entregue a mesma informação *"in the same human language"* — Libras é outra língua.
+  O critério WCAG sobre sinais é o 1.2.6 (AAA), e ele cobre áudio pré-gravado, não slide.
+- **WCAG 3.2.6, 3.3.7, 3.3.8, 2.4.11 e 2.2.6 não se aplicam a documento estático.** Pressupõem
+  formulário, autenticação, foco de teclado ou conjunto de páginas web. Para texto de documento
+  valem 1.4.8, 3.1.3, 3.1.4 e 3.1.5 — e os quatro são **AAA**, meta voluntária.
+- **Linguagem Simples não é Leitura Fácil**, e quem diz é a própria NBR ISO 24495-1:2024. Não há
+  norma brasileira de Leitura Fácil; a referência é Inclusion Europe e IFLA.
+- **A ISO 24495-1 exclui acessibilidade do próprio escopo** (item 1). Ela fundamenta a redação,
+  não a conformidade.
+- **A ISO 24495-1 é de 2023**; a adoção brasileira, NBR ISO 24495-1, é de **2024**. Escrever
+  "ISO 24495-1:2024" mistura as duas.
+- **W3C COGA não é norma** — é *Working Group Note*, e o próprio documento diz que não implica
+  endosso do W3C. Cite como boa prática.
 - **"Conformidade com a LBI"** não é um selo técnico verificável: a LBI é o dever legal;
   a verificação técnica se faz contra WCAG 2.2 AA + PDF/UA. Escrever "conforme a LBI" sem
   apontar o critério técnico é retórica, não auditoria.
