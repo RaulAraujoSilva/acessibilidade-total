@@ -125,19 +125,33 @@ na quinta fileira.
 
 ## 5. Os três modos de exibição
 
-Decisão de arquitetura: **um único arquivo**, com slide-hub e três seções paralelas, cada uma
-registrada como Apresentação Personalizada. Sem macro.
+Decisão de arquitetura, revista em 26/08/2026: **um arquivo por modo**, gerados do mesmo roteiro.
 
-| Modo | Fundo | Texto | Séries |
-|---|---|---|---|
-| Padrão | `#FAF7F2` | `#1A1A1A` | Okabe-Ito, variantes `marca_min_3_1` |
-| Alto contraste | `#000000` | `#FFFFFF` | cores base, que ganham contraste sobre preto |
-| Daltônico-seguro | `#F5F5F0` | `#1A1A1A` | subconjunto de matizes maximamente separados, com forma e rótulo reforçados |
+| Modo | Arquivo | Fundo | Texto | Séries |
+|---|---|---|---|---|
+| Padrão | `…-padrao.pptx` | `#FAF7F2` | `#1A1A1A` | Okabe-Ito, variantes `marca_min_3_1` |
+| Alto contraste | `…-alto-contraste.pptx` | `#000000` | `#FFFFFF` | cores base, que ganham contraste sobre preto |
+| Daltônico-seguro | `…-daltonico-seguro.pptx` | `#F5F5F0` | `#1A1A1A` | subconjunto de matizes maximamente separados, com forma e rótulo reforçados |
+
+O desenho anterior era um arquivo só, com slide-hub e três seções paralelas. Ele resolvia a
+distribuição — um anexo, não três — e foi abandonado por um motivo que não estava na conta:
+**de 85 slides, 57 eram o mesmo conteúdo em outra paleta.** Quem enxerga escolhe a paleta no hub
+e ignora o resto; quem navega em sequência atravessa tudo três vezes. Pior: `gen_transcricao`
+percorria o arquivo inteiro, então a **transcrição linear** — o artefato que mais importa para
+quem lê assim — saía triplicada, com sufixo de modo nos títulos.
 
 > Por que não uma troca de paleta em tempo real: o `.pptx` não tem esse recurso. Fazer com macro
 > exigiria `.pptm`, que chega com macro bloqueada por Mark-of-the-Web quando o arquivo é baixado,
-> e não funciona no PowerPoint Web nem no mobile. O hub com Apresentações Personalizadas roda em
-> qualquer lugar, sem aviso de segurança.
+> e não funciona no PowerPoint Web nem no mobile. Isso continua verdadeiro — é o que fecha a
+> porta para qualquer solução dentro de um arquivo só.
+
+Com arquivos separados, **o modo fica nos metadados, não no conteúdo**: `cp.title` leva o nome do
+modo, que é o que o leitor de tela anuncia ao abrir, e o texto dos slides permanece idêntico nos
+três. É isso que torna a paridade verificável.
 
 Os três modos são **variações de paleta do mesmo conteúdo**, jamais versões com conteúdo
-diferente. Conteúdo diferente por deficiência é segregação, não acessibilidade.
+diferente. Conteúdo diferente por deficiência é segregação, não acessibilidade. Antes isso era
+uma promessa do laço de construção; agora é a **camada O** do catálogo, que compara texto, alt
+text, notas e recursos slide a slide e reprova a divergência.
+
+`--arquivo-unico` continua gerando o desenho antigo, para quem precisa mesmo entregar um anexo só.

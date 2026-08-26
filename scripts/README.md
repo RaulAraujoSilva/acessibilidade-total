@@ -8,16 +8,20 @@
 | `verificar_ambiente.py` | pronto | Diz o que voce tem, o que falta, **para que serve cada coisa** e o comando exato para instalar |
 | `a11y_lib.py` | pronto | Acesso ao que o `python-pptx` nao expoe: alt text, marca de decorativo, ordem de leitura, idioma dos runs, heranca de tamanho de fonte, tabelas, secoes |
 | `audit_contrast.py` | pronto | Resolve cor efetiva (tema + `clrMap` + `lumMod`/`lumOff`/`tint`/`shade`) e calcula contraste WCAG |
-| `audit_pptx.py` | pronto | Auditor estatico das camadas A a I; camadas J a M saem como *nao verificado* |
+| `audit_pptx.py` | pronto | Auditor estatico das camadas A a I e N; camadas J a M saem como *nao verificado* |
 | `simular_leitura.py` | pronto | Escreve o que um leitor de tela anunciaria, na ordem em que anunciaria |
 | `build_deck.py` | pronto | Constroi o deck acessivel POR CONSTRUCAO a partir de um roteiro YAML/JSON; recusa roteiro que geraria slide inacessivel |
 | `export_pdfua.py` | pronto | Exportacao COM com `DocStructureTags=True`, corrige `/Lang` e `/Title`, grava o identificador PDF/UA-1 no XMP |
 | `audit_pdf.py` | pronto | Camada L: pypdf (rapido) + veraPDF (ISO 14289) + PAC como passo humano |
 | `gen_diagramas.py` | pronto | Diagramas tecnicos via HTML->PNG, uma versao por paleta; texto sempre exato |
-| `montar_tudo.py` | pronto | Roda os 7 estagios com portao em cada um |
+| `audit_pacote.py` | pronto | Camada O: paridade de texto e de recursos entre as versoes de cor do mesmo material |
+| `embutir_audio.py` | pronto | Poe a audiodescricao DENTRO do deck, sem autoplay, com alt text e ordem de leitura ajustada |
+| `libras_caminho_a.py` | pronto | Grava a janela de Libras pelo VLibras Widget, local e sem conta gov.br |
+| `embutir_libras.py` | pronto | Poe a janela de Libras na capa do deck, sem autoplay, com o alt text declarando que a glosa e automatica |
+| `montar_tudo.py` | pronto | Roda o pipeline com portao em cada estagio, um deck por modo de cor |
 | `gen_images.py` | a fazer | Figuras via gpt-image-2, com alt text e descricao longa no mesmo passo |
 | `gen_audiodesc.py` | pronto | Audiodescricao narrada (ElevenLabs) + transcricao obrigatoria |
-| `gen_libras.py` | parcial | Roteiro SRT e glosa; o video de avatar esbarrou nos bundles do VLibras (ver o cabecalho do script) |
+| `gen_libras.py` | parcial | Roteiro SRT e glosa; o video pelo renderizador Unity esbarrou nos bundles (ver `libras_caminho_a.py`, que resolve por outro caminho) |
 | `gen_transcricao.py` | pronto | Transcricao linear em `.docx` com estilos de titulo reais |
 
 ## Auditar um arquivo
@@ -44,7 +48,7 @@ nao substitui a regra K03, que exige o percurso real com NVDA.
 ## Do roteiro ao PDF validado
 
 ```bash
-python scripts/build_deck.py roteiro.yaml -o deck.pptx --modos
+python scripts/build_deck.py roteiro.yaml -o deck.pptx --todos-os-modos
 python scripts/audit_pptx.py deck.pptx --md auditoria-pptx.md
 python scripts/export_pdfua.py deck.pptx -o deck.pdf
 python scripts/audit_pdf.py deck.pdf --md auditoria-pdf.md

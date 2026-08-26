@@ -22,7 +22,9 @@ except Exception:
     pass
 
 from audit_pptx import audit, NAO_CONFORME  # noqa: E402
-from build_deck import ErroDeRoteiro, construir  # noqa: E402
+import audit_pacote  # noqa: E402
+from build_deck import (ErroDeRoteiro, MODOS, construir,  # noqa: E402
+                        construir_conjunto)
 
 EXEMPLO = os.path.join(ROOT, "exemplos", "roteiro-exemplo.yaml")
 
@@ -89,6 +91,62 @@ def testa_recusa(roteiro_ruim, esperado):
     return False
 
 
+def conta_slides(caminho, esperado, rotulo) -> int:
+    from pptx import Presentation
+
+    achado = len(Presentation(caminho).slides._sldIdLst)
+    if achado == esperado:
+        print("  %-28s %d slides" % (rotulo, achado))
+        return 0
+    print("  %-28s ERRO: %d slides, esperado %d"
+          % (rotulo, achado, esperado))
+    return 1
+
+
+def testa_paridade(arquivos, pasta) -> int:
+    """
+    Camada O nos dois sentidos.
+
+    O teste que importa e o SEGUNDO: um auditor de paridade que nunca acusa
+    nada aprova qualquer coisa. Adultera-se uma copia e exige-se O01.
+    """
+    import shutil
+
+    from pptx import Presentation
+
+    rep = audit_pacote.auditar(arquivos, pasta)
+    erros = [f for f in rep.findings
+             if f["veredito"] == audit_pacote.NAO_CONFORME
+             and f["regra"] in ("O01", "O02")]
+    falhas = 0
+    if erros:
+        print("  %-28s ERRO: versoes divergentes sem motivo" % "paridade")
+        falhas += 1
+    else:
+        print("  %-28s as 3 versoes batem" % "paridade")
+
+    adulterado = os.path.join(pasta, "adulterado.pptx")
+    shutil.copy(arquivos[1], adulterado)
+    prs = Presentation(adulterado)
+    for slide in prs.slides:
+        mexeu = False
+        for sh in slide.shapes:
+            if sh.has_text_frame and sh.text_frame.paragraphs[0].runs:
+                sh.text_frame.paragraphs[0].runs[0].text = "DIVERGENCIA"
+                mexeu = True
+                break
+        if mexeu:
+            break
+    prs.save(adulterado)
+
+    rep2 = audit_pacote.auditar([arquivos[0], adulterado], pasta)
+    pegou = any(f["regra"] == "O01" and f["veredito"] == audit_pacote.NAO_CONFORME
+                for f in rep2.findings)
+    print("  %-28s %s" % ("paridade (adulterada)",
+                          "O01 acusou" if pegou else "ERRO: O01 nao acusou"))
+    return falhas + (0 if pegou else 1)
+
+
 def main() -> int:
     roteiro, fonte = carregar()
     print("=" * 72)
@@ -96,14 +154,28 @@ def main() -> int:
     print("=" * 72)
 
     falhas = 0
+    esperado = len(roteiro["slides"])
     with tempfile.TemporaryDirectory() as d:
         simples = os.path.join(d, "deck_simples.pptx")
         construir(roteiro, simples)
         falhas += len(auditar(simples, "deck simples"))
+        falhas += conta_slides(simples, esperado, "deck simples")
 
-        modos = os.path.join(d, "deck_modos.pptx")
-        construir(roteiro, modos, com_modos=True)
-        falhas += len(auditar(modos, "deck com 3 modos"))
+        # Um arquivo POR MODO, com o MESMO conteudo. A contagem de slides tem
+        # de ser a do roteiro: quando os tres modos viviam num arquivo so, ela
+        # era 1 + 3xN e ninguem verificava.
+        feitos = construir_conjunto(roteiro, d, "conjunto")
+        assert set(feitos) == set(MODOS), feitos
+        for modo, caminho in feitos.items():
+            falhas += len(auditar(caminho, "deck %s" % modo))
+            falhas += conta_slides(caminho, esperado, "deck %s" % modo)
+
+        falhas += testa_paridade(list(feitos.values()), d)
+
+        unico = construir_conjunto(roteiro, d, "legado", arquivo_unico=True)
+        alvo = unico["arquivo_unico"]
+        falhas += len(auditar(alvo, "deck legado (arquivo unico)"))
+        falhas += conta_slides(alvo, 1 + 3 * esperado, "deck legado")
 
     print("\nO construtor recusa roteiro que produziria slide inacessivel:")
     import copy

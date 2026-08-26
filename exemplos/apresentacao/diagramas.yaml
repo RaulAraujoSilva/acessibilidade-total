@@ -36,13 +36,13 @@ diagramas:
 
   - nome: camadas-catalogo
     tipo: camadas
-    titulo: "As 14 camadas do catálogo de auditoria"
-    subtitulo: "108 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
+    titulo: "As 15 camadas do catálogo de auditoria"
+    subtitulo: "113 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
     altura: 1160
     largura: 1200
-    alt: "As 14 camadas do catálogo, de metadados do documento até design e composição"
+    alt: "As 15 camadas do catálogo, de metadados do documento até design e composição"
     descricao_longa: >
-      Lista vertical de treze camadas, identificadas pelas letras A a M, cada
+      Lista vertical de quinze camadas, identificadas pelas letras A a O, cada
       uma com o número de regras. Camada A, documento e metadados, 6 regras.
       Camada B, estrutura semântica, 10 regras. Camada C, ordem de leitura, 6
       regras. Camada D, texto alternativo, 11 regras. Camada E, cor e contraste,
@@ -51,7 +51,7 @@ diagramas:
       movimento e interação, 9 regras. Camada J, Libras e público surdo, 8
       regras. Camada K, público cego e audiodescrição, 5 regras. Camada L,
       exportação e PDF/UA, 7 regras. Camada M, confirmação humana, 6 itens.
-      Camada N, design e composição, 10 regras. As camadas A a I e N são
+      Camada N, design e composição, 13 regras. Camada O, pacote e versões paralelas, 3 regras. As camadas A a I, N e O são
       verificadas automaticamente pelo auditor; as camadas J a M dependem de
       mídia, do PDF exportado ou de uma pessoa, e por isso saem no relatório
       como não verificadas, nunca como aprovadas.
@@ -59,7 +59,7 @@ diagramas:
       - {id: "A", titulo: "Documento e metadados", detalhe: "6 regras · automática"}
       - {id: "B", titulo: "Estrutura semântica", detalhe: "10 regras · automática"}
       - {id: "C", titulo: "Ordem de leitura", detalhe: "6 regras · automática"}
-      - {id: "D", titulo: "Texto alternativo", detalhe: "11 regras · automática"}
+      - {id: "D", titulo: "Texto alternativo", detalhe: "13 regras · automática"}
       - {id: "E", titulo: "Cor e contraste", detalhe: "10 regras · automática"}
       - {id: "F", titulo: "Tipografia e legibilidade", detalhe: "10 regras · automática"}
       - {id: "G", titulo: "Tabelas", detalhe: "6 regras · automática"}
@@ -69,7 +69,8 @@ diagramas:
       - {id: "K", titulo: "Público cego e audiodescrição", detalhe: "5 regras · mídia"}
       - {id: "L", titulo: "Exportação e PDF/UA", detalhe: "7 regras · veraPDF e PAC"}
       - {id: "M", titulo: "Confirmação humana", detalhe: "6 itens · pessoa"}
-      - {id: "N", titulo: "Design e composição", detalhe: "10 regras · automática"}
+      - {id: "N", titulo: "Design e composição", detalhe: "13 regras · automática"}
+      - {id: "O", titulo: "Pacote e versões paralelas", detalhe: "3 regras · automática"}
     rodape: "Ausência de evidência não é conformidade: o que não pôde ser verificado entra como não verificado."
 
   - nome: pipeline
@@ -83,9 +84,9 @@ diagramas:
       um bloco por slide. Dois: diagramas gerados em HTML e convertidos em
       imagem, uma versão por paleta. Três: construção do .pptx acessível por
       construção, com placeholder, idioma, contraste e ordem de leitura já
-      corretos. Quatro: modos de cor, um hub e três seções paralelas no mesmo
-      arquivo. Cinco: auditoria do .pptx contra as camadas A a I, que precisa
-      fechar com zero erros e zero avisos. Seis: exportação para PDF com marcas
+      corretos. Quatro: modos de cor, um arquivo por modo, com o mesmo
+      conteúdo nos três. Cinco: auditoria do .pptx contra as camadas A a N, que
+      precisa fechar com zero erros e zero avisos. Seis: exportação para PDF com marcas
       de estrutura, corrigindo idioma e título e gravando o identificador
       PDF/UA. Sete: validação do PDF no veraPDF contra a ISO 14289, e conferência
       no PAC. Se um portão reprova, a correção volta para o roteiro, no estágio
@@ -99,9 +100,9 @@ diagramas:
       - titulo: "Construção"
         detalhe: "o slide nasce conforme, ou o build interrompe e diz o porquê"
       - titulo: "Modos de cor"
-        detalhe: "hub e três seções no mesmo arquivo, sem macro"
+        detalhe: "um arquivo por modo, com a paridade verificada"
       - titulo: "Auditoria do .pptx"
-        detalhe: "camadas A a I; portão exige zero erros e zero avisos"
+        detalhe: "camadas A a N; portão exige zero erros e zero avisos"
       - titulo: "Exportação"
         detalhe: "PDF marcado, idioma e título corrigidos, identificador PDF/UA"
       - titulo: "Validação do PDF"

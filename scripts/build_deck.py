@@ -13,7 +13,7 @@ Duas ideias governam este arquivo:
    template padrao do Office trazia CAIXA ALTA no layout de secao e o corpo
    posicionado ACIMA do titulo.
 
-    python scripts/build_deck.py roteiro.yaml -o deck.pptx [--modos]
+    python scripts/build_deck.py roteiro.yaml -o deck.pptx --todos-os-modos
 
 REGRA DE OURO: figura sem alt text E descricao longa faz o build FALHAR.
 """
@@ -44,6 +44,14 @@ except Exception:
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PALETA = os.path.join(RAIZ, "assets", "paleta-okabe-ito.json")
 MODELO = os.path.join(RAIZ, "assets", "modelo-acessivel.pptx")
+
+# Um arquivo POR MODO e o padrao. O desenho anterior — hub e tres secoes no
+# mesmo arquivo — punia exatamente quem navega em sequencia: de 85 slides, 57
+# eram o mesmo conteudo em outra paleta, e a transcricao linear saia triplicada.
+MODOS = ("padrao", "alto_contraste", "daltonico")
+SUFIXO = {"padrao": "-padrao",
+          "alto_contraste": "-alto-contraste",
+          "daltonico": "-daltonico-seguro"}
 
 
 class ErroDeRoteiro(Exception):
@@ -232,27 +240,6 @@ def _titulo(slide, texto, tema, tamanho=None):
              entrelinha=G.ENTRELINHA_TITULO)
 
 
-def _filete(slide, tema, coluna, n, y, espessura=None, cor=None,
-            nome="Filete de acento"):
-    """
-    Regua fina de cor sob o titulo.
-
-    E o elemento mais barato que existe para um slide parecer desenhado em vez
-    de digitado: ancora a coluna esquerda e amarra titulo e conteudo. Puramente
-    estetico, portanto DECORATIVO — o leitor de tela nao anuncia nada.
-    """
-    h = espessura or G.cm(0.16)
-    forma = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, G.x(coluna), y,
-                                   G.larg(n), h)
-    forma.fill.solid()
-    forma.fill.fore_color.rgb = tema.rgb(cor or tema.destaque)
-    forma.line.fill.background()
-    forma.shadow.inherit = False
-    nomear(forma, nome)
-    A.set_decorative(forma._element, True)
-    return forma
-
-
 def mandar_para_tras(slide, shape):
     """
     Manda a forma para o fundo do eixo Z.
@@ -390,17 +377,6 @@ def _tabela(slide, tab, tema, coluna, n, y):
     return gf
 
 
-def _faixa_rodape(slide, tema):
-    faixa = slide.shapes.add_shape(
-        MSO_SHAPE.RECTANGLE, 0, G.ALTURA - G.FAIXA_H, G.LARGURA, G.FAIXA_H)
-    faixa.fill.solid()
-    faixa.fill.fore_color.rgb = tema.rgb(tema.destaque)
-    faixa.line.fill.background()
-    faixa.shadow.inherit = False
-    nomear(faixa, "Faixa estética do rodapé")
-    A.set_decorative(faixa._element, True)
-
-
 def _altura_de_cartao(itens):
     """
     Altura pelo conteudo, nao pela faixa inteira.
@@ -465,8 +441,6 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
     if tipo == "capa":
         slide = prs.slides.add_slide(layout_por_nome(prs, "Capa"))
         pintar_fundo(slide, tema)
-        _filete(slide, tema, 0, 4, G.cm(5.2), espessura=G.cm(0.3),
-                nome="Barra da capa")
         _titulo(slide, titulo, tema, G.TIPO["capa"])
         sub = spec.get("subtitulo", "")
         if sub:
@@ -479,8 +453,6 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
     elif tipo == "secao":
         slide = prs.slides.add_slide(layout_por_nome(prs, "Seção"))
         pintar_fundo(slide, tema)
-        _filete(slide, tema, 0, 3, G.cm(5.6), espessura=G.cm(0.3),
-                nome="Barra da seção")
         _titulo(slide, titulo, tema, G.TIPO["secao"])
         if linhas:
             ph = _pega(slide, 1)
@@ -493,7 +465,6 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
         slide = prs.slides.add_slide(layout_por_nome(prs, "Destaque"))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema)
-        _filete(slide, tema, 0, 2, G.TITULO_Y + G.TITULO_H + G.cm(0.2))
         num = _pega(slide, 1)
         nomear(num, "Número em destaque")
         posicionar(num, 0, 4, G.CONTEUDO_Y, G.CONTEUDO_H)
@@ -528,7 +499,6 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
         slide = prs.slides.add_slide(layout_por_nome(prs, "Cartões"))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema)
-        _filete(slide, tema, 0, 2, G.TITULO_Y + G.TITULO_H + G.cm(0.2))
         cartoes = spec["cartoes"]
         if not 2 <= len(cartoes) <= 4:
             raise ErroDeRoteiro("cartoes: use de 2 a 4 (recebi %d)" % len(cartoes))
@@ -551,7 +521,6 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
         slide = prs.slides.add_slide(layout_por_nome(prs, "Comparação"))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema)
-        _filete(slide, tema, 0, 2, G.TITULO_Y + G.TITULO_H + G.cm(0.2))
         for k, col in enumerate(spec["colunas"][:2]):
             cab, corpo = _pega(slide, 1 + k * 2), _pega(slide, 2 + k * 2)
             nomear(cab, "Cabeçalho da coluna %d" % (k + 1))
@@ -568,7 +537,6 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
         slide = prs.slides.add_slide(layout_por_nome(prs, "Título e conteúdo"))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema)
-        _filete(slide, tema, 0, 2, G.TITULO_Y + G.TITULO_H + G.cm(0.2))
         corpo = _pega(slide, 1)
         nomear(corpo, "Conteúdo principal")
 
@@ -601,7 +569,6 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
                      spec.get("tamanho", G.TIPO["corpo"]))
 
     remover_placeholders_vazios(slide)
-    _faixa_rodape(slide, tema)
 
     notas = spec.get("notas", "")
     fig = spec.get("figura")
@@ -658,7 +625,114 @@ def validar_roteiro(r):
 
 
 # ==========================================================================
-def construir(roteiro, saida, com_modos=False):
+def construir(roteiro, saida, modo="padrao", com_modos=None):
+    """
+    Monta UM deck numa UNICA paleta.
+
+    Sem sufixo de titulo: como os modos deixaram de conviver no mesmo arquivo,
+    `spec["titulo"]` vai integro para os tres decks — e e isso que torna a
+    paridade entre eles verificavel (regra O01). A regra B03, titulo repetido,
+    continua satisfeita porque os titulos sao unicos DENTRO de cada arquivo.
+
+    O modo fica nos METADADOS, nao no conteudo: `cp.title` leva o nome do modo,
+    que e o que o leitor de tela anuncia ao abrir, sem sujar o texto comparado.
+    """
+    if com_modos is not None:
+        # alias depreciado da assinatura antiga
+        print("AVISO: construir(..., com_modos=) foi substituido por "
+              "construir_conjunto(...); veja --arquivo-unico")
+        if com_modos:
+            return _construir_arquivo_unico(roteiro, saida)
+
+    validar_roteiro(roteiro)
+    temas = carregar_temas()
+    if modo not in temas:
+        raise ErroDeRoteiro("modo desconhecido: %r" % modo)
+    ap = roteiro["apresentacao"]
+
+    if not os.path.exists(MODELO):
+        raise ErroDeRoteiro(
+            "modelo ausente: %s — rode antes: python scripts/gerar_modelo.py"
+            % MODELO)
+    prs = Presentation(MODELO)
+    prs.slide_width, prs.slide_height = G.LARGURA, G.ALTURA
+
+    tema = temas[modo]
+    for spec in roteiro["slides"]:
+        montar_slide(prs, spec, tema, "", modo)
+
+    _accent_no_tema(prs, tema.destaque)
+    _gravar_metadados(prs, ap, tema)
+    prs.save(saida)
+    return saida
+
+
+def _accent_no_tema(prs, cor_hex):
+    """
+    Reescreve accent1 do tema com a cor de destaque do modo.
+
+    A mobilia decorativa — filete e faixa do rodape — mora nos LAYOUTS desde
+    que o Verificador nativo passou a lista-la no painel de ordem de leitura de
+    cada slide. Como o layout e o mesmo para os tres modos, a cor dela nao pode
+    ser fixa: vem do tema, e e aqui que o tema muda.
+    """
+    from pptx.opc.constants import RELATIONSHIP_TYPE as RT
+
+    try:
+        parte = prs.slide_masters[0].part.part_related_by(RT.THEME)
+        raiz = etree.fromstring(parte.blob)
+    except Exception:
+        return False
+    alvo_ = raiz.find(".//" + A.q("a:clrScheme") + "/" + A.q("a:accent1"))
+    if alvo_ is None:
+        return False
+    for antigo in list(alvo_):
+        alvo_.remove(antigo)
+    etree.SubElement(alvo_, A.q("a:srgbClr")).set(
+        "val", cor_hex.lstrip("#").upper())
+    parte._blob = etree.tostring(raiz, xml_declaration=True, encoding="UTF-8",
+                                 standalone=True)
+    return True
+
+
+def _gravar_metadados(prs, ap, tema):
+    cp = prs.core_properties
+    titulo = ap["titulo"]
+    if tema is not None and tema.nome != "Modo padrão":
+        # o que o leitor de tela anuncia ao abrir (DisplayDocTitle vem ativo)
+        titulo = "%s — %s" % (titulo, tema.nome.lower())
+    cp.title = titulo
+    cp.author = ap["autor"]
+    cp.language = ap.get("idioma", "pt-BR")
+    cp.subject = ap.get("assunto", "")
+    cp.keywords = ap.get("palavras_chave", "")
+    cp.comments = ap.get("resumo", "")
+
+
+def construir_conjunto(roteiro, pasta, base, modos=MODOS, arquivo_unico=False):
+    """
+    Constroi um deck por modo e devolve {modo: caminho}.
+
+    Com `arquivo_unico=True` volta ao desenho antigo: um so arquivo, com
+    slide-hub e tres secoes. Fica disponivel porque ha quem precise entregar um
+    anexo unico — mas nao e mais o padrao, e o motivo esta no topo deste arquivo.
+    """
+    os.makedirs(pasta, exist_ok=True)
+    if arquivo_unico:
+        saida = os.path.join(pasta, base + ".pptx")
+        _construir_arquivo_unico(roteiro, saida)
+        return {"arquivo_unico": saida}
+
+    feitos = {}
+    for modo in modos:
+        saida = os.path.join(pasta, base + SUFIXO[modo] + ".pptx")
+        construir(roteiro, saida, modo)
+        feitos[modo] = saida
+    return feitos
+
+
+def _construir_arquivo_unico(roteiro, saida):
+    """O desenho legado: hub + tres secoes no mesmo .pptx."""
     validar_roteiro(roteiro)
     temas = carregar_temas()
     ap = roteiro["apresentacao"]
@@ -670,30 +744,20 @@ def construir(roteiro, saida, com_modos=False):
     prs = Presentation(MODELO)
     prs.slide_width, prs.slide_height = G.LARGURA, G.ALTURA
 
-    modos = ["padrao"] + (["alto_contraste", "daltonico"] if com_modos else [])
+    _montar_hub(prs, temas["padrao"], list(MODOS))
     indices = {}
-    if com_modos:
-        _montar_hub(prs, temas["padrao"], modos)
-
-    for modo in modos:
+    for modo in MODOS:
         tema = temas[modo]
+        # o sufixo existe SO aqui: sem ele, os titulos repetem no mesmo arquivo
         sufixo = "" if modo == "padrao" else " · %s" % tema.nome.replace("Modo ", "")
         primeiro = len(prs.slides._sldIdLst)
         for spec in roteiro["slides"]:
             montar_slide(prs, spec, tema, sufixo, modo)
         indices[modo] = (primeiro, len(prs.slides._sldIdLst) - 1)
 
-    cp = prs.core_properties
-    cp.title = ap["titulo"]
-    cp.author = ap["autor"]
-    cp.language = ap.get("idioma", "pt-BR")
-    cp.subject = ap.get("assunto", "")
-    cp.keywords = ap.get("palavras_chave", "")
-    cp.comments = ap.get("resumo", "")
-
+    _gravar_metadados(prs, ap, None)
     prs.save(saida)
-    if com_modos:
-        _gravar_secoes(saida, indices, temas)
+    _gravar_secoes(saida, indices, temas)
     return indices
 
 
@@ -711,7 +775,6 @@ def _montar_hub(prs, tema, modos):
     _linha_de_cartoes(slide, tema, itens,
                       G.CONTEUDO_Y + (G.CONTEUDO_H - h) // 2, h, "Modo")
     remover_placeholders_vazios(slide)
-    _faixa_rodape(slide, tema)
     slide.notes_slide.notes_text_frame.text = (
         "Os três modos têm exatamente o mesmo conteúdo. Muda só a paleta. "
         "Use as seções do arquivo para ir ao modo escolhido.")
@@ -761,27 +824,40 @@ def _gravar_secoes(caminho, indices, temas):
 def main():
     ap = argparse.ArgumentParser(description="Constroi um .pptx acessivel")
     ap.add_argument("roteiro")
-    ap.add_argument("-o", "--saida", default="deck.pptx")
-    ap.add_argument("--modos", action="store_true")
+    ap.add_argument("-o", "--saida", default="deck.pptx",
+                    help="arquivo de saida; com --todos-os-modos, prefixo")
+    ap.add_argument("--todos-os-modos", action="store_true",
+                    help="gera um arquivo por modo de cor (o padrao do pipeline)")
+    ap.add_argument("--modo", default="padrao", choices=list(MODOS))
+    ap.add_argument("--arquivo-unico", action="store_true",
+                    help="desenho legado: hub e tres secoes num arquivo so")
     args = ap.parse_args()
 
     try:
         roteiro = carregar_roteiro(args.roteiro)
-        indices = construir(roteiro, args.saida, args.modos)
+        if args.todos_os_modos or args.arquivo_unico:
+            pasta = os.path.dirname(os.path.abspath(args.saida))
+            base = os.path.splitext(os.path.basename(args.saida))[0]
+            feitos = construir_conjunto(roteiro, pasta, base,
+                                        arquivo_unico=args.arquivo_unico)
+        else:
+            feitos = {args.modo: construir(roteiro, args.saida, args.modo)}
     except ErroDeRoteiro as e:
         print("ERRO DE ROTEIRO: %s" % e)
         print("\nO build parou de proposito: o slide sairia inacessivel ou mal")
         print("composto. Corrija o ROTEIRO, nao o .pptx.")
         return 2
 
-    prs = Presentation(args.saida)
-    print("gerado: %s" % args.saida)
-    print("slides: %d" % len(prs.slides._sldIdLst))
-    if args.modos:
-        for modo, (i, f) in indices.items():
-            print("  %-16s slides %d a %d" % (modo, i + 1, f + 1))
+    for modo, caminho in feitos.items():
+        prs = Presentation(caminho)
+        print("%-16s %s (%d slides)"
+              % (modo, os.path.basename(caminho), len(prs.slides._sldIdLst)))
     print("\nAudite agora:")
-    print("  python scripts/audit_pptx.py %s --md relatorio.md" % args.saida)
+    for caminho in feitos.values():
+        print("  python scripts/audit_pptx.py %s --md relatorio.md" % caminho)
+    if len(feitos) > 1:
+        print("  python scripts/audit_pacote.py %s"
+              % " ".join(feitos.values()))
     return 0
 
 

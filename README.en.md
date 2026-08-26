@@ -146,7 +146,7 @@ photographs, colour used as the only carrier of meaning, colour blindness, alt t
 links, animation, target size, sign language, audio description, or anything in the exported
 PDF.
 
-This repository is the missing part: **108 auditable rules**, each with a stable ID, a
+This repository is the missing part: **113 auditable rules**, each with a stable ID, a
 severity, its source criterion, how to detect it and how to fix it.
 
 ---
@@ -161,8 +161,9 @@ severity, its source criterion, how to detect it and how to fix it.
   file name.
 - **The exported PDF's `/Lang` comes out as `pt`, not `pt-BR`.**
 - **The native checker cannot be automated**: no object model returns its results.
-- **`.pptx` has no runtime palette switching.** The macro-free answer is a hub slide backed
-  by Custom Shows.
+- **`.pptx` has no runtime palette switching.** A macro would require `.pptm`, which arrives
+  blocked by Mark-of-the-Web. The answer is **one file per colour mode**, built from the same
+  script and checked against each other.
 - **ABNT NBR 17060 covers mobile applications**, not documents — a frequent miscitation.
   NBR 17225:2025 is likewise web-scoped.
 - **The current edition of ABNT NBR 15290 is 2016** (reconfirmed 11 Dec 2025), yet the

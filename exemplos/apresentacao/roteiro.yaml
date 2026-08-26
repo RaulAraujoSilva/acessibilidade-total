@@ -13,7 +13,7 @@ apresentacao:
   palavras_chave: "acessibilidade, WCAG, PDF/UA, PowerPoint, Libras, audiodescrição, LBI"
   resumo: >
     Apresentação do projeto acessibilidade-total, uma skill de código aberto que
-    produz apresentações acessíveis por construção e as audita contra 108 regras.
+    produz apresentações acessíveis por construção e as audita contra 113 regras.
 
 slides:
   # ===================== ABERTURA =====================
@@ -26,17 +26,17 @@ slides:
       - "Raul Araujo Silva"
     notas: >
       Esta apresentação é sobre a ferramenta que a construiu. Ela foi gerada por
-      código a partir de um roteiro, auditada contra 108 regras e exportada em
+      código a partir de um roteiro, auditada contra 113 regras e exportada em
       PDF validado contra a ISO 14289. O relatório de auditoria acompanha a
       entrega.
 
   - titulo: "Acessibilidade deste material"
     conteudo:
       - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste em AAA (16,3:1)."
-      - "Entregue: alt text, ordem de leitura e três modos de cor."
-      - "Entregue: transcrição em .docx e PDF/UA validado no veraPDF."
-      - "Entregue: audiodescrição embutida, sem reprodução automática."
-      - "Entregue: janela de Libras em vídeo, com glosa automática."
+      - "Três arquivos de cor: padrão, alto contraste e daltônico-seguro."
+      - "Alt text, ordem de leitura conferida e transcrição linear em .docx."
+      - "Audiodescrição embutida em cada slide, sem reprodução automática."
+      - "Janela de Libras na capa deste arquivo, com glosa automática."
       - "NÃO entregue: revisão por intérprete, nem leitura por pessoa cega."
     notas: >
       Uma declaração de acessibilidade que só lista acertos é propaganda. A que
@@ -148,9 +148,9 @@ slides:
     titulo: "O que foi construído"
     cartoes:
       - titulo: "Catálogo"
-        texto: ["108 regras auditáveis", "em 14 camadas, de metadados a composição"]
+        texto: ["113 regras auditáveis", "em 15 camadas, de metadados a composição"]
       - titulo: "Auditor"
-        texto: ["Camadas A a I e N", "as demais saem como não verificadas"]
+        texto: ["Camadas A a I, N e O", "as demais saem como não verificadas"]
       - titulo: "Construtor"
         texto: ["Deck acessível por construção", "recusa roteiro que sairia errado"]
       - titulo: "Exportação"
@@ -160,19 +160,19 @@ slides:
       depois o construtor que já nasce obedecendo. Construir antes de saber o que
       seria verificado teria produzido mais um gerador de slides bonitos.
 
-  - titulo: "As 14 camadas do catálogo"
+  - titulo: "As 15 camadas do catálogo"
     tamanho: 19
     conteudo:
       - "Cada regra tem identificador estável, severidade e critério de origem."
       - "E também: como detectar e como corrigir."
-      - "As camadas A a I e N são automáticas; J a M dependem de mídia ou de pessoa."
+      - "As camadas A a I, N e O são automáticas; J a M dependem de mídia ou de pessoa."
     figura:
       nome: "Camadas do catálogo"
       arquivo:
         padrao: "figuras/camadas-catalogo-padrao.png"
         alto_contraste: "figuras/camadas-catalogo-alto_contraste.png"
         daltonico: "figuras/camadas-catalogo-daltonico.png"
-      alt: "As 14 camadas do catálogo, de metadados do documento até design e composição"
+      alt: "As 15 camadas do catálogo, de metadados do documento até design e composição"
       descricao_longa: >
         Lista vertical de treze camadas identificadas pelas letras A a M, com o
         número de regras de cada uma. A, documento e metadados, 6 regras. B,
@@ -181,7 +181,7 @@ slides:
         6. H, hiperlinks, 4. I, mídia, movimento e interação, 9. J, Libras e
         público surdo, 8. K, público cego e audiodescrição, 5. L, exportação e
         PDF/UA, 7. M, confirmação humana, 6 itens. N, design e composição, 10.
-        As camadas A a I e N são verificadas automaticamente; as camadas J a M
+        As camadas A a I, N e O são verificadas automaticamente; as camadas J a M
         dependem de mídia, do PDF ou de uma pessoa, e saem no relatório como não
         verificadas.
     notas: >
@@ -258,8 +258,9 @@ slides:
         um bloco por slide. Dois, diagramas gerados em HTML e convertidos em
         imagem, uma versão por paleta. Três, construção do arquivo, com
         placeholder, idioma, contraste e ordem de leitura já corretos. Quatro,
-        modos de cor: um hub e três seções no mesmo arquivo. Cinco, auditoria do
-        pptx contra as camadas A a I, exigindo zero erros e zero avisos. Seis,
+        modos de cor: um arquivo por modo, com o mesmo conteúdo nos três.
+        Cinco, auditoria do
+        pptx contra as camadas A a N, exigindo zero erros e zero avisos. Seis,
         exportação para PDF com marcas de estrutura. Sete, validação do PDF no
         veraPDF. Se um portão reprova, a correção volta para o estágio um.
     notas: >
@@ -291,17 +292,22 @@ slides:
       Link, Diretrizes WCAG 2.2 do W3C. Tabela, 3 linhas, 2 colunas. Linha de
       cabeçalho: Camada, Cobertura nativa.'
 
-  - titulo: "Três modos de cor no mesmo arquivo"
+  - titulo: "Três modos de cor, três arquivos"
     conteudo:
       - "Padrão, alto contraste e daltônico-seguro, com o mesmo conteúdo."
-      - "Um slide-hub e três seções paralelas, sem macro nenhuma."
-      - "O .pptx não permite trocar paleta durante a exibição."
-      - "Macro resolveria, mas vem bloqueada em arquivo baixado da internet."
+      - "Era um arquivo só, com um hub e três seções paralelas."
+      - "De 85 slides, 57 eram repetição — e a transcrição saía triplicada."
+      - "Quem enxerga escolhia no hub; quem lê em sequência pagava a conta."
       - "Conteúdo diferente por deficiência seria segregação, não acessibilidade."
     notas: >
-      A alternativa com macro exigiria .pptm, que chega com macro bloqueada por
-      Mark-of-the-Web e não funciona no PowerPoint Web. O hub com seções roda em
-      qualquer lugar.
+      A decisão foi revista em 26 de agosto de 2026, e o motivo é o público que
+      a repetição penalizava: quem navega em sequência atravessava o material
+      três vezes. O arquivo único economizava um anexo e cobrava isso. A troca
+      criou um risco novo, que as versões divergissem, e por isso nasceu a
+      camada O: ela compara texto, texto alternativo, notas e recursos das três
+      versões, slide a slide, e reprova a diferença. O modo fica no título do
+      documento, que é o que o leitor de tela anuncia ao abrir, e não no
+      conteúdo.
 
   # ===================== COMO USAR =====================
   - tipo: secao
@@ -359,7 +365,7 @@ slides:
     notas: >
       O carregamento é progressivo: o agente lê só o nome e a descrição da skill
       no início, e carrega o corpo e as referências apenas quando a tarefa pede.
-      É o que permite manter um catálogo de 108 regras sem ocupar contexto à toa.
+      É o que permite manter um catálogo de 113 regras sem ocupar contexto à toa.
 
   - titulo: "O que a ferramenta não faz"
     conteudo:
@@ -411,7 +417,7 @@ slides:
   - titulo: "Esta apresentação foi auditada por si mesma"
     conteudo:
       - "Gerada por código a partir do roteiro que a acompanha."
-      - "Auditada contra as camadas A a I e N, com zero erros e zero avisos."
+      - "Auditada contra as camadas A a I, N e O, com zero erros e zero avisos."
       - "Exportada em PDF com marcas de estrutura e identificador PDF/UA."
       - "Validada no veraPDF contra a ISO 14289, sem erros."
       - "O relatório de auditoria acompanha a entrega."

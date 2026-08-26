@@ -3,7 +3,7 @@
 > **É isto que o auditor procura.** Cada regra tem ID estável, severidade, critério de origem,
 > o que caracteriza a falha, como detectá-la e como corrigi-la.
 >
-> **Camadas:** A a I e N são automáticas · J a M dependem de mídia, do PDF ou de uma pessoa.
+> **Camadas:** A a I, N e O são automáticas · J a M dependem de mídia, do PDF ou de uma pessoa.
 >
 > **Severidade:** `E` Erro (bloqueia a entrega) · `A` Aviso (corrigir salvo justificativa
 > escrita) · `D` Dica (melhoria).
@@ -158,7 +158,7 @@
 | I04 | A | 2.2.2 | Mídia em autoplay e loop por mais de 5 segundos sem controle de parada | AUTO — `p:mediaNode` com loop e autoplay | Remover o autoplay ou dar controle |
 | I05 | E | 2.3.1 | Piscada mais de 3 vezes por segundo (transição "Flash", GIF piscante) | SEMI+HUM | Remover |
 | I06 | A | — | Animações e transições fora do conjunto sóbrio (fade, appear) | AUTO — inventário de `p:animEffect` e `p:transition` | Simplificar |
-| I07 | A | 2.5.8 | Alvo de clique do hub menor que 24×24 px CSS (228600 EMU) | AUTO | Ampliar o botão |
+| I07 | A | 2.5.8 | Alvo de clique com hiperlink menor que 24×24 px CSS (228600 EMU) | AUTO | Ampliar o alvo |
 | I08 | A | 2.4.11, 2.4.13 | Hiperlink de navegação coberto por outro objeto, ou sem indicador de foco visível | SEMI+HUM | Reposicionar; indicador com 3:1 |
 | I09 | A | 2.5.7 | Interação que depende de arrastar | HUM | Oferecer alternativa por clique único |
 
@@ -219,11 +219,45 @@
 | N08 | A | composição | Mais de 4 tamanhos de fonte ou 4 cores de texto no mesmo slide | AUTO | Reduzir a hierarquia: quando tudo é destaque, nada é |
 | N09 | E | 1.4.8 | `cap="all"` ou `cap="small"` herdado do layout ou do master | AUTO — `resolve_caps` | Remover a transformação no modelo. **A regra F06 não vê isto**: o texto no XML está em caixa mista |
 | N10 | A | composição | Figura com o menor lado abaixo de 6 cm | AUTO | Ampliar; figura larga precisa de mais colunas |
+| N11 | A | 1.3.2 | Forma decorativa repetida em 60% ou mais dos slides — mobília que deveria estar no **layout** | AUTO | Mover para o layout, com cor de tema. Marcar como decorativa **não basta**: o Verificador nativo lista a forma na ordem de leitura de cada slide assim mesmo |
+| N12 | A | composição | Texto que não cabe na própria caixa e transborda — **N02 mede a forma, não o que ela renderiza** | AUTO — altura estimada, margem de 25% | Aumentar a caixa no modelo, ou reduzir o texto |
+
+
+> **N11 veio do verificador nativo, não do código.** Em 26/08/2026 o Verificador de
+> Acessibilidade do PowerPoint apontou a faixa do rodapé e o filete de acento no painel de
+> ordem de leitura — em **todos** os slides. Estavam corretamente marcados como decorativos;
+> o problema era outro: forma desenhada no slide **existe na árvore do slide**. No layout ela
+> é cromo herdado, não entra no `spTree` e não há o que reordenar. A cor passa a vir do tema
+> (`accent1`), então cada modo de cor reescreve o `clrScheme` em vez de redesenhar a forma.
+> É a camada M pagando o que promete: nenhum script tinha visto isso.
 
 > **A cegueira que a camada N corrigiu.** As regras C02 (ordem visual) e F06 (caixa alta) liam
 > apenas o que estava no slide. Posição e transformação de caixa costumam vir do **layout**, e
 > por isso as duas passavam batido. Agora ambas usam `resolve_xfrm` e `resolve_caps`, com a
 > mesma cadeia de herança que já era usada para tamanho de fonte.
+
+## O — Pacote e versões paralelas
+
+> **Por que esta camada existe.** Os modos de cor deixaram de conviver num arquivo só e passaram
+> a ser **um arquivo por modo**. O desenho antigo — hub e três seções no mesmo `.pptx` — garantia
+> a paridade de graça, porque os três modos nasciam do mesmo laço. Em troca, punia justamente
+> quem navega em sequência: de 85 slides, 57 eram repetição, e a transcrição linear saía com o
+> conteúdo três vezes.
+>
+> Arquivos separados resolvem isso e criam um risco novo: **as versões podem divergir**. Como o
+> projeto inteiro se apoia em *ausência de evidência não é conformidade*, a paridade virou teste.
+>
+> Auditor: `scripts/audit_pacote.py`.
+
+| ID | Sev | Critério | O que caracteriza a falha | Detecção | Correção |
+|---|---|---|---|---|---|
+| O01 | E | 1.1.1, 1.3.1 | Versões paralelas com texto divergente — compara título, corpo, células de tabela, alt text e notas, slide a slide | AUTO | Reconstruir as versões a partir do **mesmo** roteiro; nunca editar uma delas à mão |
+| O02 | E | conteúdo equivalente | Recurso presente numa versão e ausente noutra (áudio embutido, figura, tabela) | AUTO | Repor o recurso: conteúdo diferente por deficiência é segregação, não acessibilidade |
+| O03 | A | 3.2.4 | Pacote sem arquivo que declare qual versão é qual e para quem | AUTO | `LEIA-ME.md` abrindo por **qual arquivo abrir e por quê** |
+
+> **O que não é divergência:** a paleta, que é o propósito das versões, e o título do documento
+> nas propriedades, que leva o nome do modo de propósito — é o que o leitor de tela anuncia ao
+> abrir o arquivo, e por isso fica fora da comparação.
 
 ## M — Confirmação humana (nenhuma entrega fecha sem esta camada)
 

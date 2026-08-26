@@ -225,7 +225,7 @@ Nome padrão (`Seção Padrão`, `Seção 1`) reprova em B07; nomes repetidos, e
 
 ---
 
-## 10. Apresentações Personalizadas (os modos de cor)
+## 10. Apresentações Personalizadas
 
 ```xml
 <p:custShowLst>
@@ -235,8 +235,13 @@ Nome padrão (`Seção Padrão`, `Seção 1`) reprova em B07; nomes repetidos, e
 </p:custShowLst>
 ```
 
-É o mecanismo escolhido para os três modos de exibição num único arquivo, sem macro. Via COM:
-`Presentation.SlideShowSettings.NamedSlideShows.Add(nome, indices)`.
+Via COM: `Presentation.SlideShowSettings.NamedSlideShows.Add(nome, indices)`.
+
+> **Registro de uma promessa que o código não cumpria.** Este projeto documentou por um tempo
+> que os modos de cor eram "três seções, cada uma registrada como Apresentação Personalizada".
+> `p:custShowLst` nunca foi gravado — a navegação era só por Seções (§9), e os cartões do hub
+> não tinham hiperlink nenhum. Hoje os modos são **arquivos separados** e nada disso é usado
+> por padrão; a receita fica porque continua sendo OOXML válido para quem precisar.
 
 ---
 

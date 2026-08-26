@@ -55,8 +55,12 @@ meia = CH // 2
 
 LAYOUTS = {
     0: ("Capa", {
-        0: (0, 8, G.cm(6.2), G.cm(4.6)),          # titulo grande
-        1: (0, 8, G.cm(11.2), G.cm(4.4)),         # subtitulo
+        # O subtitulo da capa leva 4 linhas (chamada, disciplina, programa,
+        # autor) e a 4a transbordava para dentro da faixa do rodape: a CAIXA
+        # terminava aos 15,6 cm, mas o TEXTO nao. Titulo mais alto e caixa de
+        # subtitulo com folga real.
+        0: (0, 8, G.cm(4.2), G.cm(3.4)),          # titulo grande
+        1: (0, 8, G.cm(8.2), G.cm(8.6)),          # subtitulo
     }),
     1: ("Título e conteúdo", {
         0: (0, 12, T, TH),
@@ -104,6 +108,77 @@ LAYOUTS = {
 
 
 # --------------------------------------------------------------------------
+# Mobilia decorativa: filete de acento e faixa do rodape
+#
+# Ela MORA NO LAYOUT, nao no slide. Desenhada slide a slide, a forma existe na
+# arvore do slide e o Verificador de Acessibilidade nativo a lista no painel de
+# ordem de leitura — mesmo marcada como decorativa. Foi o que ele acusou em
+# 26/08/2026: "faixa decorativa" e "faixa de acento decorativa" aparecendo em
+# todos os slides.
+#
+# No layout, ela e cromo herdado: nao entra no spTree do slide, nao aparece no
+# painel, e nao ha o que reordenar. A cor vem do TEMA (accent1), entao cada
+# modo de cor reescreve o clrScheme e a mobilia acompanha sem ser redesenhada.
+# --------------------------------------------------------------------------
+FILETE_FINO = G.cm(0.16)
+FILETE_GROSSO = G.cm(0.3)
+
+MOBILIA = {
+    "Capa":               [("filete", 0, 4, G.cm(3.2), FILETE_GROSSO)],
+    "Seção":              [("filete", 0, 3, G.cm(5.6), FILETE_GROSSO)],
+    "Citação":            [("filete", 0, 2, G.cm(4.6), FILETE_GROSSO)],
+    "Em branco":          [],
+}
+_FILETE_PADRAO = ("filete", 0, 2, T + TH + G.cm(0.2), FILETE_FINO)
+
+
+def mobiliar(layout, nome) -> int:
+    """
+    Poe o filete e a faixa do rodape no LAYOUT, com cor de tema.
+
+    `LayoutShapes` nao expoe `add_shape` — o python-pptx so monta formas em
+    slide. Como sao dois retangulos simples, o XML vai a mao.
+    """
+    itens = MOBILIA.get(nome, [_FILETE_PADRAO])
+    spTree = layout._element.find(A.q("p:cSld")).find(A.q("p:spTree"))
+    usados = [int(c.get("id")) for c in spTree.iter(A.q("p:cNvPr"))
+              if (c.get("id") or "").isdigit()]
+    proximo = (max(usados) + 1) if usados else 2
+    postos = 0
+
+    def _forma(x, y, larg, alt, rotulo, ident):
+        xml = (
+            '<p:sp xmlns:p="%s" xmlns:a="%s">'
+            '<p:nvSpPr><p:cNvPr id="%d" name="%s"/><p:cNvSpPr/><p:nvPr/>'
+            '</p:nvSpPr><p:spPr>'
+            '<a:xfrm><a:off x="%d" y="%d"/><a:ext cx="%d" cy="%d"/></a:xfrm>'
+            '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom>'
+            '<a:solidFill><a:schemeClr val="accent1"/></a:solidFill>'
+            '<a:ln><a:noFill/></a:ln>'
+            '</p:spPr></p:sp>'
+            % (A.NS["p"], A.NS["a"], ident, rotulo, x, y, larg, alt))
+        el = etree.fromstring(xml)
+        # decorativo tambem aqui: no layout ele ja e cromo herdado, mas a marca
+        # deixa a intencao explicita para quem abrir o modelo
+        A.set_decorative(el, True)
+        spTree.append(el)
+        return el
+
+    for item in itens:
+        if item[0] == "filete":
+            _, coluna, n, y, esp = item
+            _forma(G.x(coluna), y, G.larg(n), esp, "Filete de acento", proximo)
+            proximo += 1
+            postos += 1
+
+    if nome != "Em branco":
+        _forma(0, G.ALTURA - G.FAIXA_H, G.LARGURA, G.FAIXA_H,
+               "Faixa estética do rodapé", proximo)
+        proximo += 1
+        postos += 1
+    return postos
+
+
 def limpar_caixa_alta(el) -> int:
     """
     Remove cap="all" e cap="small" de qualquer defRPr/rPr.
@@ -280,13 +355,14 @@ def gerar(saida: str = SAIDA) -> dict:
     prs.slide_width, prs.slide_height = G.LARGURA, G.ALTURA
     master = prs.slide_masters[0]
 
-    caps = vert = geo = 0
+    caps = vert = geo = mob = 0
     for i, (nome, mapa) in LAYOUTS.items():
         layout = prs.slide_layouts[i]
         el = layout._element
         caps += limpar_caixa_alta(el)
         vert += horizontalizar(el)
         geo += aplicar_geometria(layout, mapa)
+        mob += mobiliar(layout, nome)
         if nome == "Cartões":
             montar_cartoes(layout)
         cSld = el.find(A.q("p:cSld"))
@@ -300,6 +376,7 @@ def gerar(saida: str = SAIDA) -> dict:
     os.makedirs(os.path.dirname(saida), exist_ok=True)
     prs.save(saida)
     return {"caps_removidos": caps, "vert_corrigidos": vert,
+            "mobilia_nos_layouts": mob,
             "placeholders_posicionados": geo, "cores_no_tema": cores}
 
 

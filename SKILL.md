@@ -48,7 +48,7 @@ Remediar depois é caro e frágil; nascer certo é barato.
 | Arquivo | Quando ler |
 |---|---|
 | `references/01-normas-e-legislacao.md` | Fundamentar; evitar as citações erradas (NBR 17060 e NBR 9050 **não** se aplicam a documento) |
-| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 108 regras em 14 camadas, com ID, severidade, detecção e correção |
+| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 113 regras em 15 camadas, com ID, severidade, detecção e correção |
 | `references/03-ferramentas-e-plugins.md` | Escolher ferramenta e saber o que ela não vê |
 | `references/04-ooxml-cookbook.md` | Mexer no XML: alt text, decorativo, ordem, tabela, tema |
 | `references/05-alt-text-e-audiodescricao.md` | Escrever alt text, descrição longa, roteiro de AD |
@@ -132,9 +132,12 @@ do Office**: ele traz `cap="all"` no layout de seção e posiciona o corpo acima
 explícita no `spTree`, metadados preenchidos.
 
 ### 4. Modos de exibição
-Slide-hub com hiperlinks para três seções paralelas — Padrão, Alto contraste, Daltônico-seguro —
-cada uma registrada como Apresentação Personalizada. Um arquivo, sem macro. Alvos de clique com
-no mínimo 24×24 px CSS (228600 EMU).
+**Um arquivo por modo** — Padrão, Alto contraste, Daltônico-seguro — gerados do mesmo roteiro
+por `construir_conjunto`. O modo vai para `cp.title` (o que o leitor de tela anuncia ao abrir),
+nunca para o conteúdo, e a **camada O** verifica que os três carregam o mesmo texto e os mesmos
+recursos. O desenho antigo, um arquivo com hub e três seções, sobrevive em `--arquivo-unico`:
+economizava um anexo e cobrava 57 slides de repetição de quem navega em sequência.
+Alvos de clique com no mínimo 24×24 px CSS (228600 EMU).
 
 ### 5. Enriquecer
 - Audiodescrição por slide (`gen_audiodesc.py`), com transcrição.

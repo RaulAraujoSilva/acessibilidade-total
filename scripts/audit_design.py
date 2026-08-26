@@ -59,10 +59,11 @@ def _area_interseccao(a, b):
 # ==========================================================================
 def auditar(prs, rep):
     for r in ("N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08",
-              "N09", "N10"):
+              "N09", "N10", "N11", "N12"):
         rep.check(r)
 
     topos_titulo = {}
+    mobilia = {}
 
     for i, slide in enumerate(prs.slides, 1):
         formas = []
@@ -89,6 +90,12 @@ def auditar(prs, rep):
         _n06_grade(i, formas, rep)
         _n08_variedade(slide, i, rep)
         _n10_figura_pequena(i, formas, rep)
+        _n12_texto_transborda(slide, i, formas, rep)
+
+        for f in formas:
+            if f["dec"] and f["box"]:
+                nome = A.shape_name(f["el"]) or ""
+                mobilia.setdefault(nome, {}).setdefault(f["box"], []).append(i)
 
         for f in formas:
             if f["titulo"] and f["box"]:
@@ -100,6 +107,7 @@ def auditar(prs, rep):
                 topos_titulo.setdefault(layout, []).append((i, f["box"][1]))
 
     _n07_titulo_consistente(topos_titulo, rep)
+    _n11_mobilia_no_slide(mobilia, len(prs.slides._sldIdLst), rep)
 
 
 # --------------------------------------------------------------------------
@@ -343,3 +351,80 @@ def _n10_figura_pequena(i, formas, rep):
                      "figura com menor lado de %.1f cm; abaixo de %.1f cm o "
                      "detalhe se perde na projeção"
                      % (_cm(menor), _cm(G.FIGURA_MIN)))
+
+
+def _n11_mobilia_no_slide(mobilia, total, rep):
+    """
+    Forma decorativa identica repetida em quase todo slide.
+
+    Veio do Verificador de Acessibilidade nativo, em 26/08/2026: mesmo marcada
+    como decorativa, a forma existe na arvore do slide e ele a lista no painel
+    de ordem de leitura, um item por slide. Ele acusou a faixa do rodape e o
+    filete de acento.
+
+    O lugar dela e o LAYOUT: la ela e cromo herdado, nao entra no spTree do
+    slide e nao ha o que reordenar. A cor vem do tema, entao cada modo de cor
+    reescreve o clrScheme em vez de redesenhar a forma.
+
+    Chaveia por NOME, nao por geometria: o filete de acento tem tres alturas
+    diferentes (capa, secao e conteudo) e mesmo assim e mobilia. Fundo de
+    cartao nao dispara porque so aparece nos slides de cartao, bem abaixo do
+    limite — a geometria dele depende do conteudo e ele nasce no slide mesmo.
+    """
+    if total < 4:
+        return
+    for nome, por_caixa in mobilia.items():
+        quantos = sum(len(v) for v in por_caixa.values())
+        if quantos < max(4, int(total * 0.6)):
+            continue
+        formas = ("mesma geometria" if len(por_caixa) == 1
+                  else "%d geometrias fixas" % len(por_caixa))
+        rep.fail("N11", "A", "design", "%d slides" % quantos,
+                 "forma decorativa %r repetida em %d de %d slides (%s) — mova "
+                 "para o layout: o verificador nativo a lista na ordem de "
+                 "leitura de cada slide"
+                 % (nome or "sem nome", quantos, total, formas))
+
+
+def _n12_texto_transborda(slide, i, formas, rep):
+    """
+    Texto que nao cabe na propria caixa.
+
+    A caixa pode estar dentro da area segura e o TEXTO nao: a capa deste
+    projeto tinha o subtitulo terminando aos 15,6 cm e a quarta linha caindo
+    dentro da faixa do rodape. N02 mede a forma, nao o que ela renderiza, e por
+    isso aprovou.
+
+    A altura e estimada, nao medida — so o PowerPoint sabe compor de verdade.
+    Por isso a margem e generosa (25%) e a severidade e Aviso: melhor deixar
+    passar um caso apertado do que acusar meio deck sem razao.
+    """
+    CM_POR_PT = 0.03528
+    for f in formas:
+        if f["dec"] or not f["box"]:
+            continue
+        el = f["el"]
+        if A.media_kind(el) or el.tag != A.q("p:sp"):
+            continue
+        larg, alt = f["box"][2], f["box"][3]
+        if not larg or not alt:
+            continue
+        precisa = 0.0
+        for p_el, _ in A.iter_all_paragraphs(el):
+            texto = "".join(r.text or "" for r in p_el.iter(A.q("a:t")))
+            if not texto.strip():
+                continue
+            r_el = next(iter(p_el.iter(A.q("a:r"))), None)
+            sz, _ = A.resolve_font_size(slide, el, p_el, r_el)
+            pt = (sz / 100.0) if sz else 18.0
+            largura_cm = larg / G.cm(1)
+            por_linha = max(8, int(largura_cm / (pt * CM_POR_PT * 0.5)))
+            linhas = max(1, -(-len(texto) // por_linha))
+            espaco = A.paragraph_props(p_el).get("line_pct") or 100000
+            precisa += linhas * pt * CM_POR_PT * (espaco / 100000.0) * 1.2
+        if precisa and precisa > (alt / G.cm(1)) * 1.25:
+            rep.fail("N12", "A", "design", _onde(i, el),
+                     "o texto precisa de cerca de %.1f cm e a caixa tem %.1f cm "
+                     "— ele transborda, e N02 nao ve isso porque mede a forma, "
+                     "nao o que ela renderiza"
+                     % (precisa, alt / G.cm(1)))

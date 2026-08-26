@@ -8,23 +8,32 @@ Espera na pasta de entrada:
     diagramas.yaml   opcional
 
 Produz na pasta de saida:
-    figuras/                 diagramas, uma versao por paleta
-    <nome>.pptx              o deck, com hub e tres modos de cor
-    auditoria-pptx.md        camadas A a I
-    leitura-simulada.md      o que o leitor de tela anunciaria
-    transcricao.docx         transcricao linear (regra K04)
-    <nome>.pdf               PDF marcado, com identificador PDF/UA
-    auditoria-pdf.md         camada L, incluindo veraPDF
+    figuras/                      diagramas, uma versao por paleta
+    <nome>-padrao.pptx            um deck POR MODO DE COR, com o mesmo conteudo
+    <nome>-alto-contraste.pptx
+    <nome>-daltonico-seguro.pptx
+    auditoria-pptx-<modo>.md      camadas A a N, do arquivo como entregue
+    auditoria-pacote.md           camada O: paridade entre as tres versoes
+    leitura-simulada.md           o que o leitor de tela anunciaria
+    transcricao.docx              transcricao linear (regra K04)
+    <nome>-padrao.pdf             PDF marcado, com identificador PDF/UA
+    auditoria-pdf.md              camada L, incluindo veraPDF
 
-O portao do estagio 5 PARA o pipeline se sobrar Erro ou Aviso. Isso e
-proposital: exportar um PDF a partir de um .pptx reprovado so propaga o
+UM ARQUIVO POR MODO e o padrao desde 26/08/2026. Antes eram tres secoes num
+arquivo so, com um slide-hub: 85 slides, dos quais 57 eram o mesmo conteudo em
+outra paleta. Quem enxerga escolhia a paleta no hub e ignorava o resto; quem
+navega em sequencia atravessava tudo tres vezes — e a transcricao linear, que e
+o artefato que mais importa para quem le assim, saia triplicada. `--arquivo-unico`
+volta ao desenho antigo para quem precisa entregar um anexo so.
+
+O portao do estagio 3 PARA o pipeline se sobrar Erro ou Aviso em QUALQUER deck.
+Isso e proposital: exportar um PDF a partir de um .pptx reprovado so propaga o
 defeito para o formato em que o material de fato circula.
 """
 from __future__ import annotations
 
 import argparse
 import os
-import shutil
 import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -42,13 +51,41 @@ def titulo(n, texto):
     print("=" * 74)
 
 
+def _auditar_deck(pptx, saida, rotulo):
+    """Audita um deck e grava o relatorio. Devolve (contagem, caminho_md)."""
+    from audit_pptx import audit as auditar_pptx
+    from audit_pptx import render_markdown
+
+    rep = auditar_pptx(pptx)
+    md = os.path.join(saida, "auditoria-pptx-%s.md" % rotulo)
+    with open(md, "w", encoding="utf-8") as f:
+        f.write(render_markdown(rep, pptx))
+    return rep, md
+
+
+def _mostrar(rep, md):
+    from audit_pptx import NAO_CONFORME
+
+    c = rep.counts()
+    print("   %d Erros · %d Avisos · %d Dicas · %d nao verificados"
+          % (c.get("E", 0), c.get("A", 0), c.get("D", 0),
+             c.get("nao_verificado", 0)))
+    print("   %s" % os.path.basename(md))
+    if c.get("E", 0) or c.get("A", 0):
+        for f_ in [x for x in rep.findings if x["veredito"] == NAO_CONFORME][:8]:
+            print("      %s %s | %s | %s"
+                  % (f_["severidade"], f_["regra"], f_["onde"],
+                     f_["detalhe"][:70]))
+    return c
+
+
 def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
-           parar_no_portao=True, com_diagramas=True) -> int:
+           parar_no_portao=True, com_diagramas=True, arquivo_unico=False,
+           pasta_audio=None, pdf_todos_os_modos=False,
+           video_libras=None) -> int:
     import build_deck
     import gen_transcricao
     import simular_leitura
-    from audit_pptx import audit as auditar_pptx
-    from audit_pptx import render_markdown
 
     entrada, saida = os.path.abspath(entrada), os.path.abspath(saida)
     os.makedirs(saida, exist_ok=True)
@@ -73,16 +110,19 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
         titulo(1, "Diagramas — nenhum diagramas.yaml, pulando")
 
     # ---- 2. construcao ---------------------------------------------------
-    titulo(2, "Construcao do .pptx")
+    titulo(2, "Construcao dos .pptx" if not arquivo_unico
+           else "Construcao do .pptx (arquivo unico, desenho legado)")
     roteiro = build_deck.carregar_roteiro(roteiro_arq)
     nome_base = "".join(c for c in roteiro["apresentacao"]["titulo"][:48]
                         if c.isalnum() or c in " -_").strip().replace(" ", "-")
-    pptx = os.path.join(saida, nome_base + ".pptx")
 
+    modos = build_deck.MODOS if com_modos else ("padrao",)
     anterior = os.getcwd()
     try:
         os.chdir(saida)   # os caminhos de figura no roteiro sao relativos
-        build_deck.construir(roteiro, pptx, com_modos=com_modos)
+        feitos = build_deck.construir_conjunto(
+            roteiro, saida, nome_base, modos=modos,
+            arquivo_unico=arquivo_unico)
     except build_deck.ErroDeRoteiro as e:
         print("\nERRO DE ROTEIRO: %s" % e)
         print("\nO build parou de proposito. Corrija o ROTEIRO, nao o .pptx.")
@@ -91,53 +131,51 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
         os.chdir(anterior)
 
     from pptx import Presentation
-    print("   %s" % os.path.basename(pptx))
-    print("   %d slides" % len(Presentation(pptx).slides._sldIdLst))
+    for modo, caminho in feitos.items():
+        print("   %-16s %s (%d slides)"
+              % (modo, os.path.basename(caminho),
+                 len(Presentation(caminho).slides._sldIdLst)))
 
-    # ---- 3. auditoria do .pptx ------------------------------------------
-    titulo(3, "Auditoria do .pptx (camadas A a I)")
-    rep = auditar_pptx(pptx)
-    md = os.path.join(saida, "auditoria-pptx.md")
-    with open(md, "w", encoding="utf-8") as f:
-        f.write(render_markdown(rep, pptx))
-    c = rep.counts()
-    print("   %d Erros · %d Avisos · %d Dicas · %d nao verificados"
-          % (c.get("E", 0), c.get("A", 0), c.get("D", 0),
-             c.get("nao_verificado", 0)))
-    print("   %s" % os.path.basename(md))
+    principal = feitos.get("padrao") or list(feitos.values())[0]
 
-    if (c.get("E", 0) or c.get("A", 0)):
-        from audit_pptx import NAO_CONFORME
-        print("\n   PORTAO FECHADO — nao conformidades em aberto:")
-        for f_ in [x for x in rep.findings if x["veredito"] == NAO_CONFORME][:15]:
-            print("      %s %s | %s | %s"
-                  % (f_["severidade"], f_["regra"], f_["onde"], f_["detalhe"][:70]))
-        if parar_no_portao:
-            print("\n   Exportar PDF a partir daqui so propaga o defeito.")
-            print("   Corrija o roteiro e rode de novo.")
-            return 1
+    # ---- 3. auditoria de cada deck ---------------------------------------
+    titulo(3, "Auditoria dos .pptx (camadas A a N)")
+    reprovado = False
+    for modo, caminho in feitos.items():
+        print("   -- %s" % os.path.basename(caminho))
+        rep, md = _auditar_deck(caminho, saida, modo)
+        c = _mostrar(rep, md)
+        reprovado = reprovado or bool(c.get("E", 0) or c.get("A", 0))
 
-    # ---- 4. leitura simulada --------------------------------------------
-    titulo(4, "Leitura simulada")
-    prs = Presentation(pptx)
+    if reprovado and parar_no_portao:
+        print("\n   PORTAO FECHADO — exportar PDF daqui so propaga o defeito.")
+        print("   Corrija o roteiro e rode de novo.")
+        return 1
+
+    # ---- 4. leitura simulada (so no deck principal) ----------------------
+    # As versoes carregam o mesmo conteudo — a camada O verifica isso. Simular
+    # a leitura das tres so encheria o relatorio de repeticao, que e exatamente
+    # o defeito que a separacao veio corrigir.
+    titulo(4, "Leitura simulada (modo padrão)")
+    prs = Presentation(principal)
     slides = list(prs.slides)
     blocos = [simular_leitura.simular_slide(s, i, len(slides))
               for i, s in enumerate(slides, 1)]
     leitura = os.path.join(saida, "leitura-simulada.md")
     with open(leitura, "w", encoding="utf-8") as f:
-        f.write("# Leitura simulada — %s\n\n" % os.path.basename(pptx))
+        f.write("# Leitura simulada — %s\n\n" % os.path.basename(principal))
         f.write("O que um leitor de tela anunciaria, na ordem em que anunciaria.\n"
                 "Modelo do comportamento, nao o comportamento: nao substitui a "
                 "regra K03.\n\n")
         for b in blocos:
             f.write("```\n" + "\n".join(b) + "\n```\n\n")
-    print("   %s" % os.path.basename(leitura))
+    print("   %d slides · %s" % (len(slides), os.path.basename(leitura)))
 
-    # ---- 5. transcricao --------------------------------------------------
+    # ---- 5. transcricao ---------------------------------------------------
     titulo(5, "Transcricao linear (.docx)")
     docx = os.path.join(saida, "transcricao.docx")
     try:
-        cont = gen_transcricao.gerar(pptx, docx)
+        cont = gen_transcricao.gerar(principal, docx)
         print("   %d slides · %d figuras · %d tabelas · %d descricoes longas"
               % (cont["slides"], cont["figuras"], cont["tabelas"],
                  cont["descricoes_longas"]))
@@ -145,43 +183,116 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
     except ImportError:
         print("   python-docx ausente — transcricao NAO gerada (regra K04)")
 
+    codigo = 0
+
     # ---- 6 e 7. PDF ------------------------------------------------------
     if not com_pdf:
         print("\n   PDF pulado por opcao (--sem-pdf)")
-        return 0
+    else:
+        alvos = list(feitos.values()) if pdf_todos_os_modos else [principal]
+        titulo(6, "Exportacao para PDF marcado")
+        pdfs = []
+        try:
+            import export_pdfua
+            for caminho in alvos:
+                pdf = os.path.splitext(caminho)[0] + ".pdf"
+                export_pdfua.exportar(caminho, pdf)
+                cp = Presentation(caminho).core_properties
+                r = export_pdfua.corrigir_metadados(
+                    pdf, titulo=(cp.title or "").strip() or None,
+                    idioma=(cp.language or "pt-BR").strip(),
+                    autor=(cp.author or "").strip() or None)
+                if r["estrutura_preservada"]:
+                    export_pdfua.marcar_pdfua(pdf, (cp.title or "").strip(),
+                                              (cp.author or "").strip(),
+                                              (cp.language or "pt-BR").strip())
+                    print("   %s · /Lang %r -> %r · identificador PDF/UA-1"
+                          % (os.path.basename(pdf), r["antes"]["Lang"],
+                             r["depois"]["Lang"]))
+                pdfs.append(pdf)
+        except Exception as e:
+            print("   exportacao indisponivel: %s" % e)
+            print("   (exige Windows com PowerPoint instalado)")
+            # Falha de exportacao nao pode sair com o mesmo codigo de sucesso:
+            # num pipeline em laco, o silencio se multiplica.
+            codigo = 3
 
-    titulo(6, "Exportacao para PDF marcado")
-    try:
-        import export_pdfua
-        pdf = os.path.splitext(pptx)[0] + ".pdf"
-        export_pdfua.exportar(pptx, pdf)
-        cp = Presentation(pptx).core_properties
-        r = export_pdfua.corrigir_metadados(
-            pdf, titulo=(cp.title or "").strip() or None,
-            idioma=(cp.language or "pt-BR").strip(),
-            autor=(cp.author or "").strip() or None)
-        print("   /Lang  %r -> %r" % (r["antes"]["Lang"], r["depois"]["Lang"]))
-        if r["estrutura_preservada"]:
-            export_pdfua.marcar_pdfua(pdf, (cp.title or "").strip(),
-                                      (cp.author or "").strip(),
-                                      (cp.language or "pt-BR").strip())
-            print("   identificador PDF/UA-1 gravado")
-        print("   %s" % os.path.basename(pdf))
-    except Exception as e:
-        print("   exportacao indisponivel: %s" % e)
-        print("   (exige Windows com PowerPoint instalado)")
-        return 0
+        if pdfs:
+            titulo(7, "Validacao do PDF (camada L)")
+            import audit_pdf
+            for pdf in pdfs:
+                rep_pdf = audit_pdf.auditar(pdf)
+                sufixo = "" if len(pdfs) == 1 else "-" + os.path.splitext(
+                    os.path.basename(pdf))[0].rsplit("-", 1)[-1]
+                md_pdf = os.path.join(saida, "auditoria-pdf%s.md" % sufixo)
+                with open(md_pdf, "w", encoding="utf-8") as f:
+                    f.write(audit_pdf.render(rep_pdf, pdf))
+                cp2 = rep_pdf.counts()
+                print("   %s · %d Erros · %d Avisos · %d nao verificados"
+                      % (os.path.basename(md_pdf), cp2.get("E", 0),
+                         cp2.get("A", 0), cp2.get("nao_verificado", 0)))
+                if cp2.get("E", 0) or cp2.get("A", 0):
+                    codigo = codigo or 1
 
-    titulo(7, "Validacao do PDF (camada L)")
-    import audit_pdf
-    rep_pdf = audit_pdf.auditar(pdf)
-    md_pdf = os.path.join(saida, "auditoria-pdf.md")
-    with open(md_pdf, "w", encoding="utf-8") as f:
-        f.write(audit_pdf.render(rep_pdf, pdf))
-    cp2 = rep_pdf.counts()
-    print("   %d Erros · %d Avisos · %d nao verificados"
-          % (cp2.get("E", 0), cp2.get("A", 0), cp2.get("nao_verificado", 0)))
-    print("   %s" % os.path.basename(md_pdf))
+    # ---- 8 e 9. midia embutida + reauditoria ------------------------------
+    if video_libras:
+        titulo(8, "Janela de Libras embutida na capa (em TODOS os modos)")
+        try:
+            import embutir_libras
+            for modo, caminho in feitos.items():
+                r = embutir_libras.embutir(caminho, video_libras)
+                print("   %-16s slide %d · %.1f × %.1f cm"
+                      % (modo, r["slide"], r["caixa_cm"][0], r["caixa_cm"][1]))
+        except Exception as e:
+            print("   Libras nao embutida: %s" % e)
+            codigo = codigo or 3
+
+    if pasta_audio:
+        titulo(9, "Audiodescricao embutida (em TODOS os modos)")
+        # Nos tres, sem excecao: um deck sem audio seria conteudo diferente
+        # por deficiencia, que e o que a regra O02 existe para impedir.
+        try:
+            import embutir_audio
+            for modo, caminho in feitos.items():
+                r = embutir_audio.embutir(caminho, pasta_audio)
+                print("   %-16s %d slides · %.1f MB"
+                      % (modo, r["slides_com_audio"], r["bytes"] / 1048576))
+        except Exception as e:
+            print("   audio nao embutido: %s" % e)
+            print("   (exige Windows com PowerPoint instalado)")
+            codigo = codigo or 3
+
+    # Reauditar depois de embutir midia nao e zelo: o audio ja quebrou C01, C02
+    # e N04 uma vez, porque o controle entrava no fim do spTree. O relatorio que
+    # vale e o do arquivo COMO ENTREGUE, nao o de antes da midia.
+    if video_libras or pasta_audio:
+        titulo(10, "Reauditoria dos arquivos COMO ENTREGUES")
+        for modo, caminho in feitos.items():
+            print("   -- %s" % os.path.basename(caminho))
+            rep, md = _auditar_deck(caminho, saida, modo)
+            c = _mostrar(rep, md)
+            if c.get("E", 0) or c.get("A", 0):
+                codigo = codigo or 1
+
+    # ---- 10. paridade entre as versoes -----------------------------------
+    if len(feitos) > 1:
+        titulo(11, "Paridade entre as versoes (camada O)")
+        import audit_pacote
+        rep_p = audit_pacote.auditar(list(feitos.values()), saida)
+        md_p = os.path.join(saida, "auditoria-pacote.md")
+        with open(md_p, "w", encoding="utf-8") as f:
+            f.write(audit_pacote.render(rep_p, saida))
+        cp3 = rep_p.counts()
+        print("   %d Erros · %d Avisos · %d nao verificados"
+              % (cp3.get("E", 0), cp3.get("A", 0),
+                 cp3.get("nao_verificado", 0)))
+        print("   %s" % os.path.basename(md_p))
+        for f_ in rep_p.findings[:6]:
+            if f_["veredito"] == audit_pacote.NAO_CONFORME:
+                print("      %s %s | %s" % (f_["severidade"], f_["regra"],
+                                            f_["detalhe"][:70]))
+        if cp3.get("E", 0) or cp3.get("A", 0):
+            codigo = codigo or 1
 
     print("\n" + "=" * 74)
     print(" Pacote em %s" % saida)
@@ -192,23 +303,37 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
     print("   - Escala de cinza do Windows (Win+Ctrl+C)")
     print("   - Simulacao de protanopia, deuteranopia e tritanopia")
     print("   - Leitura de todo alt text, um a um")
-    return 1 if (cp2.get("E", 0) or cp2.get("A", 0)) else 0
+    return codigo
 
 
 def main():
     ap = argparse.ArgumentParser(description="Roda o pipeline completo")
     ap.add_argument("entrada", help="pasta com roteiro.yaml e diagramas.yaml")
     ap.add_argument("-o", "--saida", default="entrega")
-    ap.add_argument("--sem-modos", action="store_true")
+    ap.add_argument("--sem-modos", action="store_true",
+                    help="gera so o modo padrao")
+    ap.add_argument("--arquivo-unico", action="store_true",
+                    help="desenho legado: hub e tres secoes num arquivo so")
     ap.add_argument("--sem-pdf", action="store_true")
+    ap.add_argument("--pdf-todos-os-modos", action="store_true",
+                    help="exporta um PDF por modo, nao so o padrao")
+    ap.add_argument("--com-libras", metavar="VIDEO",
+                    help="embute a janela de Libras na capa de TODOS os modos")
+    ap.add_argument("--com-audio", metavar="PASTA",
+                    help="embute a audiodescricao dessa pasta em TODOS os modos")
     ap.add_argument("--sem-diagramas", action="store_true",
                     help="reaproveita as figuras da pasta de saída")
     ap.add_argument("--seguir-mesmo-reprovado", action="store_true")
     args = ap.parse_args()
+
     return montar(args.entrada, args.saida,
                   com_modos=not args.sem_modos,
                   com_pdf=not args.sem_pdf,
                   com_diagramas=not args.sem_diagramas,
+                  arquivo_unico=args.arquivo_unico,
+                  pasta_audio=args.com_audio,
+                  video_libras=args.com_libras,
+                  pdf_todos_os_modos=args.pdf_todos_os_modos,
                   parar_no_portao=not args.seguir_mesmo_reprovado)
 
 

@@ -187,7 +187,7 @@ como único meio de informação, daltonismo, qualidade do texto alternativo (ac
 `foto1.png` como descrição válida), descrição longa, links "clique aqui", animação, alvo de
 clique, Libras, audiodescrição, nem qualquer coisa do PDF exportado.
 
-Este repositório é o que falta: **108 regras auditáveis**, cada uma com ID estável,
+Este repositório é o que falta: **113 regras auditáveis**, cada uma com ID estável,
 severidade, critério de origem, como detectar e como corrigir.
 
 ---
@@ -196,8 +196,8 @@ severidade, critério de origem, como detectar e como corrigir.
 
 | | |
 |---|---|
-| **Catálogo de auditoria** | 14 camadas, 108 regras — de metadados a PDF/UA, confirmação humana e composição |
-| **Auditor automático** | Camadas A a I e N; as demais saem como *não verificado*, nunca aprovadas sem evidência |
+| **Catálogo de auditoria** | 15 camadas, 113 regras — de metadados a PDF/UA, confirmação humana e composição |
+| **Auditor automático** | Camadas A a I, N e O; as demais saem como *não verificado*, nunca aprovadas sem evidência |
 | **Construtor** | Gera o deck a partir de um roteiro YAML e **recusa** o que produziria slide inacessível |
 | **Exportação PDF/UA** | Corrige o que o PowerPoint erra e grava o identificador PDF/UA-1 |
 | **Simulador de leitura** | O que o leitor de tela anunciaria, sem instalar leitor de tela |
@@ -218,8 +218,9 @@ severidade, critério de origem, como detectar e como corrigir.
 - **O `/Lang` do PDF exportado sai como `pt`, não `pt-BR`.**
 - **O verificador nativo não é automatizável**: não existe objeto de automação que devolva
   seus resultados.
-- **`.pptx` não tem troca de paleta em tempo de exibição.** A solução sem macro é um hub
-  com Apresentações Personalizadas.
+- **`.pptx` não tem troca de paleta em tempo de exibição.** Macro exigiria `.pptm`, que chega
+  bloqueado por Mark-of-the-Web. A saída é **um arquivo por modo de cor**, gerados do mesmo
+  roteiro e verificados um contra o outro.
 - **ABNT NBR 17060 é sobre aplicativos móveis**, não sobre documentos — citação errada
   frequente. A NBR 17225:2025 também é de escopo web.
 - **A NBR 15290 vigente é a de 2016** (confirmada em 11.12.2025), mas a que circula na
@@ -244,7 +245,7 @@ de um arquivo reprovado só propaga o defeito.
 
 ```bash
 # construir a partir de um roteiro declarativo
-python scripts/build_deck.py roteiro.yaml -o deck.pptx --modos
+python scripts/build_deck.py roteiro.yaml -o deck.pptx --todos-os-modos
 
 # auditar
 python scripts/audit_pptx.py deck.pptx --md relatorio.md --json achados.json
@@ -292,7 +293,7 @@ auditar.bat                           arraste um .pptx para cima
 requirements.txt                      dependências, cada uma explicada
 SKILL.md                              roteiro operacional (Claude Code)
 references/01-normas-e-legislacao.md  fundamentação e armadilhas de citação
-references/02-catalogo-auditoria.md   ← o coração: as 108 regras
+references/02-catalogo-auditoria.md   ← o coração: as 113 regras
 references/03-ferramentas-e-plugins.md
 references/04-ooxml-cookbook.md
 references/05-alt-text-e-audiodescricao.md
