@@ -48,7 +48,7 @@ Remediar depois é caro e frágil; nascer certo é barato.
 | Arquivo | Quando ler |
 |---|---|
 | `references/01-normas-e-legislacao.md` | Fundamentar; evitar as citações erradas (NBR 17060 e NBR 9050 **não** se aplicam a documento) |
-| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 114 regras em 15 camadas, com ID, severidade, detecção e correção |
+| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 117 regras em 15 camadas, com ID, severidade, detecção e correção |
 | `references/03-ferramentas-e-plugins.md` | Escolher ferramenta e saber o que ela não vê |
 | `references/04-ooxml-cookbook.md` | Mexer no XML: alt text, decorativo, ordem, tabela, tema |
 | `references/05-alt-text-e-audiodescricao.md` | Escrever alt text, descrição longa, roteiro de AD |
@@ -110,10 +110,22 @@ o defeito para o formato em que o material de fato circula.
 Identificar o conteúdo-fonte, o público, o meio (projeção, distribuição, ambos) e o entregável
 final. Definir o nível alvo — padrão: **WCAG 2.2 AA**, com AAA no contraste de texto.
 
-### 1. Roteirizar
-Derivar do material-fonte a lista de slides, cada um com: título **único**, mensagem única,
-elementos visuais previstos. Aplicar aqui o sufixo de continuidade (`(1 de 3)`) — depois é
-retrabalho.
+### 1. Roteirizar — ou **importar**
+O ponto de partida real quase nunca é um roteiro em branco: é um `.pptx` que precisa ficar
+acessível, ou um texto que precisa virar apresentação. `scripts/importar.py` cobre os dois:
+
+```bash
+python scripts/importar.py apresentacao.pptx -o pasta/   # recupera título, texto,
+python scripts/importar.py texto.md          -o pasta/   # tabela, figura e notas
+```
+
+Ele **não inventa conteúdo**: o que falta sai como `[FALTA: ...]` e o build recusa o roteiro
+enquanto o marcador estiver lá. Alt text adivinhado passa despercebido; a ausência dele, não.
+
+Escrevendo do zero: cada slide com título **único**, mensagem única, elementos visuais previstos,
+e a **`mensagem_chave`** — uma frase que resume o slide. Ela alimenta os perfis de público e é o
+que a regra O04 compara entre versões. Aplicar aqui o sufixo de continuidade (`(1 de 3)`) —
+depois é retrabalho.
 
 ### 2. Figuras
 Gerar as ilustrações (`scripts/gen_images.py`, gpt-image-2). Para cada figura, escrever **no

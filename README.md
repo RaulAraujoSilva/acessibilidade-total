@@ -187,7 +187,7 @@ como único meio de informação, daltonismo, qualidade do texto alternativo (ac
 `foto1.png` como descrição válida), descrição longa, links "clique aqui", animação, alvo de
 clique, Libras, audiodescrição, nem qualquer coisa do PDF exportado.
 
-Este repositório é o que falta: **114 regras auditáveis**, cada uma com ID estável,
+Este repositório é o que falta: **117 regras auditáveis**, cada uma com ID estável,
 severidade, critério de origem, como detectar e como corrigir.
 
 ---
@@ -196,7 +196,7 @@ severidade, critério de origem, como detectar e como corrigir.
 
 | | |
 |---|---|
-| **Catálogo de auditoria** | 15 camadas, 114 regras — de metadados a PDF/UA, confirmação humana e composição |
+| **Catálogo de auditoria** | 15 camadas, 117 regras — de metadados a PDF/UA, confirmação humana e composição |
 | **Auditor automático** | Camadas A a I, N e O; as demais saem como *não verificado*, nunca aprovadas sem evidência |
 | **Construtor** | Gera o deck a partir de um roteiro YAML e **recusa** o que produziria slide inacessível |
 | **Exportação PDF/UA** | Corrige o que o PowerPoint erra e grava o identificador PDF/UA-1 |
@@ -293,7 +293,7 @@ auditar.bat                           arraste um .pptx para cima
 requirements.txt                      dependências, cada uma explicada
 SKILL.md                              roteiro operacional (Claude Code)
 references/01-normas-e-legislacao.md  fundamentação e armadilhas de citação
-references/02-catalogo-auditoria.md   ← o coração: as 114 regras
+references/02-catalogo-auditoria.md   ← o coração: as 117 regras
 references/03-ferramentas-e-plugins.md
 references/04-ooxml-cookbook.md
 references/05-alt-text-e-audiodescricao.md

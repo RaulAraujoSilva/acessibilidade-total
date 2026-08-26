@@ -22,6 +22,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -52,6 +53,41 @@ MODOS = ("padrao", "alto_contraste", "daltonico")
 SUFIXO = {"padrao": "-padrao",
           "alto_contraste": "-alto-contraste",
           "daltonico": "-daltonico-seguro"}
+
+# ------------------------------------------------------------------------
+# O segundo eixo: PERFIL DE PUBLICO
+#
+# Modo de cor troca a paleta e nada mais. Perfil troca o REGISTRO do texto —
+# e por isso precisa de um teste que o modo nao precisava, para nao virar
+# "versao pior para deficiente". As cinco condicoes estao em
+# references/10-versoes-por-publico.md e viram as regras O04 a O06.
+#
+# libras         quem tem Libras como PRIMEIRA lingua. A LBI 13.146/2015, no
+#                art. 28 IV, fala em "Libras como primeira língua e na
+#                modalidade escrita da língua portuguesa como segunda língua".
+#                Texto reduzido a mensagem-chave e janela de Libras em TODO
+#                slide, com a faixa reservada no layout.
+# leitura_facil  deficiencia cognitiva e TDAH. Uma ideia por slide.
+#                NAO ha norma brasileira de Leitura Facil — a NBR ISO 24495-1
+#                e de Linguagem Simples e diz, por escrito, que sao coisas
+#                diferentes. A referencia e Inclusion Europe e IFLA.
+# ------------------------------------------------------------------------
+PERFIS = ("completo", "libras", "leitura_facil")
+SUFIXO_PERFIL = {"completo": "", "libras": "-libras",
+                 "leitura_facil": "-leitura-facil"}
+ROTULO_PERFIL = {
+    "completo": "completo",
+    "libras": "Libras como primeira língua",
+    "leitura_facil": "leitura fácil",
+}
+# Colunas reservadas para a janela de Libras. Tres colunas dariam 7,39 cm, e a
+# NBR 15290 (por analogia) pede no minimo 8,47 cm de largura: quatro colunas.
+COLUNAS_LIBRAS = 4
+
+# Corpo maior nos perfis de publico. Nao e enfeite: com uma ideia por slide,
+# manter 24pt deixaria o slide vazio e o texto pequeno ao mesmo tempo — e a
+# regra 6 da Inclusion Europe pede tipo grande em material de leitura facil.
+TIPO_PERFIL = {"completo": None, "libras": 28, "leitura_facil": 30}
 
 
 class ErroDeRoteiro(Exception):
@@ -432,7 +468,15 @@ def _linha_de_cartoes(slide, tema, itens, y, altura, rotulo="Cartão"):
 # ==========================================================================
 # Montagem
 # ==========================================================================
-def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
+def _tamanho(spec, perfil, base=None):
+    """Tamanho do corpo: o do slide, senao o do perfil, senao o da escala."""
+    if spec.get("tamanho"):
+        return spec["tamanho"]
+    return TIPO_PERFIL.get(perfil) or base or G.TIPO["corpo"]
+
+
+def montar_slide(prs, spec, tema, sufixo="", modo="padrao",
+                 perfil="completo"):
     tipo = spec.get("tipo", "conteudo")
     titulo = spec["titulo"] + sufixo
     linhas = spec.get("conteudo", []) or []
@@ -534,7 +578,13 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
     else:
         tem_figura = bool(spec.get("figura"))
         tem_tabela = bool(spec.get("tabela"))
-        slide = prs.slides.add_slide(layout_por_nome(prs, "Título e conteúdo"))
+        # No perfil de Libras, as 4 colunas da direita ficam VAZIAS por desenho:
+        # e a faixa onde a janela entra depois. Sem isso a janela cobriria texto
+        # e reprovaria em N03 — foi por essa razao que ela vivia so na capa.
+        largo = 12 - COLUNAS_LIBRAS if perfil == "libras" else 12
+        nome_layout = ("Conteúdo com janela de Libras" if perfil == "libras"
+                       else "Título e conteúdo")
+        slide = prs.slides.add_slide(layout_por_nome(prs, nome_layout))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema)
         corpo = _pega(slide, 1)
@@ -546,31 +596,53 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao"):
             from PIL import Image
             with Image.open(_resolver_arquivo(spec["figura"], modo)) as _im:
                 razao = _im.width / _im.height
-            n_txt = 4 if razao >= 1.8 else 5
-            posicionar(corpo, 0, n_txt, G.CONTEUDO_Y, G.CONTEUDO_H)
-            escrever(corpo.text_frame, linhas, links, tema,
-                     spec.get("tamanho", G.TIPO["corpo"]))
-            _imagem(slide, spec["figura"], tema,
-                    G.bloco(n_txt + 1, 12 - n_txt - 1, G.CONTEUDO_Y,
-                            G.CONTEUDO_H), modo)
+            if perfil == "libras":
+                # lado a lado, texto e figura ficariam ambos estreitos demais:
+                # a figura caiu para 3,8 cm de menor lado e reprovou em N10.
+                # Com a faixa da janela ocupando 4 colunas, o jeito e empilhar.
+                alt_txt = G.cm(2.4) if (linhas or links) else 0
+                if alt_txt:
+                    posicionar(corpo, 0, largo, G.CONTEUDO_Y, alt_txt)
+                    escrever(corpo.text_frame, linhas, links, tema,
+                             _tamanho(spec, perfil))
+                else:
+                    corpo._element.getparent().remove(corpo._element)
+                y_fig = G.CONTEUDO_Y + (alt_txt + G.cm(0.5) if alt_txt else 0)
+                _imagem(slide, spec["figura"], tema,
+                        G.bloco(0, largo, y_fig,
+                                G.CONTEUDO_FIM - y_fig), modo)
+            else:
+                n_txt = 4 if razao >= 1.8 else 5
+                posicionar(corpo, 0, n_txt, G.CONTEUDO_Y, G.CONTEUDO_H)
+                escrever(corpo.text_frame, linhas, links, tema,
+                         _tamanho(spec, perfil))
+                _imagem(slide, spec["figura"], tema,
+                        G.bloco(n_txt + 1, largo - n_txt - 1, G.CONTEUDO_Y,
+                                G.CONTEUDO_H), modo)
         elif tem_tabela:
             alt_txt = G.cm(1.5) if (linhas or links) else 0
             if alt_txt:
-                posicionar(corpo, 0, 12, G.CONTEUDO_Y, alt_txt)
+                posicionar(corpo, 0, largo, G.CONTEUDO_Y, alt_txt)
                 escrever(corpo.text_frame, linhas, links, tema,
                          spec.get("tamanho", G.TIPO["corpo_denso"]))
             else:
                 corpo._element.getparent().remove(corpo._element)
             y_tab = G.CONTEUDO_Y + (alt_txt + G.cm(0.7) if alt_txt else 0)
-            _tabela(slide, spec["tabela"], tema, 0, 12, y_tab)
+            _tabela(slide, spec["tabela"], tema, 0, largo, y_tab)
         else:
-            posicionar(corpo, 0, 12, G.CONTEUDO_Y, G.CONTEUDO_H)
+            posicionar(corpo, 0, largo, G.CONTEUDO_Y, G.CONTEUDO_H)
             escrever(corpo.text_frame, linhas, links, tema,
-                     spec.get("tamanho", G.TIPO["corpo"]))
+                     _tamanho(spec, perfil))
 
     remover_placeholders_vazios(slide)
 
     notas = spec.get("notas", "")
+    # A mensagem-chave viaja nas NOTAS, marcada. E o que permite a regra O04
+    # comparar VERSOES COM TEXTOS DIFERENTES: sem uma ancora explicita,
+    # "equivalente" seria palavra, nao verificacao.
+    if spec.get("mensagem_chave"):
+        marca = "[chave] " + spec["mensagem_chave"].strip()
+        notas = (marca + "\n\n" + notas).strip() if notas else marca
     fig = spec.get("figura")
     if fig and fig.get("descricao_longa"):
         longa = "Descrição da figura: " + fig["descricao_longa"].strip()
@@ -625,7 +697,108 @@ def validar_roteiro(r):
 
 
 # ==========================================================================
-def construir(roteiro, saida, modo="padrao", com_modos=None):
+# Perfil de publico: transforma o ROTEIRO, nao o slide
+# ==========================================================================
+# Orcamento de texto por perfil. Nao e gosto: sai da regra editorial de cada
+# publico, e esta documentado em references/10-versoes-por-publico.md.
+#   libras         a janela ocupa 4 das 12 colunas e o portugues e SEGUNDA
+#                  lingua: o slide sustenta uma ideia, nao cinco.
+#   leitura_facil  "1 idea per sentence" (Inclusion Europe, regra 19) e
+#                  "avoid several actions in a single sentence" (IFLA).
+ORCAMENTO = {
+    "libras":        {"paragrafos": 2, "palavras": 14, "frases": 1},
+    "leitura_facil": {"paragrafos": 3, "palavras": 18, "frases": 1},
+}
+
+
+def validar_perfil(roteiro, perfil):
+    """Recusa no ROTEIRO o que sairia longo demais para o publico do perfil."""
+    orc = ORCAMENTO.get(perfil)
+    if not orc:
+        return
+    for i, spec in enumerate(roteiro["slides"], 1):
+        if spec.get("tipo") in ("capa", "secao", "citacao"):
+            continue
+        linhas = spec.get("conteudo") or []
+        if len(linhas) > orc["paragrafos"]:
+            raise ErroDeRoteiro(
+                "perfil %r, slide %d: %d parágrafos; o limite é %d"
+                % (perfil, i, len(linhas), orc["paragrafos"]))
+        for linha in linhas:
+            n = len(linha.split())
+            if n > orc["palavras"]:
+                raise ErroDeRoteiro(
+                    "perfil %r, slide %d: %d palavras numa linha; o limite é "
+                    "%d — %r" % (perfil, i, n, orc["palavras"], linha[:50]))
+            frases = [f for f in re.split(r"[.!?;]+", linha) if f.strip()]
+            if len(frases) > orc["frases"]:
+                raise ErroDeRoteiro(
+                    "perfil %r, slide %d: %d frases numa linha; uma ideia por "
+                    "frase — %r" % (perfil, i, len(frases), linha[:50]))
+
+
+def perfilar(roteiro, perfil):
+    """
+    Devolve o roteiro reescrito para um perfil.
+
+    O texto reduzido NAO e inventado aqui: ele vem do campo `mensagem_chave`,
+    que o autor escreve uma vez por slide. Gerar um resumo automatico produziria
+    uma terceira versao do conteudo, com risco de dizer outra coisa — e e
+    exatamente isso que a regra O04 existe para impedir.
+
+    Quem quiser mais que a mensagem-chave declara `libras:` ou `facil:` no
+    slide, com a lista de paragrafos daquele perfil.
+    """
+    if perfil == "completo":
+        return roteiro
+
+    if perfil not in PERFIS:
+        raise ErroDeRoteiro("perfil desconhecido: %r" % perfil)
+
+    chave_extra = {"libras": "libras", "leitura_facil": "facil"}[perfil]
+    novos = []
+    for i, spec in enumerate(roteiro["slides"], 1):
+        s2 = dict(spec)
+        # capa e secao ja sao curtas por natureza: nao se mexe nelas
+        if spec.get("tipo") in ("capa", "secao", "citacao"):
+            novos.append(s2)
+            continue
+
+        proprio = spec.get(chave_extra)
+        if isinstance(proprio, dict):
+            # titulo proprio: em Libras, titulo longo ocupa duas linhas e
+            # transborda a faixa (N12), e encurtar a fonte reprovaria em F03
+            if proprio.get("titulo"):
+                s2["titulo"] = proprio["titulo"]
+            proprio = proprio.get("conteudo")
+        if proprio:
+            linhas = proprio if isinstance(proprio, list) else [proprio]
+        elif spec.get("mensagem_chave"):
+            linhas = [spec["mensagem_chave"]]
+        else:
+            raise ErroDeRoteiro(
+                "slide %d (%r) nao tem 'mensagem_chave' nem %r — o perfil %r "
+                "precisa de um dos dois. Reduzir texto e trabalho de redacao, "
+                "nao de codigo (regra O04)"
+                % (i, spec.get("titulo", "")[:40], chave_extra, perfil))
+
+        s2["conteudo"] = linhas
+        # tipos que dependem de blocos proprios voltam a ser conteudo simples:
+        # cartao e comparacao carregam texto demais para estes perfis
+        if spec.get("tipo") in ("cartoes", "comparacao"):
+            s2["tipo"] = "conteudo"
+            s2.pop("cartoes", None)
+            s2.pop("colunas", None)
+        for k in (chave_extra, "libras", "facil"):
+            s2.pop(k, None)
+        novos.append(s2)
+
+    return {"apresentacao": dict(roteiro["apresentacao"]), "slides": novos}
+
+
+# ==========================================================================
+def construir(roteiro, saida, modo="padrao", perfil="completo",
+              com_modos=None):
     """
     Monta UM deck numa UNICA paleta.
 
@@ -645,6 +818,8 @@ def construir(roteiro, saida, modo="padrao", com_modos=None):
             return _construir_arquivo_unico(roteiro, saida)
 
     validar_roteiro(roteiro)
+    roteiro = perfilar(roteiro, perfil)
+    validar_perfil(roteiro, perfil)
     temas = carregar_temas()
     if modo not in temas:
         raise ErroDeRoteiro("modo desconhecido: %r" % modo)
@@ -659,10 +834,10 @@ def construir(roteiro, saida, modo="padrao", com_modos=None):
 
     tema = temas[modo]
     for spec in roteiro["slides"]:
-        montar_slide(prs, spec, tema, "", modo)
+        montar_slide(prs, spec, tema, "", modo, perfil)
 
     _accent_no_tema(prs, tema.destaque)
-    _gravar_metadados(prs, ap, tema)
+    _gravar_metadados(prs, ap, tema, perfil)
     prs.save(saida)
     return saida
 
@@ -695,9 +870,14 @@ def _accent_no_tema(prs, cor_hex):
     return True
 
 
-def _gravar_metadados(prs, ap, tema):
+def _gravar_metadados(prs, ap, tema, perfil="completo"):
     cp = prs.core_properties
     titulo = ap["titulo"]
+    if perfil != "completo":
+        # o publico da versao vai no titulo do documento, que e o que o leitor
+        # de tela anuncia ao abrir — e nao no conteudo, que precisa continuar
+        # comparavel entre as versoes (regra O01)
+        titulo = "%s — versão %s" % (titulo, ROTULO_PERFIL[perfil])
     if tema is not None and tema.nome != "Modo padrão":
         # o que o leitor de tela anuncia ao abrir (DisplayDocTitle vem ativo)
         titulo = "%s — %s" % (titulo, tema.nome.lower())
@@ -709,7 +889,8 @@ def _gravar_metadados(prs, ap, tema):
     cp.comments = ap.get("resumo", "")
 
 
-def construir_conjunto(roteiro, pasta, base, modos=MODOS, arquivo_unico=False):
+def construir_conjunto(roteiro, pasta, base, modos=MODOS,
+                       perfis=("completo",), arquivo_unico=False):
     """
     Constroi um deck por modo e devolve {modo: caminho}.
 
@@ -724,10 +905,12 @@ def construir_conjunto(roteiro, pasta, base, modos=MODOS, arquivo_unico=False):
         return {"arquivo_unico": saida}
 
     feitos = {}
-    for modo in modos:
-        saida = os.path.join(pasta, base + SUFIXO[modo] + ".pptx")
-        construir(roteiro, saida, modo)
-        feitos[modo] = saida
+    for perfil in perfis:
+        for modo in modos:
+            nome = base + SUFIXO_PERFIL[perfil] + SUFIXO[modo] + ".pptx"
+            saida = os.path.join(pasta, nome)
+            construir(roteiro, saida, modo, perfil)
+            feitos["%s/%s" % (perfil, modo)] = saida
     return feitos
 
 

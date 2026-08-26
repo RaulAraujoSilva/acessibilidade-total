@@ -262,6 +262,21 @@
 | O01 | E | 1.1.1, 1.3.1 | Versões paralelas com texto divergente — compara título, corpo, células de tabela, alt text e notas, slide a slide | AUTO | Reconstruir as versões a partir do **mesmo** roteiro; nunca editar uma delas à mão |
 | O02 | E | conteúdo equivalente | Recurso presente numa versão e ausente noutra (áudio embutido, figura, tabela) | AUTO | Repor o recurso: conteúdo diferente por deficiência é segregação, não acessibilidade |
 | O03 | A | 3.2.4 | Pacote sem arquivo que declare qual versão é qual e para quem | AUTO | `LEIA-ME.md` abrindo por **qual arquivo abrir e por quê** |
+| O04 | E | 1.1.1, 1.3.1 | Mensagem-chave presente num perfil de público e ausente noutro | AUTO — compara a linha `[chave]` das notas | Repor. **Reduzir texto não pode virar omitir conteúdo** |
+| O05 | E | conteúdo equivalente | Perfil que **acrescenta** mensagem inexistente na versão base | AUTO | Remover. Versões que dizem coisas diferentes são duas verdades, não duas apresentações |
+| O06 | A | 2.4.2 | Versão de público que não se identifica no título do documento | AUTO | Pôr o público no `dc:title` — é o que o leitor de tela anuncia ao abrir |
+
+> **Dois eixos, dois testes.** *Modo de cor* troca a paleta e nada mais: entre modos, o texto
+> tem de ser **idêntico** (O01/O02). *Perfil de público* troca o registro do texto de propósito —
+> comparar literalmente reprovaria por construção. Entre perfis o que se exige é **equivalência
+> de mensagem** (O04/O05), ancorada na linha `[chave]` que o construtor grava nas notas.
+> Sem essa âncora, "versão equivalente" seria promessa; com ela, é teste.
+>
+> **Por que isso não contradiz o princípio nº 1.** "Um artefato para todos" foi escrito contra a
+> prática de entregar ao deficiente uma versão **pior**. Uma versão com Libras como primeira
+> língua não dá menos: dá o mesmo conteúdo na L1 do interlocutor — e é o modelo que a **LBI
+> 13.146/2015, art. 28, IV** consagra, com as palavras "primeira língua" e "segunda língua" no
+> texto da lei. O que separa acesso de segregação está em `references/10-versoes-por-publico.md`.
 
 > **O que não é divergência:** a paleta, que é o propósito das versões, e o título do documento
 > nas propriedades, que leva o nome do modo de propósito — é o que o leitor de tela anuncia ao

@@ -104,8 +104,29 @@ def _texto_do_slide(slide):
     except Exception:
         notas = ""
     if notas:
+        # a linha [chave] fica FORA da comparacao literal: ela e a ancora de
+        # equivalencia entre perfis, e entre paletas ela seria so ruido
+        notas = nl_sem_chave(notas)
+    if notas:
         pedacos.append("[notas] " + notas)
     return pedacos
+
+
+def nl_sem_chave(notas):
+    return "\n".join(l for l in notas.splitlines()
+                      if not l.strip().startswith("[chave]")).strip()
+
+
+def mensagem_chave(slide):
+    """A frase que resume o slide, gravada pelo construtor nas notas."""
+    try:
+        notas = slide.notes_slide.notes_text_frame.text
+    except Exception:
+        return ""
+    for linha in notas.splitlines():
+        if linha.strip().startswith("[chave]"):
+            return linha.strip()[len("[chave]"):].strip()
+    return ""
 
 
 def _recursos_do_slide(slide):
@@ -121,6 +142,16 @@ def _recursos_do_slide(slide):
     return dict(r)
 
 
+def _perfil_do_nome(caminho):
+    """O perfil sai do nome do arquivo: -libras, -leitura-facil, ou completo."""
+    nome = os.path.basename(caminho).lower()
+    if "-libras" in nome:
+        return "libras"
+    if "-leitura-facil" in nome:
+        return "leitura_facil"
+    return "completo"
+
+
 def _ler(caminho):
     from pptx import Presentation
 
@@ -132,6 +163,8 @@ def _ler(caminho):
         "slides": len(slides),
         "texto": [_texto_do_slide(s) for s in slides],
         "recursos": [_recursos_do_slide(s) for s in slides],
+        "chaves": [mensagem_chave(s) for s in slides],
+        "perfil": _perfil_do_nome(caminho),
     }
 
 
@@ -144,11 +177,28 @@ def auditar(arquivos, pasta=None) -> Pacote:
                        "so um arquivo informado — nao ha o que comparar")
     else:
         versoes = [_ler(a) for a in arquivos]
-        _o01(rep, versoes)
-        _o02(rep, versoes)
+
+        # DENTRO de um perfil, as versoes so mudam de paleta: o texto tem de
+        # ser identico (O01/O02). ENTRE perfis, o texto muda de proposito —
+        # comparar literal reprovaria por construcao. O que se exige la e
+        # equivalencia de mensagem (O04/O05).
+        por_perfil = {}
+        for v in versoes:
+            por_perfil.setdefault(v["perfil"], []).append(v)
+
+        for grupo in por_perfil.values():
+            if len(grupo) > 1:
+                _o01(rep, grupo)
+                _o02(rep, grupo)
+        if len(por_perfil) == 1:
+            rep.check("O04")
+            rep.check("O05")
+        else:
+            _o04_o05(rep, por_perfil)
 
     _o03(rep, pasta or (os.path.dirname(os.path.abspath(arquivos[0]))
                         if arquivos else "."))
+    _o06(rep, arquivos)
     return rep
 
 
@@ -205,6 +255,52 @@ def _o02(rep, versoes):
                            b.get(chave, 0), outra["nome"]))
 
 
+def _o04_o05(rep, por_perfil):
+    """
+    Equivalencia entre PERFIS de publico.
+
+    Aqui o texto e diferente de proposito — uma versao com Libras como primeira
+    lingua nao repete o portugues do original. O que nao pode mudar e a
+    MENSAGEM. Sem uma ancora explicita, "equivalente" seria promessa; com a
+    linha [chave] gravada nas notas, vira teste.
+
+    O04 pega o que SUMIU numa versao. O05 pega o que APARECEU so numa —
+    duas versoes que dizem coisas diferentes sao duas verdades, nao duas
+    apresentacoes do mesmo material.
+    """
+    rep.check("O04")
+    rep.check("O05")
+
+    base_nome = "completo" if "completo" in por_perfil else sorted(por_perfil)[0]
+    base = por_perfil[base_nome][0]
+    chaves_base = [c for c in base["chaves"] if c]
+
+    if not chaves_base:
+        rep.unverified("O04", "E", "equivalencia entre perfis",
+                       "nenhuma mensagem-chave gravada — sem ela a equivalência "
+                       "entre versões de público não é verificável")
+        return
+
+    for nome, grupo in por_perfil.items():
+        if nome == base_nome:
+            continue
+        outra = grupo[0]
+        faltando = [c for c in chaves_base if c not in outra["chaves"]]
+        sobrando = [c for c in outra["chaves"] if c and c not in base["chaves"]]
+
+        for c in faltando[:6]:
+            rep.fail("O04", "E", "toda mensagem em todas as versoes",
+                     "%s x %s" % (base["nome"], outra["nome"]),
+                     "mensagem ausente na versão %r: %r — reduzir texto não "
+                     "pode virar omitir conteúdo" % (nome, c[:60]))
+        for c in sobrando[:6]:
+            rep.fail("O05", "E", "nenhuma versao acrescenta conteudo",
+                     "%s x %s" % (base["nome"], outra["nome"]),
+                     "mensagem que só existe na versão %r: %r — versões que "
+                     "dizem coisas diferentes são duas verdades"
+                     % (nome, c[:60]))
+
+
 def _o03(rep, pasta):
     """O pacote precisa dizer qual arquivo e qual, e para quem."""
     rep.check("O03")
@@ -216,6 +312,30 @@ def _o03(rep, pasta):
         rep.fail("O03", "A", "pacote com declaracao de versoes", pasta,
                  "nenhum LEIA-ME.md no pacote: quem recebe tres arquivos "
                  "precisa saber qual abrir e por que")
+
+
+def _o06(rep, arquivos):
+    """
+    Cada versao tem de dizer, no proprio arquivo, para quem ela e.
+
+    O titulo do documento e o que o leitor de tela anuncia ao abrir. Uma versao
+    de publico que nao se identifica ali obriga a pessoa a descobrir pelo nome
+    do arquivo — ou a nao descobrir.
+    """
+    from pptx import Presentation
+
+    rep.check("O06")
+    for caminho in arquivos:
+        perfil = _perfil_do_nome(caminho)
+        if perfil == "completo":
+            continue
+        titulo = (Presentation(caminho).core_properties.title or "").lower()
+        marca = {"libras": "libras", "leitura_facil": "leitura fácil"}[perfil]
+        if marca not in titulo:
+            rep.fail("O06", "A", "versao declara seu publico",
+                     os.path.basename(caminho),
+                     "o título do documento não diz que esta é a versão %r — "
+                     "é o que o leitor de tela anuncia ao abrir" % perfil)
 
 
 def render(rep: Pacote, pasta="") -> str:

@@ -13,7 +13,7 @@ apresentacao:
   palavras_chave: "acessibilidade, WCAG, PDF/UA, PowerPoint, Libras, audiodescrição, LBI"
   resumo: >
     Apresentação do projeto acessibilidade-total, uma skill de código aberto que
-    produz apresentações acessíveis por construção e as audita contra 114 regras.
+    produz apresentações acessíveis por construção e as audita contra 117 regras.
 
 slides:
   # ===================== ABERTURA =====================
@@ -25,13 +25,15 @@ slides:
       - "Doutorado em Engenharia de Produção · UFF"
       - "Raul Araujo Silva"
     notas: >
-      TCE 00191 (Tópicos em Ciência e Engenharia) — Documentos Acessíveis.
+      TCE — Tópicos em Ciência e Engenharia, disciplina 00191, Documentos
+      Acessíveis.
       Esta apresentação é sobre a ferramenta que a construiu. Ela foi gerada por
-      código a partir de um roteiro, auditada contra 114 regras e exportada em
+      código a partir de um roteiro, auditada contra 117 regras e exportada em
       PDF validado contra a ISO 14289. O relatório de auditoria acompanha a
       entrega.
 
   - titulo: "Acessibilidade deste material"
+    mensagem_chave: "Este material tem alt text, Libras e audiodescrição."
     conteudo:
       - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste em AAA (16,3:1)."
       - "Três arquivos de cor: padrão, alto contraste e daltônico-seguro."
@@ -51,6 +53,7 @@ slides:
 
   - tipo: destaque
     titulo: "O problema em um número"
+    mensagem_chave: "O verificador do PowerPoint vê só 10 regras."
     numero: "10"
     rotulo: "regras no verificador nativo"
     conteudo:
@@ -71,6 +74,7 @@ slides:
       - "A cadeia normativa técnica, a lei brasileira e as armadilhas de citação."
 
   - titulo: "De onde vem a exigência"
+    mensagem_chave: "A exigência vem da lei e das normas técnicas."
     tamanho: 19
     conteudo:
       - "A WCAG foi escrita para a web."
@@ -97,6 +101,7 @@ slides:
       a algo que não é web, sem dizer com que autoridade.
 
   - titulo: "A lei brasileira"
+    mensagem_chave: "A lei brasileira obriga material acessível."
     conteudo:
       - "Lei 13.146/2015 (LBI): acessibilidade é direito, não cortesia."
       - "A LBI define formato acessível como o que o leitor de tela reconhece."
@@ -109,6 +114,9 @@ slides:
       a norma técnica.
 
   - titulo: "As normas ABNT que se aplicam"
+    mensagem_chave: "Poucas normas ABNT valem para documento."
+    libras:
+      titulo: "Normas ABNT"
     tamanho: 19
     conteudo:
       - "Conferidas no acervo ABNT do MPF (Ministério Público Federal): 45 normas."
@@ -128,6 +136,9 @@ slides:
       antes de citar é o que separa fundamentação de citação decorativa.
 
   - titulo: "Três citações erradas que este projeto recusa"
+    mensagem_chave: "Muita gente cita a norma errada."
+    libras:
+      titulo: "Citações erradas"
     conteudo:
       - "NBR 17060:2022 é sobre aplicativos móveis. Não é norma de documento."
       - "NBR 17225:2025 é sobre conteúdo web. Também não alcança um .pptx."
@@ -147,9 +158,10 @@ slides:
 
   - tipo: cartoes
     titulo: "O que foi construído"
+    mensagem_chave: "Construímos uma ferramenta que produz e audita."
     cartoes:
       - titulo: "Catálogo"
-        texto: ["114 regras auditáveis", "em 15 camadas, de metadados a composição"]
+        texto: ["117 regras auditáveis", "em 15 camadas, de metadados a composição"]
       - titulo: "Auditor"
         texto: ["Camadas A a I, N e O", "as demais saem como não verificadas"]
       - titulo: "Construtor"
@@ -162,6 +174,7 @@ slides:
       seria verificado teria produzido mais um gerador de slides bonitos.
 
   - titulo: "As 15 camadas do catálogo"
+    mensagem_chave: "O catálogo tem 117 regras em 15 camadas."
     tamanho: 19
     conteudo:
       - "Cada regra tem identificador estável, severidade e critério de origem."
@@ -190,6 +203,7 @@ slides:
       confirmar, e fica no relatório como pendência explícita.
 
   - titulo: "Anatomia de uma regra"
+    mensagem_chave: "Cada regra diz como achar e como corrigir."
     tamanho: 19
     conteudo:
       - "Regra D05, severidade Erro, critério WCAG 1.1.1."
@@ -203,6 +217,9 @@ slides:
       existe porque descrição automática não revisada não é descrição.
 
   - titulo: "O que o auditor vê e o nativo não"
+    mensagem_chave: "O nosso auditor vê o que o nativo não vê."
+    libras:
+      titulo: "O que o nativo não vê"
     conteudo:
       - "Uma amostra da diferença de cobertura."
     tabela:
@@ -223,6 +240,9 @@ slides:
 
   - tipo: destaque
     titulo: "Achados que só apareceram porque medimos"
+    mensagem_chave: "Medir revelou erros que ninguém via."
+    libras:
+      titulo: "Achados de medição"
     numero: "3 de 8"
     rotulo: "cores da paleta Okabe-Ito passam em contraste"
     conteudo:
@@ -243,6 +263,7 @@ slides:
       - "Do roteiro ao PDF validado, com um portão em cada estágio."
 
   - titulo: "O pipeline em sete estágios"
+    mensagem_chave: "O material nasce do roteiro e passa por portões."
     tamanho: 19
     conteudo:
       - "Cada estágio tem um portão que pode reprovar."
@@ -269,6 +290,9 @@ slides:
       build. Por isso o laço volta para o roteiro.
 
   - titulo: "Acessível por construção, não por remediação"
+    mensagem_chave: "O slide já nasce certo."
+    libras:
+      titulo: "Certo desde o começo"
     conteudo:
       - "O construtor recusa roteiro que geraria slide inacessível."
       - "Título repetido: o build para e diz em quais slides."
@@ -281,6 +305,7 @@ slides:
       escrita, e não da conferência.
 
   - titulo: "O simulador de leitura"
+    mensagem_chave: "Dá para ouvir o que o leitor de tela diria."
     tamanho: 19
     conteudo:
       - "Escreve o que um leitor de tela anunciaria, na ordem em que anunciaria."
@@ -294,6 +319,7 @@ slides:
       cabeçalho: Camada, Cobertura nativa.'
 
   - titulo: "Três modos de cor, três arquivos"
+    mensagem_chave: "São três arquivos de cor com o mesmo conteúdo."
     conteudo:
       - "Padrão, alto contraste e daltônico-seguro, com o mesmo conteúdo."
       - "Era um arquivo só, com um hub e três seções paralelas."
@@ -317,6 +343,7 @@ slides:
       - "A ferramenta é uma skill, e skill hoje é formato aberto."
 
   - titulo: "Uma skill, muitos agentes"
+    mensagem_chave: "A ferramenta funciona em vários assistentes."
     tamanho: 19
     conteudo:
       - "Agent Skills é especificação aberta, publicada em dezembro de 2025."
@@ -342,6 +369,7 @@ slides:
       Quem usa Codex instala exatamente a mesma pasta, em outro diretório.
 
   - titulo: "Instalação em três passos"
+    mensagem_chave: "Instalar leva três passos."
     conteudo:
       - "Passo 1: clonar o repositório público."
       - "Passo 2: rodar instalar.ps1 no Windows, ou instalar.sh no Linux e macOS."
@@ -356,6 +384,7 @@ slides:
       opcional e desliga um pedaço específico, nunca o conjunto.
 
   - titulo: "Uso dentro do agente"
+    mensagem_chave: "Você pede em português e o agente faz."
     tamanho: 19
     conteudo:
       - "Claude Code: copiar a pasta para ~/.claude/skills/."
@@ -366,9 +395,10 @@ slides:
     notas: >
       O carregamento é progressivo: o agente lê só o nome e a descrição da skill
       no início, e carrega o corpo e as referências apenas quando a tarefa pede.
-      É o que permite manter um catálogo de 114 regras sem ocupar contexto à toa.
+      É o que permite manter um catálogo de 117 regras sem ocupar contexto à toa.
 
   - titulo: "O que a ferramenta não faz"
+    mensagem_chave: "A ferramenta não substitui teste com pessoas."
     conteudo:
       - "Não escreve o conteúdo por você: o roteiro é humano."
       - "Não julga se o alt text está correto, só se ele é plausível."
@@ -387,6 +417,7 @@ slides:
 
   - tipo: comparacao
     titulo: "Testado nos dois sentidos"
+    mensagem_chave: "Testamos se acusa o erro e se aprova o certo."
     colunas:
       - titulo: "Enxerga o que foi plantado?"
         texto:
@@ -414,6 +445,9 @@ slides:
       Este é o princípio que impede a ferramenta de virar um selo:
       conformidade técnica é piso, não prova.
   - titulo: "Esta apresentação foi auditada por si mesma"
+    mensagem_chave: "Esta apresentação passou na própria auditoria."
+    libras:
+      titulo: "Auditada por si mesma"
     conteudo:
       - "Gerada por código a partir do roteiro que a acompanha."
       - "Auditada contra as camadas A a I, N e O, com zero erros e zero avisos."

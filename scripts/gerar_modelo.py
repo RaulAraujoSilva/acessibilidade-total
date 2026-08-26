@@ -70,10 +70,17 @@ LAYOUTS = {
         0: (0, 10, G.cm(6.6), G.cm(3.4)),         # titulo ACIMA do apoio
         1: (0, 10, G.cm(10.2), G.cm(2.4)),        # apoio logo abaixo
     }),
-    3: ("Duas colunas", {
-        0: (0, 12, T, TH),
-        1: (0, 6, C, CH),
-        2: (6, 6, C, CH),
+    # O indice 3 era "Duas colunas" e NENHUM tipo de slide o usava (o construtor
+    # invoca 7 dos 11 layouts). Reaproveita-lo evita clonar partes OPC, que e o
+    # que este gerador foi escrito para nao fazer.
+    #
+    # As 4 colunas da direita ficam VAZIAS: e a faixa da janela de Libras.
+    # Tres colunas dariam 7,39 cm e a NBR 15290, por analogia, pede no minimo
+    # 8,47 cm de largura e 9,53 cm de altura. Com quatro, a janela encaixada na
+    # proporcao nativa da captura fica em 9,11 x 13,20 cm — passa nos dois.
+    3: ("Conteúdo com janela de Libras", {
+        0: (0, 8, T, TH),          # o titulo tambem encurta: nao passa por
+        1: (0, 8, C, CH),          # cima da faixa reservada
     }),
     4: ("Comparação", {
         0: (0, 12, T, TH),

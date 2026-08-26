@@ -37,7 +37,7 @@ diagramas:
   - nome: camadas-catalogo
     tipo: camadas
     titulo: "As 15 camadas do catálogo de auditoria"
-    subtitulo: "114 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
+    subtitulo: "117 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
     altura: 1160
     largura: 1200
     alt: "As 15 camadas do catálogo, de metadados do documento até design e composição"
@@ -51,7 +51,7 @@ diagramas:
       movimento e interação, 9 regras. Camada J, Libras e público surdo, 9
       regras. Camada K, público cego e audiodescrição, 5 regras. Camada L,
       exportação e PDF/UA, 7 regras. Camada M, confirmação humana, 6 itens.
-      Camada N, design e composição, 13 regras. Camada O, pacote e versões paralelas, 3 regras. As camadas A a I, N e O são
+      Camada N, design e composição, 13 regras. Camada O, pacote e versões paralelas, 6 regras. As camadas A a I, N e O são
       verificadas automaticamente pelo auditor; as camadas J a M dependem de
       mídia, do PDF exportado ou de uma pessoa, e por isso saem no relatório
       como não verificadas, nunca como aprovadas.
@@ -70,7 +70,7 @@ diagramas:
       - {id: "L", titulo: "Exportação e PDF/UA", detalhe: "7 regras · veraPDF e PAC"}
       - {id: "M", titulo: "Confirmação humana", detalhe: "6 itens · pessoa"}
       - {id: "N", titulo: "Design e composição", detalhe: "13 regras · automática"}
-      - {id: "O", titulo: "Pacote e versões paralelas", detalhe: "3 regras · automática"}
+      - {id: "O", titulo: "Pacote e versões paralelas", detalhe: "6 regras · automática"}
     rodape: "Ausência de evidência não é conformidade: o que não pôde ser verificado entra como não verificado."
 
   - nome: pipeline

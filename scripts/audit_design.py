@@ -241,7 +241,13 @@ def _n05_ocupacao(i, formas, rep, layout=""):
     if not uteis:
         return
     # so a faixa de conteudo: a faixa do titulo e naturalmente parcial
-    area_util = (G.LARGURA - 2 * G.MARGEM) * (G.RODAPE_Y - G.CONTEUDO_Y)
+    largura_util = G.LARGURA - 2 * G.MARGEM
+    if "libras" in (layout or "").lower():
+        # o layout de Libras reserva 4 das 12 colunas para a janela, e elas
+        # ficam vazias ATE a midia ser embutida. Medir contra a largura toda
+        # acusaria area ociosa onde ha, na verdade, area reservada.
+        largura_util = G.larg(8)
+    area_util = largura_util * (G.RODAPE_Y - G.CONTEUDO_Y)
     if area_util <= 0:
         return
     # o menor retangulo que contem tudo diz mais que a soma das caixas

@@ -2,6 +2,7 @@
 
 | Arquivo | Estado | O que faz |
 |---|---|---|
+| `importar.py` | pronto | **A porta de entrada**: de um `.pptx` existente ou de um texto para o `roteiro.yaml`, sem inventar conteúdo |
 | `grade.py` | pronto | A regua do projeto: margens, faixas, 12 colunas, escala tipografica e tolerancias |
 | `gerar_modelo.py` | pronto | Produz o modelo proprio: mata a CAIXA ALTA do template do Office e poe cada placeholder na grade |
 | `audit_design.py` | pronto | Camada N: proporcao, margem, sobreposicao, ordem visual com heranca, area ociosa, caixa alta herdada |

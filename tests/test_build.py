@@ -91,6 +91,18 @@ def testa_recusa(roteiro_ruim, esperado):
     return False
 
 
+def copy_roteiro_com_chave(roteiro):
+    """Roteiro com mensagem_chave em todo slide que precisa de uma."""
+    import copy
+
+    r = copy.deepcopy(roteiro)
+    for i, spec in enumerate(r["slides"], 1):
+        if spec.get("tipo") in ("capa", "secao", "citacao"):
+            continue
+        spec["mensagem_chave"] = "Ideia central do slide %d." % i
+    return r
+
+
 def conta_slides(caminho, esperado, rotulo) -> int:
     from pptx import Presentation
 
@@ -165,11 +177,32 @@ def main() -> int:
         # de ser a do roteiro: quando os tres modos viviam num arquivo so, ela
         # era 1 + 3xN e ninguem verificava.
         feitos = construir_conjunto(roteiro, d, "conjunto")
-        assert set(feitos) == set(MODOS), feitos
-        for modo, caminho in feitos.items():
-            falhas += len(auditar(caminho, "deck %s" % modo))
-            falhas += conta_slides(caminho, esperado, "deck %s" % modo)
+        assert set(feitos) == {"completo/%s" % m for m in MODOS}, feitos
+        for chave, caminho in feitos.items():
+            falhas += len(auditar(caminho, "deck %s" % chave))
+            falhas += conta_slides(caminho, esperado, "deck %s" % chave)
 
+
+        # Perfis de publico. O roteiro de exemplo nao tem mensagem_chave, entao
+        # a recusa E o comportamento certo: reduzir texto e trabalho de redacao,
+        # e o construtor nao pode inventar.
+        try:
+            construir_conjunto(roteiro, d, "perfil", modos=("padrao",),
+                               perfis=("libras",))
+            print("  %-28s ERRO: aceitou perfil sem mensagem_chave" % "perfil sem chave")
+            falhas += 1
+        except ErroDeRoteiro as e:
+            ok = "mensagem_chave" in str(e)
+            print("  %-28s %s" % ("perfil sem chave",
+                                  "recusou corretamente" if ok else "ERRO: %s" % e))
+            falhas += 0 if ok else 1
+
+        com_chave = copy_roteiro_com_chave(roteiro)
+        perfis = construir_conjunto(com_chave, d, "perfis", modos=("padrao",),
+                                    perfis=("completo", "libras", "leitura_facil"))
+        for chave, caminho in perfis.items():
+            falhas += len(auditar(caminho, "deck %s" % chave))
+            falhas += conta_slides(caminho, esperado, "deck %s" % chave)
         falhas += testa_paridade(list(feitos.values()), d)
 
         unico = construir_conjunto(roteiro, d, "legado", arquivo_unico=True)
