@@ -108,10 +108,10 @@
 | F04 | E | — | Parágrafo justificado (`algn="just"`) — cria "rios de branco" | AUTO | Alinhar à esquerda |
 | F05 | A | — | **Em parágrafo de texto corrido**, entrelinha menor que 1,5 (`a:lnSpc/a:spcPct` abaixo de 150000). Em título, entrelinha abaixo de 0,9, que faz as linhas colidirem. Não se aplica a célula de tabela | AUTO | Ajustar |
 | F06 | A | — | Itálico em bloco, sublinhado fora de link, ou frase inteira em CAIXA ALTA | AUTO | Usar negrito para destaque |
-| F07 | A | — | Mais de 6 marcadores por slide, ou linha acima de ~70 caracteres | AUTO | Dividir o slide |
+| F07 | A | 1.4.8 | Mais de 6 marcadores por slide, ou linha acima de **80 caracteres** | AUTO | Dividir o slide. O número vem do WCAG 1.4.8 (AAA): *"no more than 80 characters or glyphs"* |
 | F08 | D | — | Fonte não incorporada e fora do conjunto seguro | AUTO | Incorporar fontes ao salvar |
-| F09 | A | ABNT NBR ISO 24495-1:2024 (Linguagem Simples) | Período longo, voz passiva encadeada, ou jargão sem definição no primeiro uso — barreira cognitiva | SEMI | Reescrever em linguagem simples: uma ideia por frase, voz ativa, termo definido na primeira aparição |
-| F10 | A | ABNT NBR ISO 24495-1:2024 | Sigla usada sem ser expandida na primeira ocorrência | AUTO | Expandir na primeira vez |
+| F09 | A | ABNT NBR ISO 24495-1:2024 (redação) | Período longo, voz passiva encadeada, ou jargão sem definição no primeiro uso — barreira cognitiva | SEMI | Reescrever em linguagem simples. **A norma trata de qualidade da redação e exclui acessibilidade do próprio escopo** — ela fundamenta o texto, não a conformidade |
+| F10 | A | 3.1.4 | Sigla usada sem ser expandida em lugar nenhum do material | AUTO | Expandir na primeira ocorrência, ou pôr glossário nas notas. Nomes de organização (W3C, ABNT, ISO) e de arquivo não contam como sigla |
 
 ## G — Tabelas
 
@@ -174,7 +174,15 @@
 | J04 | D | — | Material que será apresentado ao vivo sem instrução de como ligar as Legendas ao Vivo | HUM | Apresentação de Slides › Configurações de Legenda. **Verificado: não é propriedade do arquivo** — nem `SlideShowSettings` nem `Application.Options` expõem legenda ou idioma falado, então a configuração é da máquina de quem apresenta, e vira instrução, não conformidade auditável |
 | J05 | D | — | Glosa gerada automaticamente e não revisada | HUM | Revisão por intérprete ou pessoa surda |
 | J06 | A | — | Relatório apresentando os parâmetros da NBR 15290 como conformidade formal | HUM | A norma regula televisão; aplicá-la a slide é **analogia** e deve ser declarada como tal |
+| J07 | A | ITU-T H.Sup1 | Janela de Libras abaixo de **15 quadros por segundo** — alvo 24–25 | AUTO (`ffprobe`) | Regravar. **Não há mínimo normativo na NBR 15290**; o número vem da ITU-T H.Sup1 (≥25 fps), do renderizador oficial do VLibras (`--framerate 24`) e da literatura empírica, que mostra perda de compreensão abaixo de 10 fps |
 
+
+> **Por que a taxa de quadros entrou no catálogo.** A primeira janela que este projeto entregou
+> saiu a **2,5 fps**, montada a partir de um laço de *screenshot*. Isso está **abaixo da condição
+> mais baixa já testada** em qualquer estudo de compreensão de língua de sinais. Em Libras o
+> movimento **é** fonologia — o parâmetro M — e a expressão facial carrega marcação gramatical:
+> a janela não era "de qualidade baixa", era provavelmente ininteligível. A saída foi trocar a
+> captura por `gfxcapture` (ffmpeg 8.0+), que entrega **25 fps** e resolução física.
 ## K — Público cego e audiodescrição
 
 | ID | Sev | Critério | O que caracteriza a falha | Detecção | Correção |

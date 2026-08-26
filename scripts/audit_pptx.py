@@ -25,6 +25,11 @@ import a11y_lib as A
 import audit_contrast as C
 import audit_design
 
+# WCAG 1.4.8 (AAA): "Width is no more than 80 characters or glyphs".
+# O codigo usava 90 e a mensagem dizia ~70 — uma folga de 20 caracteres que nao
+# estava documentada em lugar nenhum. 80 tem fonte; 70 e 90 nao tinham.
+LIMITE_LINHA = 80
+
 EMU_MIN_TARGET = 228600  # 24 px CSS a 96 dpi = 0,25 pol
 
 CONFORME = "conforme"
@@ -448,10 +453,90 @@ def audit_contrast_rules(prs, rep: Report):
 # ==========================================================================
 # Camada F — tipografia
 # ==========================================================================
+# F10 — sigla expandida na primeira ocorrencia (WCAG 3.1.4, AAA)
+#
+# Ate 26/08/2026 esta regra estava em rep.check e NAO tinha nenhum rep.fail:
+# saia do relatorio como CONFORME sem nunca ter sido verificada. E o defeito
+# que este projeto existe para recusar, e estava dentro do proprio auditor.
+#
+# Conta como expansao: "Nome Por Extenso (SIGLA)", "SIGLA (Nome Por Extenso)",
+# ou uma linha de glossario nas notas do orador ("SIGLA: nome por extenso").
+# A busca varre o deck INTEIRO, notas incluidas, porque a expansao pode estar
+# na nota do slide em que a sigla aparece.
+# ==========================================================================
+RE_SIGLA = re.compile(r"\b([A-ZÀ-Ý][A-ZÀ-Ý0-9]{2,7})\b")
+
+# Siglas que sao o nome corrente da coisa: expandi-las atrapalha em vez de
+# ajudar. Nao e conveniencia — e o proprio criterio 3.1.4, que fala de
+# "abbreviations", nao de nomes proprios consagrados.
+SIGLAS_DISPENSADAS = {
+    "PDF", "HTML", "XML", "CSS", "PNG", "JPG", "GIF", "MP3", "MP4", "SRT",
+    "YAML", "JSON", "ZIP", "URL", "API", "CLI", "GPU", "CPU", "USB", "USP",
+    "UFF", "ABNT", "NBR", "ISO", "WCAG", "PPTX", "DOCX", "OOXML", "EMU",
+    "AAA", "III", "PT", "BR", "EUA", "W3C", "IFLA", "ITU", "CNMP",
+}
+
+
+# Nem todo bloco de maiusculas e sigla. Estes tres casos apareceram no proprio
+# deck do projeto e sao ruido, nao achado:
+#   NAO, SIM, ...   palavra portuguesa em caixa alta por enfase
+#   D05, K03, ...   identificador de regra do proprio catalogo
+#   e-MAG           a sigla ja vem colada a um prefixo minusculo
+PALAVRAS_CAIXA_ALTA = {"NÃO", "NAO", "SIM", "TODOS", "NUNCA", "SEMPRE", "MAS",
+                       "OU", "SEM", "COM", "POR", "PARA", "UMA", "DOIS", "TRES"}
+
+
+def _sigla_dispensada(sigla, contexto=""):
+    if sigla in SIGLAS_DISPENSADAS or sigla in PALAVRAS_CAIXA_ALTA:
+        return True
+    # identificador de regra: uma letra e dois digitos (D05, K03, N11)
+    if len(sigla) == 3 and sigla[0].isalpha() and sigla[1:].isdigit():
+        return True
+    # sigla colada a prefixo minusculo, como o "MAG" de "e-MAG"
+    if re.search(r"[a-z]-%s" % sigla, contexto):
+        return True
+    # nome de arquivo, como o "SKILL" de "SKILL.md"
+    if re.search(r"%s\.[a-z]{2,4}\b" % sigla, contexto):
+        return True
+    return False
+
+
+
+def _expansoes_do_deck(prs):
+    """Siglas que aparecem expandidas em algum lugar do material."""
+    textos = []
+    for slide in prs.slides:
+        for el in A.iter_shape_elements(slide.shapes._spTree, recurse_groups=True):
+            for p_el, _ in A.iter_all_paragraphs(el):
+                t = A.paragraph_text(p_el).strip()
+                if t:
+                    textos.append(t)
+        try:
+            nota = slide.notes_slide.notes_text_frame.text.strip()
+        except Exception:
+            nota = ""
+        if nota:
+            textos.append(nota)
+
+    achadas = set()
+    inteiro = " ".join(textos)
+    for sigla in set(RE_SIGLA.findall(inteiro)):
+        padroes = (
+            r"\(%s\)" % sigla,                       # Nome Por Extenso (SIGLA)
+            r"%s\s*\([^)]{4,}\)" % sigla,             # SIGLA (Nome Por Extenso)
+            r"%s\s*[:—-]\s*\w{4,}" % sigla,           # glossario: SIGLA — nome
+        )
+        if any(re.search(pad, inteiro) for pad in padroes):
+            achadas.add(sigla)
+    return achadas
+
+
+# ==========================================================================
 def audit_typography(prs, rep: Report):
     for r in ("F01", "F02", "F03", "F04", "F05", "F06", "F07", "F10"):
         rep.check(r)
     siglas_vistas = set()
+    expandidas = _expansoes_do_deck(prs)
 
     for i, slide in enumerate(prs.slides, 1):
         for el in A.iter_shape_elements(slide.shapes._spTree, recurse_groups=True):
@@ -502,10 +587,11 @@ def audit_typography(prs, rep: Report):
                     rep.fail("F05", "A", "—", onde(i, el),
                              "entrelinha %.2f no titulo — abaixo de 0,9 as linhas colidem"
                              % (pp["line_pct"] / 100000))
-                if len(txt) > 90 and celula is None:
-                    rep.fail("F07", "A", "—", onde_txt,
-                             "linha com %d caracteres — acima de ~70 o olho perde o "
-                             "retorno de linha" % len(txt))
+                if len(txt) > LIMITE_LINHA and celula is None:
+                    rep.fail("F07", "A", "1.4.8", onde_txt,
+                             "linha com %d caracteres — o WCAG 1.4.8 pede no "
+                             "máximo %d; acima disso o olho perde o retorno de "
+                             "linha" % (len(txt), LIMITE_LINHA))
                 cap_herdado, cap_origem = A.resolve_caps(slide, el, p_el)
                 if cap_herdado in ("all", "small"):
                     rep.fail("F06", "A", "—", onde_txt,
@@ -515,9 +601,16 @@ def audit_typography(prs, rep: Report):
                     rep.fail("F06", "A", "—", onde_txt,
                              "frase inteira em CAIXA ALTA: %r — suprime ascendentes e "
                              "descendentes" % txt[:40])
-                for sigla in re.findall(r"\b([A-ZÀ-Ý]{3,6})\b", txt):
-                    if sigla not in siglas_vistas:
-                        siglas_vistas.add(sigla)
+                for sigla in RE_SIGLA.findall(txt):
+                    if sigla in siglas_vistas:
+                        continue
+                    siglas_vistas.add(sigla)
+                    if _sigla_dispensada(sigla, txt) or sigla in expandidas:
+                        continue
+                    rep.fail("F10", "A", "3.1.4", onde_txt,
+                             "sigla %r usada sem ser expandida em lugar nenhum "
+                             "do material — expanda na primeira ocorrência ou "
+                             "ponha um glossário nas notas" % sigla)
 
                 for r_el in A.iter_runs(p_el):
                     rtxt = A.run_text(r_el).strip()

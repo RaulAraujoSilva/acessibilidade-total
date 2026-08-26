@@ -140,6 +140,34 @@ largura** — o que, na prática, é uma janela grande. Um avatar miniaturizado 
 Complementarmente, a **ABNT NBR 15610-3:2016** (TV digital terrestre — Parte 3: Língua de Sinais)
 trata especificamente do transporte de Libras e vale a consulta quando o entregável for vídeo.
 
+### Taxa de quadros — o parâmetro que faltava
+
+**Não há mínimo normativo.** A NBR 15290 regula dimensão, posição, contraste, foco e estúdio;
+não fixa taxa de quadros. O número adotado vem da convergência de três fontes:
+
+| Fonte | Número |
+|---|---|
+| **ITU-T H.Sup1** — conversação em língua de sinais por vídeo de baixa taxa | **≥ 25 fps** |
+| Renderizador oficial do VLibras (`playerwrapper.py`) | `--framerate 24` |
+| EN 301 549, citada na RTC Accessibility User Requirements (W3C) | ≥ 20 fps |
+| Hooper et al., *Sign Language Studies* 8(1), 2007 · Tran et al., ASSETS 2013 | perda de compreensão **abaixo de 10 fps** |
+
+Adota-se **24–25 fps**; **15 fps é o piso** da regra J07. A primeira janela deste projeto saiu a
+**2,5 fps** — abaixo da condição mais baixa já testada em qualquer desses estudos. Em Libras o
+movimento **é** fonologia (parâmetro M) e a expressão facial carrega marcação gramatical: aquela
+janela não era "de qualidade baixa", era provavelmente **ininteligível**.
+
+A correção foi trocar o laço de `page.screenshot` (~0,4 s por quadro) pelo filtro **`gfxcapture`**
+do ffmpeg 8.0+, que captura a janela pela API Windows.Graphics.Capture: pega o conteúdo composto
+pela GPU, não se contamina com oclusão e recorta na própria captura. Medido: **25 fps e
+462×670 px**, contra 2,5 fps e 312×452.
+
+> **Armadilha do recorte.** O `gfxcapture` devolve pixels **físicos**; a página reporta pixels
+> **CSS**. Com o Windows a 150%, `devicePixelRatio` diz 1.0 e a captura vem 1,483× maior — o
+> primeiro recorte caiu numa área branca. Por isso o gravador faz uma **sonda** de 1 s da janela
+> inteira e deriva a escala antes de recortar.
+
+
 ### Demais regras da camada J
 
 - **Permanência:** a janela não pode aparecer e sumir entre slides do mesmo bloco de conteúdo.

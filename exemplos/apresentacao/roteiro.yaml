@@ -13,7 +13,7 @@ apresentacao:
   palavras_chave: "acessibilidade, WCAG, PDF/UA, PowerPoint, Libras, audiodescrição, LBI"
   resumo: >
     Apresentação do projeto acessibilidade-total, uma skill de código aberto que
-    produz apresentações acessíveis por construção e as audita contra 113 regras.
+    produz apresentações acessíveis por construção e as audita contra 114 regras.
 
 slides:
   # ===================== ABERTURA =====================
@@ -25,8 +25,9 @@ slides:
       - "Doutorado em Engenharia de Produção · UFF"
       - "Raul Araujo Silva"
     notas: >
+      TCE 00191 (Tópicos em Ciência e Engenharia) — Documentos Acessíveis.
       Esta apresentação é sobre a ferramenta que a construiu. Ela foi gerada por
-      código a partir de um roteiro, auditada contra 113 regras e exportada em
+      código a partir de um roteiro, auditada contra 114 regras e exportada em
       PDF validado contra a ISO 14289. O relatório de auditoria acompanha a
       entrega.
 
@@ -73,7 +74,7 @@ slides:
     tamanho: 19
     conteudo:
       - "A WCAG foi escrita para a web."
-      - "O WCAG2ICT é o que a torna aplicável a um arquivo."
+      - "O WCAG2ICT (WCAG to ICT) é o que a torna aplicável a um arquivo."
       - "Sem citá-lo, a fundamentação fica incompleta."
     figura:
       nome: "Cadeia normativa"
@@ -110,7 +111,7 @@ slides:
   - titulo: "As normas ABNT que se aplicam"
     tamanho: 19
     conteudo:
-      - "Conferidas no acervo ABNT Coleção do MPF: 45 normas do CB-040."
+      - "Conferidas no acervo ABNT do MPF (Ministério Público Federal): 45 normas."
     tabela:
       nome: "Normas ABNT aplicáveis"
       alt: "Normas ABNT aplicáveis ao material e o uso de cada uma"
@@ -148,7 +149,7 @@ slides:
     titulo: "O que foi construído"
     cartoes:
       - titulo: "Catálogo"
-        texto: ["113 regras auditáveis", "em 15 camadas, de metadados a composição"]
+        texto: ["114 regras auditáveis", "em 15 camadas, de metadados a composição"]
       - titulo: "Auditor"
         texto: ["Camadas A a I, N e O", "as demais saem como não verificadas"]
       - titulo: "Construtor"
@@ -286,7 +287,7 @@ slides:
       - "Torna a ordem de leitura visível para quem enxerga."
       - "Não exige instalar leitor de tela nenhum."
       - "É um modelo do comportamento, não o comportamento."
-      - "Não substitui o teste real: a regra K03 continua exigindo NVDA."
+      - "Não substitui o teste real: K03 exige NVDA (NonVisual Desktop Access)."
     notas: >
       Exemplo de saída: 'Slide 2 de 16, O que o verificador nativo não enxerga.
       Link, Diretrizes WCAG 2.2 do W3C. Tabela, 3 linhas, 2 colunas. Linha de
@@ -365,7 +366,7 @@ slides:
     notas: >
       O carregamento é progressivo: o agente lê só o nome e a descrição da skill
       no início, e carrega o corpo e as referências apenas quando a tarefa pede.
-      É o que permite manter um catálogo de 113 regras sem ocupar contexto à toa.
+      É o que permite manter um catálogo de 114 regras sem ocupar contexto à toa.
 
   - titulo: "O que a ferramenta não faz"
     conteudo:
@@ -410,10 +411,8 @@ slides:
       nunca como aprovado. A camada M lista o que só um humano confirma:
       verificador nativo, NVDA, escala de cinza, simulação de daltonismo, e a
       leitura por uma pessoa com deficiência — que vale mais que todo o resto.
-    notas: >
-      Este é o princípio que impede a ferramenta de virar um selo. Conformidade
-      técnica é piso, não prova.
-
+      Este é o princípio que impede a ferramenta de virar um selo:
+      conformidade técnica é piso, não prova.
   - titulo: "Esta apresentação foi auditada por si mesma"
     conteudo:
       - "Gerada por código a partir do roteiro que a acompanha."

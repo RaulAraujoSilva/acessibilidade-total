@@ -37,7 +37,7 @@ diagramas:
   - nome: camadas-catalogo
     tipo: camadas
     titulo: "As 15 camadas do catálogo de auditoria"
-    subtitulo: "113 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
+    subtitulo: "114 regras, cada uma com identificador estável, severidade, critério de origem, como detectar e como corrigir."
     altura: 1160
     largura: 1200
     alt: "As 15 camadas do catálogo, de metadados do documento até design e composição"
@@ -48,7 +48,7 @@ diagramas:
       regras. Camada D, texto alternativo, 11 regras. Camada E, cor e contraste,
       10 regras. Camada F, tipografia e legibilidade, 10 regras. Camada G,
       tabelas, 6 regras. Camada H, hiperlinks, 4 regras. Camada I, mídia,
-      movimento e interação, 9 regras. Camada J, Libras e público surdo, 8
+      movimento e interação, 9 regras. Camada J, Libras e público surdo, 9
       regras. Camada K, público cego e audiodescrição, 5 regras. Camada L,
       exportação e PDF/UA, 7 regras. Camada M, confirmação humana, 6 itens.
       Camada N, design e composição, 13 regras. Camada O, pacote e versões paralelas, 3 regras. As camadas A a I, N e O são
@@ -65,7 +65,7 @@ diagramas:
       - {id: "G", titulo: "Tabelas", detalhe: "6 regras · automática"}
       - {id: "H", titulo: "Hiperlinks", detalhe: "4 regras · automática"}
       - {id: "I", titulo: "Mídia, movimento e interação", detalhe: "9 regras · automática"}
-      - {id: "J", titulo: "Libras e público surdo", detalhe: "8 regras · mídia"}
+      - {id: "J", titulo: "Libras e público surdo", detalhe: "9 regras · mídia"}
       - {id: "K", titulo: "Público cego e audiodescrição", detalhe: "5 regras · mídia"}
       - {id: "L", titulo: "Exportação e PDF/UA", detalhe: "7 regras · veraPDF e PAC"}
       - {id: "M", titulo: "Confirmação humana", detalhe: "6 itens · pessoa"}
