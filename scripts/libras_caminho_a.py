@@ -58,11 +58,19 @@ import subprocess
 import sys
 import tempfile
 import threading
+import uuid
 import time
 
 sys.stdout.reconfigure(encoding="utf-8") if hasattr(sys.stdout, "reconfigure") else None
 
-TITULO_PAGINA = "Roteiro em Libras"
+# Titulo UNICO por execucao.
+#
+# O `gfxcapture` casa a janela por REGEX de titulo. Execucoes anteriores que
+# travaram deixaram janelas orfas do Chromium com o mesmo titulo, e o filtro
+# passou a tentar capturar uma delas — oculta, e portanto incapturavel: a
+# propria sonda de 1 s estourava 90 s de timeout. Um token por execucao torna
+# o casamento inequivoco e imune a orfa de rodada anterior.
+TITULO_BASE = "Roteiro em Libras"
 FPS_ALVO = 25            # ITU-T H.Sup1 recomenda >= 25 para lingua de sinais
 CAIXA_CSS = (316, 176, 312, 452)   # (recuo da direita, topo, largura, altura)
 
@@ -104,11 +112,11 @@ def _servir(pasta, porta=0):
     return srv, srv.server_address[1]
 
 
-def _ffmpeg_gfx(recorte, segundos, saida, fps=FPS_ALVO):
+def _ffmpeg_gfx(recorte, segundos, saida, fps=FPS_ALVO, titulo=None):
     """ffmpeg capturando a janela do navegador pelo titulo."""
-    filtro = ("gfxcapture=window_title='(?i)%s':max_framerate=30:"
+    filtro = ("gfxcapture=window_title='%s':max_framerate=30:"
               "capture_cursor=0,fps=%d,hwdownload,format=bgra%s,format=yuv420p"
-              % (TITULO_PAGINA, fps, recorte))
+              % (titulo or TITULO_BASE, fps, recorte))
     return subprocess.Popen(
         ["ffmpeg", "-y", "-filter_complex", filtro, "-t", "%.2f" % segundos,
          "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", saida],
@@ -120,7 +128,7 @@ def _par(v):
     return v - (v % 2)
 
 
-def _medir_escala(pg, tmp):
+def _medir_escala(pg, tmp, titulo):
     """
     Descobre quantos pixels fisicos a captura tem por pixel CSS da pagina.
 
@@ -128,7 +136,8 @@ def _medir_escala(pg, tmp):
     100%: `devicePixelRatio` reporta 1.0 e a captura vem 1,483x maior.
     """
     sonda = os.path.join(tmp, "_sonda.mp4")
-    _ffmpeg_gfx(",crop=trunc(iw/2)*2:trunc(ih/2)*2", 1, sonda).communicate(timeout=90)
+    _ffmpeg_gfx(",crop=trunc(iw/2)*2:trunc(ih/2)*2", 1, sonda,
+                titulo=titulo).communicate(timeout=90)
     dim = subprocess.run(
         ["ffprobe", "-v", "error", "-show_entries", "stream=width,height",
          "-of", "csv=p=0", sonda], capture_output=True, text=True).stdout.strip()
@@ -164,6 +173,16 @@ def _selecionar(pg):
 # gravacao terminava com o avatar ainda sinalizando, a selecao seguinte caia
 # num player ocupado e era ignorada — e o lote travava no quinto video.
 SEGUNDOS_POR_PALAVRA = 1.8
+
+# De quantos em quantos itens a pagina e recarregada.
+#
+# Medido nesta maquina: o player responde as primeiras traducoes de uma sessao
+# e depois para de aceitar selecao nova — o lote congelava sem erro, sempre nos
+# primeiros videos. Recarregar a cada item custa os 24 s de setup e torna o
+# lote PREVISIVEL: ~45 s por video, ~21 min para 28 slides. Tentei 4 e ainda
+# travava; 1 e o valor que se sustenta. Se numa maquina mais rapida o widget
+# aguentar mais, subir este numero economiza minutos.
+RELOAD_A_CADA = 1
 FOLGA = 8.0
 
 
@@ -205,8 +224,10 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
 
     os.makedirs(pasta, exist_ok=True)
     tmp = tempfile.mkdtemp(prefix="libras_")
+    token = uuid.uuid4().hex[:8]
+    titulo_janela = "%s %s" % (TITULO_BASE, token)
     with open(os.path.join(tmp, "index.html"), "w", encoding="utf-8") as f:
-        f.write(PAGINA.format(titulo=TITULO_PAGINA, texto=itens[0][1]))
+        f.write(PAGINA.format(titulo=titulo_janela, texto=itens[0][1]))
 
     srv, porta = _servir(tmp)
     feitos = {}
@@ -225,25 +246,47 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
             pg.mouse.click(largura - 30, altura // 2)
             time.sleep(16)          # o player Unity demora a subir
 
-            escala, cromo = _medir_escala(pg, tmp)
+            escala, cromo = _medir_escala(pg, tmp, titulo_janela)
             recuo, topo, larg_c, alt_c = CAIXA_CSS
             recorte = ",crop=%d:%d:%d:%d" % (
                 _par(larg_c * escala), _par(alt_c * escala),
                 int(round((largura - recuo) * escala)),
                 int(round((topo + cromo) * escala)))
 
-            for nome, texto in itens:
+            def _abrir_player():
+                pg.goto("http://127.0.0.1:%d/index.html" % porta,
+                        wait_until="load")
+                time.sleep(8)
+                pg.mouse.click(largura - 30, altura // 2)
+                time.sleep(16)
+
+            for n_item, (nome, texto) in enumerate(itens):
+                if n_item and n_item % RELOAD_A_CADA == 0:
+                    print("   recarregando o player (item %d)" % (n_item + 1),
+                          flush=True)
+                    _abrir_player()
+
                 alvo = os.path.join(pasta, "%s.mp4" % nome)
                 dur = segundos if segundos else _duracao_estimada(texto)
-                # troca o texto sem recarregar a pagina: recarregar mataria o
-                # player Unity e devolveria os 24 s de setup
                 pg.evaluate("(t) => { document.getElementById('alvo').textContent = t; }",
                             texto)
                 time.sleep(0.4)
-                proc = _ffmpeg_gfx(recorte, dur, alvo, fps)
+                proc = _ffmpeg_gfx(recorte, dur, alvo, fps, titulo_janela)
                 time.sleep(1.0)
                 _selecionar(pg)
-                proc.communicate(timeout=dur + 120)
+                try:
+                    proc.communicate(timeout=dur + 60)
+                except subprocess.TimeoutExpired:
+                    # ffmpeg preso: mata, recarrega e segue. Um video faltando
+                    # e um problema; o lote inteiro travado, outro.
+                    proc.kill()
+                    proc.communicate()
+                    print("   item %r estourou o tempo; recarregando" % nome,
+                          flush=True)
+                    _abrir_player()
+                print("   %-12s %.0fs · %d KB" % (nome, dur,
+                      (os.path.getsize(alvo) // 1024) if os.path.exists(alvo) else 0),
+                      flush=True)
                 feitos[nome] = {
                     "arquivo": alvo,
                     "segundos": dur,
