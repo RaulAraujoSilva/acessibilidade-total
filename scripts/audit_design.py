@@ -187,7 +187,8 @@ def _n04_ordem_visual(i, formas, rep):
     A regra C02 olha so o xfrm do slide; aqui a heranca entra, e e por isso
     que esta pega o caso do corpo acima do titulo.
     """
-    uteis = [f for f in formas if not f["dec"] and f["box"]]
+    uteis = [f for f in formas if not f["dec"] and f["box"]
+             and not A.media_kind(f["el"])]
     if len(uteis) < 2:
         return
     banda = max(1, G.ALTURA // 12)
@@ -331,6 +332,10 @@ def _n10_figura_pequena(i, formas, rep):
         if f["dec"] or not f["box"]:
             continue
         if A.local(f["el"]) != "pic":
+            continue
+        # objeto de midia e CONTROLE, nao figura: um botao de audio de 1,5 cm
+        # esta certo, e exigir 6 cm dele seria absurdo
+        if A.media_kind(f["el"]):
             continue
         menor = min(f["box"][2], f["box"][3])
         if menor < G.FIGURA_MIN:

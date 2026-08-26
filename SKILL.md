@@ -137,10 +137,15 @@ cada uma registrada como Apresentação Personalizada. Um arquivo, sem macro. Al
 no mínimo 24×24 px CSS (228600 EMU).
 
 ### 5. Enriquecer
-- Audiodescrição por slide (`gen_audiodesc.py`), com transcrição, sem autoplay.
-- Janela de Libras (`gen_libras.py`): tenta o caminho A, depois o B, e **registra o nível
-  alcançado**.
-- Legendas ao vivo pré-configuradas.
+- Audiodescrição por slide (`gen_audiodesc.py`), com transcrição.
+  `embutir_audio.py` põe cada faixa **dentro** do slide, com o controle acompanhando o título e
+  **sem reprodução automática** — entregar as faixas numa pasta ao lado cumpre a regra K02, mas
+  quase ninguém abre a pasta.
+- Janela de Libras: `libras_caminho_a.py` grava o VLibras Widget localmente, sem conta gov.br —
+  a página **precisa** ser servida por HTTP, e a seleção **precisa** ser arraste real de mouse.
+  `gen_libras.py` guarda os caminhos B e C. **Registre o nível alcançado**, sempre.
+- Legendas ao vivo: **não** são propriedade do arquivo (verificado no objeto de automação).
+  Entregam-se como instrução ao apresentador — regra J04.
 - Transcrição linear em `.docx` com estilos de título reais (`gen_transcricao.py`).
 
 ### 6. Exportar

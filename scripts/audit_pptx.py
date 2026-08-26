@@ -236,6 +236,10 @@ def audit_reading_order(prs, rep: Report):
         # slide deixava passar o slide cujos placeholders herdam a posicao
         posicionados = [(s, A.resolve_xfrm(slide, s)[0]) for s in relevantes]
         posicionados = [(s, b) for s, b in posicionados if b is not None]
+        # Objeto de midia e CROMO da interface, nao conteudo da coluna: um
+        # controle de audio no canto nao deve invalidar a leitura por coluna
+        # de uma comparacao lado a lado.
+        posicionados = [(s, b) for s, b in posicionados if not A.media_kind(s)]
         if len(posicionados) > 1:
             atual = [s for s, _ in posicionados]
             esperado = [s for s, _ in sorted(
@@ -668,7 +672,7 @@ def declare_unverified(rep: Report):
     itens = [
         ("J01", "E", "LBI · Dec. 5.626/2005", "existencia de via em Libras para o conteudo"),
         ("J02", "A", "NBR 15290:2016 7.1.3", "dimensoes da janela de Libras (>= 1/2 altura, >= 1/4 largura)"),
-        ("J04", "A", "—", "legendas ao vivo pre-configuradas no arquivo"),
+        ("J04", "D", "—", "instrucao de como ligar as Legendas ao Vivo — NAO e propriedade do arquivo: e preferencia da maquina de quem apresenta"),
         ("K02", "A", "NBR 16452:2016", "faixa de audiodescricao e sua transcricao"),
         ("K03", "E", "1.3.2", "navegacao real com leitor de tela (NVDA + Speech Logger)"),
         ("K04", "A", "—", "transcricao linear em .docx acessivel"),

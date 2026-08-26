@@ -154,8 +154,13 @@ posição da legenda e ativação automática. Transcreve a fala do apresentador
 traduzir.
 
 Atende pessoas surdas oralizadas, pessoas com perda auditiva parcial, público estrangeiro e
-participantes neurodivergentes. **Não atende** quem tem a Libras como primeira língua. Deixar a
-legenda ao vivo pré-configurada no arquivo é a regra J04; ela não zera a J01.
+participantes neurodivergentes. **Não atende** quem tem a Libras como primeira língua.
+
+**Isto não se configura no arquivo.** Verificado no objeto de automação do PowerPoint: nem
+`SlideShowSettings` nem `Application.Options` expõem legenda, idioma falado ou idioma exibido.
+São preferências da máquina de quem apresenta. A regra J04 foi reescrita de acordo: ela virou
+uma **instrução de entrega**, não uma conformidade auditável no `.pptx`. Prometer o contrário
+seria vender como propriedade do documento algo que o documento não carrega.
 
 ---
 

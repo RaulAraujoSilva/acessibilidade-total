@@ -171,7 +171,7 @@
 | J02b | A | NBR 15290:2016, 7.1.3 | Janela encoberta pela legenda, ou mudando de posição sem continuidade de imagem | SEMI | Reposicionar |
 | J02c | A | NBR 15290:2016, 7.1.2 e 7.1.4 | Contraste insuficiente entre intérprete e fundo, ou foco que corta a gesticulação, ou outra imagem sobreposta ao recorte | HUM | Regravar ou reenquadrar |
 | J03 | A | — | Sem roteiro em SRT disponível junto ao material | AUTO | Gerar o SRT |
-| J04 | A | — | Legendas ao vivo não pré-configuradas no arquivo | AUTO — `p:showPr` / configuração de legenda | Apresentação de Slides › Configurações de Legenda, idioma falado e exibido |
+| J04 | D | — | Material que será apresentado ao vivo sem instrução de como ligar as Legendas ao Vivo | HUM | Apresentação de Slides › Configurações de Legenda. **Verificado: não é propriedade do arquivo** — nem `SlideShowSettings` nem `Application.Options` expõem legenda ou idioma falado, então a configuração é da máquina de quem apresenta, e vira instrução, não conformidade auditável |
 | J05 | D | — | Glosa gerada automaticamente e não revisada | HUM | Revisão por intérprete ou pessoa surda |
 | J06 | A | — | Relatório apresentando os parâmetros da NBR 15290 como conformidade formal | HUM | A norma regula televisão; aplicá-la a slide é **analogia** e deve ser declarada como tal |
 

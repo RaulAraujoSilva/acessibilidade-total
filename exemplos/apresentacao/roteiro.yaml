@@ -32,18 +32,21 @@ slides:
 
   - titulo: "Acessibilidade deste material"
     conteudo:
-      - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste de texto em AAA (16,3:1)."
-      - "Entregue: alt text e descrição longa, ordem de leitura, três modos de cor."
-      - "Entregue: transcrição linear em .docx, audiodescrição narrada, PDF/UA."
-      - "Entregue: roteiro em SRT, pronto para gerar a janela de Libras."
-      - "NÃO entregue: a janela de Libras em si — o motivo está no relatório."
-      - "NÃO entregue: leitura por pessoa cega. Conformidade técnica é piso."
+      - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste em AAA (16,3:1)."
+      - "Entregue: alt text, ordem de leitura e três modos de cor."
+      - "Entregue: transcrição em .docx e PDF/UA validado no veraPDF."
+      - "Entregue: audiodescrição embutida, sem reprodução automática."
+      - "Entregue: janela de Libras em vídeo, com glosa automática."
+      - "NÃO entregue: revisão por intérprete, nem leitura por pessoa cega."
     notas: >
       Uma declaração de acessibilidade que só lista acertos é propaganda. A que
-      lista as lacunas é documento técnico. As duas últimas linhas mudaram
-      durante a produção: o material chegou a prometer o vídeo em Libras, e a
-      promessa caiu quando o spike de renderização local esbarrou nos bundles de
-      sinais. Corrigir a declaração é parte do método, não uma derrota.
+      lista as lacunas é documento técnico. Estas linhas mudaram duas vezes
+      durante a produção: o material prometeu o vídeo em Libras, a promessa caiu
+      quando o primeiro spike falhou, e voltou quando a causa da falha apareceu
+      — a página era montada em memória, e o widget só abre servido por HTTP.
+      A ressalva sobre a glosa fica: entregar a janela não é o mesmo que
+      entregar tradução revisada. Corrigir a declaração nos dois sentidos é
+      parte do método.
 
   - tipo: destaque
     titulo: "O problema em um número"
@@ -356,7 +359,7 @@ slides:
     notas: >
       O carregamento é progressivo: o agente lê só o nome e a descrição da skill
       no início, e carrega o corpo e as referências apenas quando a tarefa pede.
-      É o que permite manter um catálogo de 98 regras sem ocupar contexto à toa.
+      É o que permite manter um catálogo de 108 regras sem ocupar contexto à toa.
 
   - titulo: "O que a ferramenta não faz"
     conteudo:

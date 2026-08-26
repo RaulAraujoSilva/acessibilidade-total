@@ -43,7 +43,7 @@ def titulo(n, texto):
 
 
 def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
-           parar_no_portao=True) -> int:
+           parar_no_portao=True, com_diagramas=True) -> int:
     import build_deck
     import gen_transcricao
     import simular_leitura
@@ -59,12 +59,16 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
 
     # ---- 1. diagramas ---------------------------------------------------
     spec = os.path.join(entrada, "diagramas.yaml")
-    if os.path.exists(spec):
+    # Regerar as figuras custa chamada de API a cada rodada. Quando so o texto
+    # do roteiro mudou, --sem-diagramas reaproveita o que ja esta na pasta.
+    if com_diagramas and os.path.exists(spec):
         titulo(1, "Diagramas (uma versao por paleta)")
         import gen_diagramas
         mapa, _ = gen_diagramas.gerar(spec, os.path.join(saida, "figuras"))
         for nome, arqs in mapa.items():
             print("   %-24s %d paletas" % (nome, len(arqs)))
+    elif os.path.exists(spec):
+        titulo(1, "Diagramas — reaproveitando as figuras já geradas")
     else:
         titulo(1, "Diagramas — nenhum diagramas.yaml, pulando")
 
@@ -197,11 +201,14 @@ def main():
     ap.add_argument("-o", "--saida", default="entrega")
     ap.add_argument("--sem-modos", action="store_true")
     ap.add_argument("--sem-pdf", action="store_true")
+    ap.add_argument("--sem-diagramas", action="store_true",
+                    help="reaproveita as figuras da pasta de saída")
     ap.add_argument("--seguir-mesmo-reprovado", action="store_true")
     args = ap.parse_args()
     return montar(args.entrada, args.saida,
                   com_modos=not args.sem_modos,
                   com_pdf=not args.sem_pdf,
+                  com_diagramas=not args.sem_diagramas,
                   parar_no_portao=not args.seguir_mesmo_reprovado)
 
 
