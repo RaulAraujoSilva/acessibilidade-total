@@ -135,10 +135,23 @@ def embutir_por_slide(pptx: str, pasta: str) -> dict:
     with open(caminho_man, encoding="utf-8") as f:
         manifesto = json.load(f)
 
-    por_slide = {}
+    # Existir nao basta: um mp4 truncado de 0 byte passa em os.path.exists e
+    # entraria no deck como janela quebrada.
+    MINIMO = 50 * 1024
+    por_slide, rejeitados = {}, []
     for m in manifesto.values():
-        if m.get("arquivo") and os.path.exists(m["arquivo"]):
-            por_slide[m["slide"]] = os.path.abspath(m["arquivo"])
+        a = m.get("arquivo")
+        if not a or not os.path.exists(a):
+            continue
+        if os.path.getsize(a) < MINIMO:
+            rejeitados.append((m["slide"], os.path.getsize(a)))
+            continue
+        por_slide[m["slide"]] = os.path.abspath(a)
+    if rejeitados:
+        raise RuntimeError(
+            "%d video(s) truncado(s) no manifesto (slides %s) — regrave antes "
+            "de embutir, senao o deck sai com janela quebrada"
+            % (len(rejeitados), ", ".join(str(s) for s, _ in rejeitados)))
     if not por_slide:
         raise RuntimeError("nenhum video no manifesto")
 

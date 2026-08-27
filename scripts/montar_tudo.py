@@ -237,6 +237,12 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
                     codigo = codigo or 1
 
     # ---- 8 e 9. midia embutida + reauditoria ------------------------------
+    recursos = build_deck.recursos_do_perfil
+    # Quais decks REALMENTE receberam janela por slide. Olhar a flag em vez do
+    # resultado deixava o deck de Libras sair sem audio E sem Libras quando o
+    # passo 8 falhava — o unico perfil a perder os dois recursos de uma vez.
+    com_janela_por_slide = set()
+
     if libras_por_slide:
         titulo(8, "Janela de Libras POR SLIDE (perfil libras)")
         try:
@@ -251,10 +257,13 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
                 if r["abaixo_de_15fps"]:
                     print("   AVISO J07: %d vídeo(s) abaixo de 15 fps"
                           % r["abaixo_de_15fps"])
-                for caminho in alvos:
+                for chave, caminho in feitos.items():
+                    if caminho not in alvos:
+                        continue
                     e = embutir_libras.embutir_por_slide(caminho, pasta_v)
+                    com_janela_por_slide.add(chave)
                     print("   %-22s %d slides · %.1f × %.1f cm · %.1f MB"
-                          % (os.path.basename(caminho), e["slides_com_janela"],
+                          % (chave, e["slides_com_janela"],
                              e["caixa_cm"][0], e["caixa_cm"][1],
                              e["bytes"] / 1048576))
         except Exception as e:
@@ -266,8 +275,9 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
         try:
             import embutir_libras
             for chave, caminho in feitos.items():
-                if chave.startswith("libras/") and libras_por_slide:
-                    continue          # esses recebem uma janela POR SLIDE
+                perfil = chave.split("/")[0]
+                if chave in com_janela_por_slide:
+                    continue          # esses ja receberam uma janela POR SLIDE
                 r = embutir_libras.embutir(caminho, video_libras)
                 print("   %-22s slide %d · %.1f × %.1f cm"
                       % (chave, r["slide"], r["caixa_cm"][0], r["caixa_cm"][1]))
@@ -277,11 +287,17 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
 
     if pasta_audio:
         titulo(9, "Audiodescricao embutida (em TODOS os modos)")
-        # Nos tres, sem excecao: um deck sem audio seria conteudo diferente
-        # por deficiencia, que e o que a regra O02 existe para impedir.
+        # NAO em todos: a audiodescricao serve quem nao enxerga. Poe-la no deck
+        # de Libras acrescenta 13,7 MB de faixas que aquele publico nao usa —
+        # isso nao e paridade, e peso morto. O mapa esta em build_deck.RECURSOS.
         try:
             import embutir_audio
             for chave, caminho in feitos.items():
+                perfil = chave.split("/")[0]
+                if not recursos(perfil)["audio"]:
+                    print("   %-22s sem audiodescrição, por desenho: a versão "
+                          "serve quem não ouve" % chave)
+                    continue
                 r = embutir_audio.embutir(caminho, pasta_audio)
                 print("   %-22s %d slides · %.1f MB"
                       % (chave, r["slides_com_audio"], r["bytes"] / 1048576))
@@ -293,7 +309,7 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
     # Reauditar depois de embutir midia nao e zelo: o audio ja quebrou C01, C02
     # e N04 uma vez, porque o controle entrava no fim do spTree. O relatorio que
     # vale e o do arquivo COMO ENTREGUE, nao o de antes da midia.
-    if video_libras or pasta_audio:
+    if video_libras or pasta_audio or libras_por_slide:
         titulo(10, "Reauditoria dos arquivos COMO ENTREGUES")
         for chave, caminho in feitos.items():
             print("   -- %s" % os.path.basename(caminho))

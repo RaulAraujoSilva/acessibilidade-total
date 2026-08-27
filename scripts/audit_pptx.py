@@ -723,8 +723,11 @@ def audit_links(prs, rep: Report):
 # Camada I — midia, movimento e interacao
 # ==========================================================================
 def audit_media(prs, rep: Report):
-    for r in ("I01", "I06", "I07"):
+    for r in ("I01", "I02", "I06", "I07"):
         rep.check(r)
+    # Agregados: uma linha por deck, nao uma por objeto. Com 28 faixas de
+    # audio ou 28 janelas de Libras, o relatorio virava inventario.
+    janelas_libras, faixas_audio = [], []
     for i, slide in enumerate(prs.slides, 1):
         transicao = slide._element.find(A.q("p:transition"))
         if transicao is not None:
@@ -738,12 +741,17 @@ def audit_media(prs, rep: Report):
         for el in A.iter_shape_elements(slide.shapes._spTree, recurse_groups=True):
             kind = A.media_kind(el)
             if kind == "video":
-                rep.unverified("I01", "E", "1.2.2",
-                               "video presente — confirmar legenda WebVTT anexada",
-                               onde(i, el))
+                # A janela de Libras E a via de acesso; pedir legenda WebVTT
+                # nela e exigir tradução da tradução. Num deck com 28 janelas
+                # isso enchia o relatorio com 28 linhas sem sentido.
+                if (A.shape_name(el) or "").strip().lower() == "janela de libras":
+                    janelas_libras.append(i)
+                else:
+                    rep.unverified("I01", "E", "1.2.2",
+                                   "video presente — confirmar legenda WebVTT anexada",
+                                   onde(i, el))
             elif kind == "audio":
-                rep.unverified("I02", "E", "1.2.1",
-                               "audio presente — confirmar transcricao", onde(i, el))
+                faixas_audio.append(i)
 
             rid, _tip = A.get_hyperlink(el)
             tem_link_run = any(
@@ -761,10 +769,32 @@ def audit_media(prs, rep: Report):
 # ==========================================================================
 # Camadas J a M — fora do alcance da analise estatica
 # ==========================================================================
-def declare_unverified(rep: Report):
-    itens = [
-        ("J01", "E", "LBI · Dec. 5.626/2005", "existencia de via em Libras para o conteudo"),
-        ("J02", "A", "NBR 15290:2016 7.1.3", "dimensoes da janela de Libras (>= 1/2 altura, >= 1/4 largura)"),
+    _resumo_de_midia(rep, janelas_libras, faixas_audio,
+                     len(prs.slides._sldIdLst))
+def _resumo_de_midia(rep, janelas_libras, faixas_audio, total):
+    if janelas_libras:
+        rep.unverified(
+            "J01", "E", "LBI · Dec. 5.626/2005",
+            "janela de Libras em %d de %d slides — confirmar que a glosa foi "
+            "revisada por intérprete (J05)" % (len(janelas_libras), total))
+    if faixas_audio:
+        rep.unverified(
+            "I02", "E", "1.2.1",
+            "audiodescrição em %d de %d slides — confirmar a transcrição das "
+            "faixas" % (len(faixas_audio), total))
+
+
+def declare_unverified(rep: Report, tem_janela_libras=False):
+    itens = []
+    if not tem_janela_libras:
+        # com janela embutida, J01 e J02 sao respondidas pelo proprio arquivo:
+        # `_resumo_de_midia` relata quantos slides tem janela, e a regra J02 e
+        # medida em `audit_design`. Declara-las como inexistentes seria mentir.
+        itens += [
+            ("J01", "E", "LBI · Dec. 5.626/2005", "existencia de via em Libras para o conteudo"),
+            ("J02", "A", "NBR 15290:2016 7.1.3", "dimensoes da janela de Libras (>= 1/2 altura, >= 1/4 largura)"),
+        ]
+    itens += [
         ("J04", "D", "—", "instrucao de como ligar as Legendas ao Vivo — NAO e propriedade do arquivo: e preferencia da maquina de quem apresenta"),
         ("K02", "A", "NBR 16452:2016", "faixa de audiodescricao e sua transcricao"),
         ("K03", "E", "1.3.2", "navegacao real com leitor de tela (NVDA + Speech Logger)"),
@@ -854,9 +884,13 @@ def audit(caminho: str) -> Report:
     audit_typography(prs, rep)
     audit_tables(prs, rep)
     audit_links(prs, rep)
+    tem_janela = any(
+        (A.shape_name(el) or "").strip().lower() == "janela de libras"
+        for slide in prs.slides
+        for el in A.iter_shape_elements(slide.shapes._spTree, recurse_groups=True))
     audit_media(prs, rep)
     audit_design.auditar(prs, rep)
-    declare_unverified(rep)
+    declare_unverified(rep, tem_janela)
     return rep
 
 

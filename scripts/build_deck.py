@@ -84,6 +84,41 @@ ROTULO_PERFIL = {
 # NBR 15290 (por analogia) pede no minimo 8,47 cm de largura: quatro colunas.
 COLUNAS_LIBRAS = 4
 
+# ------------------------------------------------------------------------
+# QUE RECURSO VAI EM QUE PERFIL — o recurso segue o SENTIDO que ele serve.
+#
+# Este mapa corrige um erro de conceito que durou uma rodada. A regra O02
+# ("recurso presente numa versao e ausente noutra") foi escrita para o eixo de
+# COR, onde os tres arquivos tem de ser identicos. Aplicada ao eixo de PUBLICO
+# ela vira o oposto do que pretende: obriga o deck de Libras a carregar 28
+# faixas de audiodescricao — 13,7 dos 14,3 MB do arquivo — para um publico que
+# nao as usa. Isso nao e paridade, e peso morto.
+#
+#   audiodescricao   serve quem NAO ENXERGA. Vai no perfil completo e no de
+#                    leitura facil, onde a narracao apoia a compreensao.
+#   janela de Libras serve quem tem Libras como PRIMEIRA LINGUA. No perfil
+#                    libras ela vai em TODO slide; nos demais, na capa, como
+#                    porta de entrada.
+#
+# A versao `completo` continua carregando TUDO: e a que nunca falta nada a
+# ninguem, e e para ela que o LEIA-ME manda quem estiver em duvida.
+# `todas_as_paletas`: quem nao ouve depende INTEIRAMENTE do canal visual, entao
+# a versao em Libras tambem sai em alto contraste e em daltonico-seguro. A de
+# leitura facil nao tem esse argumento — sai no modo padrao, e quem precisar de
+# contraste tem as tres paletas da versao completa.
+RECURSOS = {
+    "completo":      {"audio": True,  "libras_por_slide": False,
+                      "todas_as_paletas": True},
+    "libras":        {"audio": False, "libras_por_slide": True,
+                      "todas_as_paletas": True},
+    "leitura_facil": {"audio": True,  "libras_por_slide": False,
+                      "todas_as_paletas": False},
+}
+
+
+def recursos_do_perfil(perfil):
+    return RECURSOS.get(perfil, RECURSOS["completo"])
+
 # Corpo maior nos perfis de publico. Nao e enfeite: com uma ideia por slide,
 # manter 24pt deixaria o slide vazio e o texto pequeno ao mesmo tempo — e a
 # regra 6 da Inclusion Europe pede tipo grande em material de leitura facil.
@@ -482,10 +517,18 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao",
     linhas = spec.get("conteudo", []) or []
     links = spec.get("links", []) or []
 
+    # No perfil de Libras a faixa da direita e reservada em TODO tipo de
+    # slide: a janela nao pode aparecer e sumir entre slides do mesmo bloco,
+    # e onde o layout nao reserva espaco ela cobre o conteudo (regra N03).
+    estreito = COLUNAS_LIBRAS if perfil == "libras" else 0
+
     if tipo == "capa":
         slide = prs.slides.add_slide(layout_por_nome(prs, "Capa"))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema, G.TIPO["capa"])
+        if estreito:
+            posicionar(slide.shapes.title, 0, 8 - estreito // 2,
+                       G.cm(4.2), G.cm(3.4))
         sub = spec.get("subtitulo", "")
         if sub:
             ph = _pega(slide, 1)
@@ -498,6 +541,12 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao",
         slide = prs.slides.add_slide(layout_por_nome(prs, "Seção"))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema, G.TIPO["secao"])
+        if estreito:
+            posicionar(slide.shapes.title, 0, 10 - estreito,
+                       G.cm(6.6), G.cm(3.4))
+            apoio = _pega(slide, 1)
+            if apoio is not None:
+                posicionar(apoio, 0, 10 - estreito, G.cm(10.2), G.cm(2.4))
         if linhas:
             ph = _pega(slide, 1)
             nomear(ph, "Apoio da seção")
@@ -554,6 +603,12 @@ def montar_slide(prs, spec, tema, sufixo="", modo="padrao",
         slide = prs.slides.add_slide(layout_por_nome(prs, "Citação"))
         pintar_fundo(slide, tema)
         _titulo(slide, titulo, tema, G.TIPO["citacao"])
+        if estreito:
+            posicionar(slide.shapes.title, 0, 10 - estreito,
+                       G.cm(5.6), G.cm(6.4))
+            credito = _pega(slide, 1)
+            if credito is not None:
+                posicionar(credito, 0, 10 - estreito, G.cm(12.6), G.cm(2.4))
         if spec.get("credito"):
             ph = _pega(slide, 1)
             nomear(ph, "Crédito da citação")
@@ -759,8 +814,15 @@ def perfilar(roteiro, perfil):
     novos = []
     for i, spec in enumerate(roteiro["slides"], 1):
         s2 = dict(spec)
-        # capa e secao ja sao curtas por natureza: nao se mexe nelas
+        # Capa, secao e citacao nao levam corpo reduzido — mas o TITULO delas
+        # encolhe junto com a faixa reservada, e titulo longo transborda (N12).
+        # O override `libras: {titulo: ...}` vale para elas tambem.
         if spec.get("tipo") in ("capa", "secao", "citacao"):
+            proprio = spec.get(chave_extra)
+            if isinstance(proprio, dict) and proprio.get("titulo"):
+                s2["titulo"] = proprio["titulo"]
+            for k in ("libras", "facil"):
+                s2.pop(k, None)
             novos.append(s2)
             continue
 
@@ -785,10 +847,12 @@ def perfilar(roteiro, perfil):
         s2["conteudo"] = linhas
         # tipos que dependem de blocos proprios voltam a ser conteudo simples:
         # cartao e comparacao carregam texto demais para estes perfis
-        if spec.get("tipo") in ("cartoes", "comparacao"):
+        if spec.get("tipo") in ("cartoes", "comparacao", "destaque"):
+            # esses tipos ocupam a largura toda e a janela cairia por cima
+            # deles (N03). Viram conteudo simples, que respeita a faixa.
             s2["tipo"] = "conteudo"
-            s2.pop("cartoes", None)
-            s2.pop("colunas", None)
+            for k in ("cartoes", "colunas", "numero", "rotulo"):
+                s2.pop(k, None)
         for k in (chave_extra, "libras", "facil"):
             s2.pop(k, None)
         novos.append(s2)
@@ -911,7 +975,8 @@ def construir_conjunto(roteiro, pasta, base, modos=MODOS,
         # perfis dariam nove arquivos e 137 MB — e o deck de Libras sozinho, com
         # 28 videos, ja passa de 40 MB. Quem precisar do produto cartesiano pede
         # com --perfis-todos-os-modos, e o LEIA-ME declara a escolha.
-        modos_deste = modos if (perfil == "completo" or todos_os_modos) else ("padrao",)
+        quer_todas = recursos_do_perfil(perfil).get("todas_as_paletas", False)
+        modos_deste = modos if (quer_todas or todos_os_modos) else ("padrao",)
         for modo in modos_deste:
             nome = base + SUFIXO_PERFIL[perfil] + SUFIXO[modo] + ".pptx"
             saida = os.path.join(pasta, nome)

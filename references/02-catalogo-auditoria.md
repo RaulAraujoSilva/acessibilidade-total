@@ -265,7 +265,16 @@
 | O04 | E | 1.1.1, 1.3.1 | Mensagem-chave presente num perfil de público e ausente noutro | AUTO — compara a linha `[chave]` das notas | Repor. **Reduzir texto não pode virar omitir conteúdo** |
 | O05 | E | conteúdo equivalente | Perfil que **acrescenta** mensagem inexistente na versão base | AUTO | Remover. Versões que dizem coisas diferentes são duas verdades, não duas apresentações |
 | O06 | A | 2.4.2 | Versão de público que não se identifica no título do documento | AUTO | Pôr o público no `dc:title` — é o que o leitor de tela anuncia ao abrir |
+| O07 | A | conteúdo equivalente | Recurso presente ou ausente numa versão **fora do que o perfil declara** — a divergência tem de ser desenho, não descuido | AUTO — compara com `build_deck.RECURSOS` | Repor o recurso, ou declarar a diferença no mapa |
 
+> **Recurso segue o sentido que ele serve.** A regra O02 foi escrita para o eixo de **cor**,
+> onde as três paletas são o mesmo arquivo repintado. Aplicada ao eixo de **público** ela se
+> inverte: obrigaria o deck de Libras a carregar 28 faixas de audiodescrição — 12,5 dos seus
+> 14,3 MB — para quem não as usa. Isso não é paridade, é peso morto. A audiodescrição atende
+> quem não enxerga; a janela de Libras atende quem tem Libras como primeira língua. **O07**
+> existe para que essa diferença continue sendo *desenho verificável* e não descuido: ela
+> confere o arquivo contra o mapa declarado em `build_deck.RECURSOS`.
+>
 > **Dois eixos, dois testes.** *Modo de cor* troca a paleta e nada mais: entre modos, o texto
 > tem de ser **idêntico** (O01/O02). *Perfil de público* troca o registro do texto de propósito —
 > comparar literalmente reprovaria por construção. Entre perfis o que se exige é **equivalência

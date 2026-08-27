@@ -49,10 +49,23 @@ NAO_VERIFICADO = "nao verificado"
 # nomes de arquivo que servem como declaracao do pacote (regra O03)
 DECLARACOES = ("leia-me.md", "leiame.md", "readme.md", "leia-me.txt")
 
+PUBLICO = {
+    "completo": "todos — é a versão que não falta nada a ninguém",
+    "libras": "Libras como primeira língua",
+    "leitura_facil": "deficiência cognitiva, TDAH, leitura fácil",
+}
+
+
+def _conta(n, singular, plural):
+    if not n:
+        return "—"
+    return "%d %s" % (n, singular if n == 1 else plural)
+
 
 class Pacote:
     def __init__(self, arquivos):
         self.arquivos = arquivos
+        self.perfis = {}
         self.findings = []
         self.evaluated = set()
 
@@ -133,8 +146,12 @@ def _recursos_do_slide(slide):
     """Que recursos o slide carrega, sem olhar o conteudo deles."""
     r = defaultdict(int)
     for el in A.iter_shape_elements(slide.shapes._spTree):
-        if A.media_kind(el):
-            r["midia"] += 1
+        kind = A.media_kind(el)
+        if kind:
+            # audio e video contados a parte: "1 midia" nao distingue uma faixa
+            # de audiodescricao de uma janela de Libras, e a diferenca e o
+            # ponto inteiro da separacao por perfil
+            r[kind if kind in ("audio", "video") else "midia"] += 1
         elif el.tag == A.q("p:pic"):
             r["figura"] += 1
         elif el.tag == A.q("p:graphicFrame") and el.find(".//" + A.q("a:tbl")) is not None:
@@ -177,6 +194,12 @@ def auditar(arquivos, pasta=None) -> Pacote:
                        "so um arquivo informado — nao ha o que comparar")
     else:
         versoes = [_ler(a) for a in arquivos]
+        for v in versoes:
+            rep.perfis.setdefault(v["perfil"], {
+                "arquivo": v["nome"],
+                "audio": sum(r.get("audio", 0) for r in v["recursos"]),
+                "video": sum(r.get("video", 0) for r in v["recursos"]),
+            })
 
         # DENTRO de um perfil, as versoes so mudam de paleta: o texto tem de
         # ser identico (O01/O02). ENTRE perfis, o texto muda de proposito —
@@ -195,6 +218,7 @@ def auditar(arquivos, pasta=None) -> Pacote:
             rep.check("O05")
         else:
             _o04_o05(rep, por_perfil)
+        _o07(rep, versoes)
 
     _o03(rep, pasta or (os.path.dirname(os.path.abspath(arquivos[0]))
                         if arquivos else "."))
@@ -301,6 +325,43 @@ def _o04_o05(rep, por_perfil):
                      % (nome, c[:60]))
 
 
+def _o07(rep, versoes):
+    """
+    A divergencia de recurso entre perfis tem de ser a DECLARADA.
+
+    Sem esta regra, `build_deck.RECURSOS` seria uma intencao escrita em codigo
+    que nenhum auditor le — e tirar um recurso por engano ficaria indistinguivel
+    de tirar por desenho. E exatamente a diferenca entre "recurso segue o
+    sentido que serve" e "essa versao esta faltando coisa".
+    """
+    rep.check("O07")
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from build_deck import recursos_do_perfil
+    except Exception:
+        rep.unverified("O07", "A", "divergencia de recurso declarada",
+                       "nao foi possivel ler o mapa RECURSOS de build_deck")
+        return
+
+    for v in versoes:
+        esperado = recursos_do_perfil(v["perfil"])
+        tem_audio = sum(r.get("audio", 0) for r in v["recursos"]) > 0
+        n_video = sum(r.get("video", 0) for r in v["recursos"])
+
+        if tem_audio != esperado["audio"]:
+            rep.fail("O07", "A", "divergencia de recurso declarada", v["nome"],
+                     "audiodescrição %s, mas o perfil %r a declara como %s — "
+                     "recurso a mais ou a menos que o desenho prevê"
+                     % ("presente" if tem_audio else "ausente", v["perfil"],
+                        "esperada" if esperado["audio"] else "dispensada"))
+
+        if esperado["libras_por_slide"] and n_video < v["slides"]:
+            rep.fail("O07", "A", "divergencia de recurso declarada", v["nome"],
+                     "o perfil %r prevê uma janela de Libras por slide, e há "
+                     "%d janela(s) para %d slides"
+                     % (v["perfil"], n_video, v["slides"]))
+
+
 def _o03(rep, pasta):
     """O pacote precisa dizer qual arquivo e qual, e para quem."""
     rep.check("O03")
@@ -353,17 +414,38 @@ def render(rep: Pacote, pasta="") -> str:
     L.append("| Não verificado | %d |" % nv)
     L.append("")
     if erros == 0 and avisos == 0:
-        L.append("As versões carregam **o mesmo conteúdo e os mesmos recursos**. "
-                 "Diferem apenas na paleta, que é o propósito delas.")
+        L.append("Todas as versões carregam **a mesma informação**: nenhuma "
+                 "mensagem-chave falta e nenhuma sobra.")
+        L.append("")
+    # O recurso NAO e o mesmo em toda versao, e afirmar que e seria falso. Esta
+    # tabela e derivada do arquivo, nao escrita a mao: e o relatorio dizendo o
+    # que ele mediu, em vez de repetir uma promessa.
+    if rep.perfis:
+        L.append("### O que cada versão carrega")
+        L.append("")
+        L.append("| Versão | Público | Audiodescrição | Janela de Libras |")
+        L.append("|---|---|---|---|")
+        for nome, dados in sorted(rep.perfis.items()):
+            L.append("| `%s` | %s | %s | %s |"
+                     % (dados["arquivo"], PUBLICO.get(nome, nome),
+                        _conta(dados["audio"], "faixa", "faixas"),
+                        _conta(dados["video"], "janela", "janelas")))
+        L.append("")
+        L.append("> Recurso segue **o sentido que ele serve**: a audiodescrição "
+                 "atende quem não enxerga, a janela de Libras atende quem tem "
+                 "Libras como primeira língua. Exigir todo recurso em toda "
+                 "versão não seria paridade — seria peso morto.")
         L.append("")
     for f in rep.findings:
         L.append("- **%s** · %s · %s — %s"
                  % (f["regra"], f["severidade"], f["onde"], f["detalhe"]))
     if rep.findings:
         L.append("")
-    L.append("> Paridade verificada por comparação de texto, alt text, notas e "
-             "recursos, slide a slide. O título do documento leva o nome do "
-             "modo de propósito e não entra na comparação.")
+    L.append("> Entre **paletas** compara-se texto, alt text, notas e recursos, "
+             "slide a slide (O01/O02). Entre **perfis de público** compara-se a "
+             "mensagem-chave (O04/O05), porque ali o texto muda de propósito. "
+             "O título do documento leva o nome da versão e fica fora da "
+             "comparação.")
     return "\n".join(L) + "\n"
 
 

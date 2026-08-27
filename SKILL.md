@@ -48,7 +48,7 @@ Remediar depois é caro e frágil; nascer certo é barato.
 | Arquivo | Quando ler |
 |---|---|
 | `references/01-normas-e-legislacao.md` | Fundamentar; evitar as citações erradas (NBR 17060 e NBR 9050 **não** se aplicam a documento) |
-| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 117 regras em 15 camadas, com ID, severidade, detecção e correção |
+| `references/02-catalogo-auditoria.md` | **Sempre que auditar.** 118 regras em 15 camadas, com ID, severidade, detecção e correção |
 | `references/03-ferramentas-e-plugins.md` | Escolher ferramenta e saber o que ela não vê |
 | `references/04-ooxml-cookbook.md` | Mexer no XML: alt text, decorativo, ordem, tabela, tema |
 | `references/05-alt-text-e-audiodescricao.md` | Escrever alt text, descrição longa, roteiro de AD |

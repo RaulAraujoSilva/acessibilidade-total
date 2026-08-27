@@ -13,7 +13,7 @@ apresentacao:
   palavras_chave: "acessibilidade, WCAG, PDF/UA, PowerPoint, Libras, audiodescrição, LBI"
   resumo: >
     Apresentação do projeto acessibilidade-total, uma skill de código aberto que
-    produz apresentações acessíveis por construção e as audita contra 117 regras.
+    produz apresentações acessíveis por construção e as audita contra 118 regras.
 
 slides:
   # ===================== ABERTURA =====================
@@ -28,7 +28,7 @@ slides:
       TCE — Tópicos em Ciência e Engenharia, disciplina 00191, Documentos
       Acessíveis.
       Esta apresentação é sobre a ferramenta que a construiu. Ela foi gerada por
-      código a partir de um roteiro, auditada contra 117 regras e exportada em
+      código a partir de um roteiro, auditada contra 118 regras e exportada em
       PDF validado contra a ISO 14289. O relatório de auditoria acompanha a
       entrega.
 
@@ -70,6 +70,8 @@ slides:
   # ===================== FUNDAMENTAÇÃO =====================
   - tipo: secao
     titulo: "Fundamentação: por que isto é obrigação, não gentileza"
+    libras:
+      titulo: "Por que é obrigação"
     conteudo:
       - "A cadeia normativa técnica, a lei brasileira e as armadilhas de citação."
 
@@ -161,7 +163,7 @@ slides:
     mensagem_chave: "Construímos uma ferramenta que produz e audita."
     cartoes:
       - titulo: "Catálogo"
-        texto: ["117 regras auditáveis", "em 15 camadas, de metadados a composição"]
+        texto: ["118 regras auditáveis", "em 15 camadas, de metadados a composição"]
       - titulo: "Auditor"
         texto: ["Camadas A a I, N e O", "as demais saem como não verificadas"]
       - titulo: "Construtor"
@@ -174,7 +176,7 @@ slides:
       seria verificado teria produzido mais um gerador de slides bonitos.
 
   - titulo: "As 15 camadas do catálogo"
-    mensagem_chave: "O catálogo tem 117 regras em 15 camadas."
+    mensagem_chave: "O catálogo tem 118 regras em 15 camadas."
     tamanho: 19
     conteudo:
       - "Cada regra tem identificador estável, severidade e critério de origem."
@@ -395,7 +397,7 @@ slides:
     notas: >
       O carregamento é progressivo: o agente lê só o nome e a descrição da skill
       no início, e carrega o corpo e as referências apenas quando a tarefa pede.
-      É o que permite manter um catálogo de 117 regras sem ocupar contexto à toa.
+      É o que permite manter um catálogo de 118 regras sem ocupar contexto à toa.
 
   - titulo: "O que a ferramenta não faz"
     mensagem_chave: "A ferramenta não substitui teste com pessoas."

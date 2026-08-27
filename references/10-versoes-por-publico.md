@@ -29,6 +29,35 @@ Sem a condição 1 e 2 verificadas, "versão equivalente" é promessa. A âncora
 `mensagem_chave` do roteiro, que o construtor grava nas notas como `[chave] …` e o
 `audit_pacote.py` compara entre perfis.
 
+## 1.1 Que recurso vai em que versão
+
+O recurso segue **o sentido que ele serve**. Parece óbvio dito assim, e ainda assim este projeto
+errou uma rodada inteira nisso: entregou o deck de Libras com **28 faixas de audiodescrição**,
+13,7 dos seus 14,3 MB, para um público que não as usa.
+
+O erro veio de aplicar ao eixo de público uma regra escrita para o eixo de cor. A **O02**
+— *"recurso presente numa versão e ausente noutra"* — existe porque as três paletas têm de ser
+o mesmo arquivo com outra cor. Entre **perfis** ela se inverte: forçar todo recurso em toda
+versão não é paridade, é peso morto, e ainda embaralha para quem abre o arquivo o que aquela
+versão de fato oferece.
+
+| Recurso | Serve quem | Onde vai |
+|---|---|---|
+| **Audiodescrição narrada** | não enxerga | `completo` e `leitura_facil` |
+| **Janela de Libras em todo slide** | tem Libras como primeira língua | `libras` |
+| **Janela de Libras na capa** | qualquer pessoa, como porta de entrada | todas as versões |
+| **Alto contraste / paleta cega-segura** | baixa visão e discromatopsia | eixo de cor, não de perfil |
+| **Transcrição linear** | linha braille, leitura sequencial, revisão | uma, para o pacote |
+
+> **A versão `completo` carrega tudo.** É a que nunca falta nada a ninguém, e é para ela que o
+> `LEIA-ME.md` manda quem estiver em dúvida — inclusive quem for surdocego, que precisa da
+> transcrição e da audiodescrição ao mesmo tempo. As versões de perfil são **especializações**,
+> nunca o único caminho.
+
+Por isso a camada O roda **O01 e O02 dentro de um perfil** (entre paletas) e **O04/O05 entre
+perfis** (equivalência de mensagem). O que se cobra entre públicos é que a **informação** não
+mude — não que o **suporte** seja o mesmo.
+
 **Dois eixos, dois testes.** *Modo de cor* troca a paleta e nada mais: entre modos o texto tem de
 ser **idêntico** (O01/O02). *Perfil de público* troca o registro do texto de propósito — comparar
 literalmente reprovaria por construção.
@@ -177,3 +206,44 @@ Cada slide do roteiro declara uma `mensagem_chave`. Os perfis derivam dela — o
 de dizer outra coisa. Quem quiser mais que a mensagem-chave escreve `libras:` ou `facil:` no
 slide. Sem `mensagem_chave`, o build **recusa** o perfil, e a mensagem diz por quê: reduzir texto
 é trabalho de redação, não de código.
+
+---
+
+## 5. Gerar Libras em escala — o que existe, inclusive pago
+
+A pergunta é justa: capturar a tela de um widget é um recurso de última hora, não uma solução.
+O levantamento abaixo foi verificado — endpoints testados ao vivo, imagens Docker abertas byte a
+byte, páginas de preço lidas.
+
+| Opção | Faz **Libras**? | Gera arquivo de vídeo? | Em lote / API? | Custo |
+|---|---|---|---|---|
+| **VLibras auto-hospedado** (`vlibras-video-core:3.4.1`) | **Sim** | **Sim** (frames → mp4) | Sim, você controla o laço | **R$ 0** |
+| Endpoint público `/translate` | Sim (só a glosa) | Não | Sim, 300 req/min, 0,2 s | R$ 0, sem login |
+| `POST /video` oficial | Sim | Sim | **401 num gateway** | — |
+| `video.vlibras.gov.br` | Sim | Sim | Não (web, manual) | Grátis, exige gov.br |
+| **Hand Talk** | **Sim** | **Não** — SDK de navegador | Não | Sem preço público |
+| **Rybená** | **Sim** | Sim (serviço, ≤ 90 s) | Sem API | Sem preço público |
+| Signapse · Kara · SignAll · Silence Speaks | **NÃO** — ASL/BSL/NZSL | Sim | Sim | US$ 1,50–2,00/min |
+| **LIBRAS.SE** (intérprete humano) | **Sim** | Sim, ProRes 4444 com alpha | Por contato | **R$ 100–450/min** |
+
+Três conclusões que economizam tempo de quem repetir a busca:
+
+1. **O pelotão de IA fotorrealista não serve.** Signapse, Kara, SignAll e Silence Speaks fazem
+   ASL, BSL ou NZSL. **Nenhuma faz Libras.** Isso elimina o mercado internacional inteiro.
+2. **Hand Talk faz Libras, mas não entrega arquivo.** É um SDK WebGL com `translate()`, `pause()`,
+   `repeat()` — nenhum método para exportar vídeo nem para obter a glosa. Contratá-la trocaria uma
+   captura de tela por outra, agora paga.
+3. **A qualidade real tem preço, e é humana.** Para ~5 minutos de vídeo, a LIBRAS.SE sai por
+   **R$ 500** no prazo de 7 dias, com intérprete certificado.
+
+### A ressalva que o relatório precisa carregar
+
+Avatar com glosa por regras **não tem classificador, expressão facial gramatical nem uso do
+espaço de sinalização** — os três são estrutura da língua, não ornamento. O próprio
+`video.vlibras.gov.br` desaconselha o uso em *"produções audiovisuais, cursos, aulas,
+seminários"*, porque a tradução automática não sincroniza.
+
+Num trabalho **sobre** acessibilidade, o caminho defensável não é escolher entre os dois: é gerar
+o material completo pelo pipeline automático e contratar humano para dois ou três trechos,
+**documentando a comparação**. O contraste vira conteúdo, e a limitação deixa de ser desculpa
+para virar achado.

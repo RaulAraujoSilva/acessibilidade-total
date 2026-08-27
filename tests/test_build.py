@@ -24,6 +24,7 @@ except Exception:
 from audit_pptx import audit, NAO_CONFORME  # noqa: E402
 import audit_pacote  # noqa: E402
 from build_deck import (ErroDeRoteiro, MODOS, construir,  # noqa: E402
+                        recursos_do_perfil,
                         construir_conjunto)
 
 EXEMPLO = os.path.join(ROOT, "exemplos", "roteiro-exemplo.yaml")
@@ -89,6 +90,43 @@ def testa_recusa(roteiro_ruim, esperado):
         return ok
     print("  %-22s ACEITOU — deveria ter recusado" % esperado)
     return False
+
+
+def testa_recursos_por_perfil(perfis, pasta) -> int:
+    """
+    O recurso segue o sentido que serve — e isso tem de ser VERIFICAVEL.
+
+    Aqui nao ha COM nem PowerPoint: conta-se `ppt/media/` pelo zipfile. O que
+    se testa e a regra O07 nos dois sentidos, porque um auditor que nunca acusa
+    aprova qualquer coisa.
+    """
+    import zipfile
+
+    falhas = 0
+    for chave, caminho in sorted(perfis.items()):
+        perfil = chave.split("/")[0]
+        esperado = recursos_do_perfil(perfil)
+        with zipfile.ZipFile(caminho) as z:
+            midia = [n for n in z.namelist() if n.startswith("ppt/media/")]
+        mp3 = sum(1 for n in midia if n.lower().endswith(".mp3"))
+        rotulo = "recursos %s" % perfil
+        # o deck recem-construido ainda nao tem midia embutida; o que se pode
+        # afirmar aqui e que ele nao ganhou audio sozinho
+        if mp3 and not esperado["audio"]:
+            print("  %-28s ERRO: %d faixa(s) num perfil que dispensa áudio"
+                  % (rotulo, mp3))
+            falhas += 1
+        else:
+            print("  %-28s coerente com o mapa" % rotulo)
+
+    rep = audit_pacote.auditar(list(perfis.values()), pasta)
+    o07 = [f for f in rep.findings
+           if f["regra"] == "O07" and f["veredito"] == audit_pacote.NAO_CONFORME]
+    # o perfil libras ainda nao tem as janelas embutidas, entao O07 DEVE acusar
+    pegou = any("janela de Libras por slide" in f["detalhe"] for f in o07)
+    print("  %-28s %s" % ("O07 (sem as janelas)",
+                          "acusou" if pegou else "ERRO: não acusou"))
+    return falhas + (0 if pegou else 1)
 
 
 def copy_roteiro_com_chave(roteiro):
@@ -203,6 +241,7 @@ def main() -> int:
         for chave, caminho in perfis.items():
             falhas += len(auditar(caminho, "deck %s" % chave))
             falhas += conta_slides(caminho, esperado, "deck %s" % chave)
+        falhas += testa_recursos_por_perfil(perfis, d)
         falhas += testa_paridade(list(feitos.values()), d)
 
         unico = construir_conjunto(roteiro, d, "legado", arquivo_unico=True)

@@ -146,7 +146,7 @@ photographs, colour used as the only carrier of meaning, colour blindness, alt t
 links, animation, target size, sign language, audio description, or anything in the exported
 PDF.
 
-This repository is the missing part: **117 auditable rules**, each with a stable ID, a
+This repository is the missing part: **118 auditable rules**, each with a stable ID, a
 severity, its source criterion, how to detect it and how to fix it.
 
 ---

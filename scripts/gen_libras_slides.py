@@ -36,6 +36,12 @@ except Exception:
 
 MANIFESTO = "manifesto.json"
 
+# Um mp4 de 0 byte EXISTE. O cache que so pergunta os.path.exists reaproveita o
+# fracasso da rodada anterior e nunca mais grava aquele slide — foi o que
+# aconteceu com os seis ultimos videos de um lote interrompido. O piso abaixo e
+# generoso: um video de 12 s a 25 fps nao sai de 100 KB por acidente.
+MINIMO_BYTES = 50 * 1024
+
 
 def _hash(texto):
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()[:16]
@@ -66,7 +72,8 @@ def gerar(pptx: str, pasta: str, forcar: bool = False) -> dict:
         h = _hash(texto)
         arquivo = os.path.join(pasta, nome + ".mp4")
         reaproveita = (antigo.get(nome, {}).get("hash") == h
-                       and os.path.exists(arquivo))
+                       and os.path.exists(arquivo)
+                       and os.path.getsize(arquivo) >= MINIMO_BYTES)
         manifesto[nome] = {"slide": i, "texto": texto, "hash": h,
                            "arquivo": arquivo, "reaproveitado": reaproveita}
         if not reaproveita:

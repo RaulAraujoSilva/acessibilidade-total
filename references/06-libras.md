@@ -140,6 +140,70 @@ largura** — o que, na prática, é uma janela grande. Um avatar miniaturizado 
 Complementarmente, a **ABNT NBR 15610-3:2016** (TV digital terrestre — Parte 3: Língua de Sinais)
 trata especificamente do transporte de Libras e vale a consulta quando o entregável for vídeo.
 
+### Gerar em lote: renderizar, não fotografar a tela
+
+A captura do widget por `gfxcapture` funciona e entrega 25 fps, mas é o pior caminho disponível:
+depende de janela visível, de *timing*, e custa ~45 s por vídeo. **Renderizar é melhor** — e a
+receita está verificada dentro da própria imagem oficial.
+
+> **Use `vlibras/vlibras-video-core:3.4.1`, não `translator-video:3.1.0`.** A 3.1.0 concatena um
+> **vídeo de propaganda** no fim de toda saída (`ffmpeg.concat(video_stream, ad_stream)`, com o
+> `ad720x900.mp4` embutido na imagem). Todos os seus vídeos terminariam com o carimbo gov.br.
+
+**1. Glosa — endpoint público, sem login.**
+
+```
+POST https://traducao2.vlibras.gov.br/translate
+Content-Type: application/json
+{"text": "..."}
+```
+
+Medido: **HTTP 200 em ~0,19 s**, `x-ratelimit-limit: 300`/min, limite de 5.000 caracteres, sem
+cookie nem token. É o mesmo endpoint que o pipeline oficial usa — está no `settings.ini` da
+imagem. Devolve, por exemplo:
+
+```
+ACESSIBILIDADE DIGITAL&COMPUTADOR GARANTIR TODO PESSOA PODER&POSSIBILIDADE USAR INTERNET [PONTO]
+```
+
+O `POST /video` do mesmo host devolve **401** — mas o código-fonte da API **não tem middleware de
+autenticação**: o 401 vem de um gateway na frente da instância de produção. Quem sobe a API
+própria tem `/video` aberto.
+
+**2. Bundles de sinais — públicos.**
+
+`https://dicionario2-dth.vlibras.gov.br/static/BUNDLES/2018.3.1/LINUX/BR/<SINAL>`, e o índice com
+**23.403 sinais** em `/static/TREES/2018.3.1.json`. A plataforma é **LINUX** — está escrito no
+`StreamingAssets/config.json` que acompanha o binário (`"dictionaryURL": ".../2018.3.1/LINUX/"`).
+AssetBundle é por plataforma e **não é intercambiável**: `WEBGL` não serve ao player Linux.
+
+**3. Formato da glosa.** Arquivo `.txt` UTF-8, uma linha por bloco:
+
+```
+0#CATALOGAR TER 117 REGRA 15 CAMADA [PONTO]
+```
+
+`TEMPO_MS#GLOSA` (a ordem é controlada por `"timeGlosaOrder"` no `config.json`). `&` separa
+sinais compostos; pontuação vai em colchetes: `[PONTO]`, `[INTERROGAÇÃO]`, `[EXCLAMAÇÃO]`. Fora
+do padrão, o binário sai com código 1 e a mensagem *"Glosa file is empty or does not match
+pattern"*.
+
+**4. Render.** O binário **não produz mp4** — ele escreve JPGs numa pasta, e o mp4 sai do ffmpeg
+depois. `--videopath` é um **diretório**, não um arquivo. E ele exige um display X (por isso a
+imagem instala `xvfb`).
+
+```bash
+xvfb-run VLibras-Video.x86_64 --id <tag> --glosapath g.txt --videopath frames/     --width 720 --height 900 --speed 150 --framerate 24 --avatar icaro     --subtitle off --bundlespath /bundles
+ffmpeg -framerate 24 -pattern_type glob -i 'frames/img_*.jpg' -pix_fmt yuv420p out.mp4
+```
+
+Avatares: `icaro`, `hozana` e, na 3.4.1, `guga`. Existe ainda um `--region` (sinal regionalizado
+por UF) que o wrapper oficial nunca passa.
+
+**Não é preciso fila.** RabbitMQ, MongoDB, Redis e o worker ficam fora do caminho crítico: são
+quatro comandos.
+
+
 ### Taxa de quadros — o parâmetro que faltava
 
 **Não há mínimo normativo.** A NBR 15290 regula dimensão, posição, contraste, foco e estúdio;
