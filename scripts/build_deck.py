@@ -106,13 +106,19 @@ COLUNAS_LIBRAS = 4
 # a versao em Libras tambem sai em alto contraste e em daltonico-seguro. A de
 # leitura facil nao tem esse argumento — sai no modo padrao, e quem precisar de
 # contraste tem as tres paletas da versao completa.
+# `libras_na_capa` e False em toda parte, de proposito. A janela solta na capa
+# dos demais arquivos era uma "porta de entrada" — e virava exatamente o que
+# este projeto recusa: um selo. Uma janela num slide, num deck que nao tem
+# Libras nos outros 27, nao serve a quem precisa de Libras, e ainda sugere que
+# serve. Quem precisa da versao em Libras a encontra pelo LEIA-ME e pelo slide
+# de acessibilidade, que a nomeiam.
 RECURSOS = {
     "completo":      {"audio": True,  "libras_por_slide": False,
-                      "todas_as_paletas": True},
+                      "libras_na_capa": False, "todas_as_paletas": True},
     "libras":        {"audio": False, "libras_por_slide": True,
-                      "todas_as_paletas": True},
+                      "libras_na_capa": False, "todas_as_paletas": True},
     "leitura_facil": {"audio": True,  "libras_por_slide": False,
-                      "todas_as_paletas": False},
+                      "libras_na_capa": False, "todas_as_paletas": False},
 }
 
 

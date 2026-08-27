@@ -40,6 +40,31 @@ LARGURA, ALTURA, ESCALA = 1200, 800, 2
 # --------------------------------------------------------------------------
 # Paletas
 # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# HACHURA POR SERIE — o modo daltonico nao muda so de cor, muda de TEXTURA.
+#
+# A observacao que originou isto: o modo daltonico e o padrao pareciam iguais.
+# E eram, quase: a paleta Okabe-Ito ja e cega-segura por construcao, entao o
+# modo daltonico nunca esteve corrigindo uma paleta insegura — ele so troca
+# duas series (verde-azulado e roxo-avermelhado por cinza e vermelhao). Uma
+# versao que promete diferenca e entrega um fundo 2% mais frio nao se sustenta.
+#
+# A diferenca real e **codificacao redundante**: cada serie ganha um angulo de
+# hachura proprio. Quem nao distingue as cores distingue a trama; quem imprime
+# em preto e branco tambem. WCAG 1.4.1 pede que a cor nao seja o unico meio —
+# aqui ela deixa de ser, de fato e nao so no rodape do relatorio.
+ANGULOS = (45, 135, 90, 0, 30, 120)
+
+
+def _hachura(cor, i, ativa):
+    """Faixa de cor com trama propria da serie. Sem `ativa`, cor lisa."""
+    if not ativa:
+        return "background:%s" % cor
+    ang = ANGULOS[i % len(ANGULOS)]
+    return ("background:repeating-linear-gradient(%ddeg, %s 0 6px, "
+            "rgba(255,255,255,.55) 6px 11px)" % (ang, cor))
+
+
 def carregar_paletas():
     with open(PALETA, encoding="utf-8") as f:
         p = json.load(f)
@@ -62,6 +87,7 @@ def carregar_paletas():
                        "#FFFFFF"],
         },
         "daltonico": {
+            "hachura": True,
             "fundo": p["fundos"]["daltonico_seguro"],
             "texto": p["textos"]["sobre_claro"], "caixa": "#FFFFFF",
             "borda": texto["azul"], "destaque": texto["azul"],
@@ -96,10 +122,18 @@ h1 { font-size:40px; font-weight:700; line-height:1.15; letter-spacing:-.4px; }
   display:flex; align-items:center; justify-content:center; width:64px;
   font-size:44px; font-weight:700; color:%(borda)s;
 }
+/* Trama por serie: no modo daltonico cada serie tem um angulo de hachura
+   proprio, para que a distincao nao dependa de perceber a cor. */
+.elo { position:relative; }
+.elo .trama { height:14px; border-radius:7px; margin:0 0 12px; }
+.camada { position:relative; overflow:hidden; }
+.camada .trama-lateral {
+  position:absolute; left:0; top:0; bottom:0; width:16px;
+}
 .camadas { display:flex; flex-direction:column; gap:12px; flex:1; }
 .camada {
   display:flex; align-items:center; gap:20px; border-radius:12px;
-  padding:14px 22px; background:%(caixa)s; border-left:16px solid %(borda)s;
+  padding:14px 22px 14px 34px; background:%(caixa)s;
 }
 .camada .id {
   font-size:30px; font-weight:700; width:44px; text-align:center;
@@ -132,10 +166,12 @@ h1 { font-size:40px; font-weight:700; line-height:1.15; letter-spacing:-.4px; }
 """
 
 
-def _elo(item, cor):
+def _elo(item, cor, i=0, hachura=False):
     return ('<div class="elo" style="border-color:%s">'
+            '<div class="trama" style="%s"></div>'
             '<div class="t">%s</div><div class="d">%s</div></div>'
-            % (cor, item["titulo"], item.get("detalhe", "")))
+            % (cor, _hachura(cor, i, hachura), item["titulo"],
+               item.get("detalhe", "")))
 
 
 def montar_html(spec, pal):
@@ -148,7 +184,8 @@ def montar_html(spec, pal):
     if tipo == "cadeia":
         partes = []
         for i, it in enumerate(itens):
-            partes.append(_elo(it, pal["series"][i % len(pal["series"])]))
+            partes.append(_elo(it, pal["series"][i % len(pal["series"])],
+                               i, pal.get("hachura", False)))
             if i < len(itens) - 1:
                 partes.append('<div class="seta">&#8594;</div>')
         corpo.append('<div class="cadeia">%s</div>' % "".join(partes))
@@ -159,18 +196,22 @@ def montar_html(spec, pal):
             cor = pal["series"][i % len(pal["series"])]
             linhas.append(
                 '<div class="camada" style="border-left-color:%s">'
+                '<div class="trama-lateral" style="%s"></div>'
                 '<div class="id" style="color:%s">%s</div>'
                 '<div class="nome">%s</div><div class="qtd">%s</div></div>'
-                % (cor, cor, it.get("id", ""), it["titulo"], it.get("detalhe", "")))
+                % (cor, _hachura(cor, i, pal.get("hachura", False)), cor,
+                   it.get("id", ""), it["titulo"], it.get("detalhe", "")))
         corpo.append('<div class="camadas">%s</div>' % "".join(linhas))
 
     elif tipo == "passos":
         linhas = []
         for i, it in enumerate(itens, 1):
+            cor = pal["series"][(i - 1) % len(pal["series"])]
             linhas.append(
-                '<div class="passo"><div class="n">%d</div>'
+                '<div class="passo"><div class="n" style="%s">%d</div>'
                 '<div class="txt"><b>%s</b>%s</div></div>'
-                % (i, it["titulo"],
+                % (_hachura(pal["destaque"], i - 1, pal.get("hachura", False)),
+                   i, it["titulo"],
                    (" — " + it["detalhe"]) if it.get("detalhe") else ""))
         corpo.append('<div class="passos">%s</div>' % "".join(linhas))
 

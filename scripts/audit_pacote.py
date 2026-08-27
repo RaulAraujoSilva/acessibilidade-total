@@ -355,11 +355,20 @@ def _o07(rep, versoes):
                      % ("presente" if tem_audio else "ausente", v["perfil"],
                         "esperada" if esperado["audio"] else "dispensada"))
 
-        if esperado["libras_por_slide"] and n_video < v["slides"]:
+        if esperado["libras_por_slide"]:
+            if n_video < v["slides"]:
+                rep.fail("O07", "A", "divergencia de recurso declarada",
+                         v["nome"],
+                         "o perfil %r prevê uma janela de Libras por slide, e "
+                         "há %d janela(s) para %d slides"
+                         % (v["perfil"], n_video, v["slides"]))
+        elif n_video and not esperado.get("libras_na_capa", False):
+            # o inverso tambem e defeito: uma janela solta num deck que nao
+            # tem Libras nos demais slides nao serve a quem precisa dela
             rep.fail("O07", "A", "divergencia de recurso declarada", v["nome"],
-                     "o perfil %r prevê uma janela de Libras por slide, e há "
-                     "%d janela(s) para %d slides"
-                     % (v["perfil"], n_video, v["slides"]))
+                     "%d janela(s) de Libras num perfil %r que não as prevê — "
+                     "janela avulsa não é via de acesso, é selo"
+                     % (n_video, v["perfil"]))
 
 
 def _o03(rep, pasta):

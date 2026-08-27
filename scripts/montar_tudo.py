@@ -278,6 +278,10 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
                 perfil = chave.split("/")[0]
                 if chave in com_janela_por_slide:
                     continue          # esses ja receberam uma janela POR SLIDE
+                if not recursos(perfil).get("libras_na_capa", False):
+                    print("   %-22s sem janela na capa, por desenho: uma janela "
+                          "solta não serve a quem precisa de Libras" % chave)
+                    continue
                 r = embutir_libras.embutir(caminho, video_libras)
                 print("   %-22s slide %d · %.1f × %.1f cm"
                       % (chave, r["slide"], r["caixa_cm"][0], r["caixa_cm"][1]))

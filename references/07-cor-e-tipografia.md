@@ -149,6 +149,32 @@ Com arquivos separados, **o modo fica nos metadados, não no conteúdo**: `cp.ti
 modo, que é o que o leitor de tela anuncia ao abrir, e o texto dos slides permanece idêntico nos
 três. É isso que torna a paridade verificável.
 
+### Por que o modo daltônico parece igual ao padrão — e o que foi feito
+
+A pergunta apareceu ao olhar os dois lado a lado, e é justa: o destaque é **exatamente a mesma
+cor** (`#0072B2`) nos dois, e o fundo muda de `#FAF7F2` para `#F5F5F0` — diferença que ninguém
+percebe.
+
+**Isso está certo, e é o problema.** A paleta Okabe-Ito **já é cega-segura por construção**: ela
+foi desenhada para que as oito cores permaneçam distinguíveis sob protanopia, deuteranopia e
+tritanopia. O modo daltônico nunca esteve corrigindo uma paleta insegura — ele só troca duas
+séries (verde-azulado e roxo-avermelhado por cinza e vermelhão), que colidem entre si em alguns
+tipos. E como todo elemento dos diagramas já carrega **rótulo em texto**, a cor nunca foi o único
+meio de informação: o critério 1.4.1 já estava atendido antes.
+
+Só que uma versão que se anuncia como "daltônico-seguro" e entrega um fundo 2% mais frio **não se
+sustenta** — promete uma diferença que não existe. Ou ela acrescenta algo real, ou não deveria ser
+vendida como modo à parte.
+
+O que ela passou a acrescentar é **codificação redundante**: na paleta daltônica cada série ganha
+um **ângulo de hachura próprio** (45°, 135°, 90°, 0°…). A distinção deixa de depender de perceber
+a cor — e passa a sobreviver também à impressão em preto e branco e à escala de cinza do Windows,
+que é a regra M03. Implementado em `gen_diagramas._hachura`.
+
+> A cor continua ali, e continua cega-segura. O que mudou é que ela deixou de ser **o único**
+> canal, de fato e não apenas no rodapé do relatório.
+
+
 Os três modos são **variações de paleta do mesmo conteúdo**, jamais versões com conteúdo
 diferente. Conteúdo diferente por deficiência é segregação, não acessibilidade. Antes isso era
 uma promessa do laço de construção; agora é a **camada O** do catálogo, que compara texto, alt

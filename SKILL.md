@@ -93,17 +93,31 @@ anunciaria. É um modelo do comportamento, não o comportamento: não satisfaz a
 
 ---
 
-## Atalho: o pipeline inteiro num comando
+## Atalho: o kit inteiro num comando
 
 ```bash
-python scripts/montar_tudo.py pasta-do-roteiro/ -o entrega/
+python scripts/montar_tudo.py pasta-do-roteiro/ -o entrega/     --perfis completo,libras,leitura_facil     --libras-por-slide     --com-audio entrega/audiodescricao
 ```
 
-Roda os sete estágios com portão em cada um. O portão do estágio 3 **para** o
-pipeline se sobrar Erro ou Aviso: exportar PDF de um `.pptx` reprovado só propaga
-o defeito para o formato em que o material de fato circula.
+Onze estágios com portão em cada um. O do estágio 3 **para** o pipeline se sobrar
+Erro ou Aviso: exportar PDF de um `.pptx` reprovado só propaga o defeito para o
+formato em que o material de fato circula.
 
----
+| Flag | Para quê |
+|---|---|
+| `--perfis` | versões por público: `completo`, `libras`, `leitura_facil` |
+| `--libras-por-slide` | grava e embute **uma janela de Libras por slide** no perfil `libras` |
+| `--com-audio PASTA` | embute a audiodescrição nos perfis que a preveem |
+| `--com-libras VIDEO` | janela única na capa (só para perfis com `libras_na_capa`) |
+| `--perfis-todos-os-modos` | força cada perfil nas três paletas |
+| `--pdf-todos-os-modos` | exporta um PDF por versão, não só o padrão |
+| `--sem-diagramas` | reaproveita as figuras já geradas (poupa chamadas de API) |
+| `--sem-pdf` · `--sem-modos` · `--arquivo-unico` | recortes e o desenho legado |
+
+**Qual recurso vai em qual versão** está em `build_deck.RECURSOS`, e a regra
+**O07** confere o arquivo contra esse mapa — nos dois sentidos: recurso que
+falta e recurso que sobra.
+
 
 ## Fluxo de produção
 
@@ -129,12 +143,17 @@ que a regra O04 compara entre versões. Aplicar aqui o sufixo de continuidade (`
 depois é retrabalho.
 
 ### 2. Figuras
-Gerar as ilustrações (`scripts/gen_images.py`, gpt-image-2). Para cada figura, escrever **no
-mesmo passo**:
+`scripts/gen_diagramas.py` monta diagramas técnicos em HTML e os converte em PNG — **uma versão
+por paleta**, texto sempre exato, sem custo de API. Na paleta daltônica cada série ganha um
+**ângulo de hachura próprio**: quem não distingue as cores distingue a trama, e quem imprime em
+preto e branco também.
+
+Para cada figura, escrever **no mesmo passo**:
 - alt text de até ~150 caracteres, que responde *por que a figura está no slide*;
 - descrição longa, que vai para as Anotações do orador.
 
 **Figura sem esse par não entra no deck.** Regra do pipeline, não recomendação.
+
 
 ### 3. Construir
 `scripts/gerar_modelo.py` produz `assets/modelo-acessivel.pptx` — **não use o template padrão
@@ -144,25 +163,50 @@ do Office**: ele traz `cap="all"` no layout de seção e posiciona o corpo acima
 `assets/paleta-okabe-ito.json`, `firstRow` nas tabelas, decorativos marcados, ordem de leitura
 explícita no `spTree`, metadados preenchidos.
 
-### 4. Modos de exibição
-**Um arquivo por modo** — Padrão, Alto contraste, Daltônico-seguro — gerados do mesmo roteiro
-por `construir_conjunto`. O modo vai para `cp.title` (o que o leitor de tela anuncia ao abrir),
-nunca para o conteúdo, e a **camada O** verifica que os três carregam o mesmo texto e os mesmos
-recursos. O desenho antigo, um arquivo com hub e três seções, sobrevive em `--arquivo-unico`:
-economizava um anexo e cobrava 57 slides de repetição de quem navega em sequência.
-Alvos de clique com no mínimo 24×24 px CSS (228600 EMU).
+### 4. Versões — dois eixos
+**Paleta** (`padrao`, `alto_contraste`, `daltonico`) troca a cor e **nada mais**: entre paletas o
+texto tem de ser idêntico. **Perfil de público** troca o registro do texto de propósito:
 
-### 5. Enriquecer
-- Audiodescrição por slide (`gen_audiodesc.py`), com transcrição.
-  `embutir_audio.py` põe cada faixa **dentro** do slide, com o controle acompanhando o título e
-  **sem reprodução automática** — entregar as faixas numa pasta ao lado cumpre a regra K02, mas
-  quase ninguém abre a pasta.
-- Janela de Libras: `libras_caminho_a.py` grava o VLibras Widget localmente, sem conta gov.br —
-  a página **precisa** ser servida por HTTP, e a seleção **precisa** ser arraste real de mouse.
-  `gen_libras.py` guarda os caminhos B e C. **Registre o nível alcançado**, sempre.
-- Legendas ao vivo: **não** são propriedade do arquivo (verificado no objeto de automação).
-  Entregam-se como instrução ao apresentador — regra J04.
-- Transcrição linear em `.docx` com estilos de título reais (`gen_transcricao.py`).
+| Perfil | Público | O que muda |
+|---|---|---|
+| `completo` | todos — a versão que não falta nada a ninguém | nada |
+| `libras` | Libras como primeira língua | texto reduzido à `mensagem_chave`, corpo 28pt, **4 das 12 colunas reservadas** e janela em todo slide |
+| `leitura_facil` | deficiência cognitiva, TDAH | uma ideia por slide, corpo 30pt |
+
+O texto reduzido **não é gerado**: vem do campo `mensagem_chave` que cada slide declara. Resumo
+automático produziria uma terceira versão do conteúdo, com risco de dizer outra coisa — e sem
+`mensagem_chave` o build **recusa** o perfil.
+
+`libras` sai nas **três paletas**: quem não ouve depende inteiramente do canal visual.
+`leitura_facil` sai só no padrão.
+
+A fundamentação — inclusive o que **não** sustenta cada versão — está em
+`references/10-versoes-por-publico.md`.
+
+
+### 5. Enriquecer — o recurso segue o sentido que ele serve
+Este é o passo em que mais se erra por excesso de zelo: embutir tudo em tudo **não é paridade**,
+é peso morto. A audiodescrição atende quem não enxerga; a janela de Libras atende quem tem Libras
+como primeira língua.
+
+- **Audiodescrição** — `gen_audiodesc.py` (ElevenLabs) escreve as faixas e a transcrição
+  obrigatória; `embutir_audio.py` põe cada faixa **dentro** do slide, sem reprodução automática,
+  com alt text e o controle reordenado no `spTree` logo após o título. Entregar as faixas numa
+  pasta ao lado cumpre a regra K02, mas quase ninguém abre a pasta.
+- **Janela de Libras** — `gen_libras_slides.py` grava **uma por slide** (cache por hash do texto,
+  manifesto com a taxa de quadros medida) e `embutir_libras.py --por-slide` as embute.
+  `gen_libras.py` produz o `.srt` e a glosa.
+  **Alvo de 24–25 fps**: não há mínimo normativo na NBR 15290, mas a ITU-T H.Sup1 recomenda ≥25 e
+  a literatura mostra perda de compreensão abaixo de 10. A regra **J07** reprova abaixo de 15.
+  Para gerar em lote sem navegador, a receita do renderizador Unity está em
+  `references/06-libras.md` — inclusive a armadilha da imagem que concatena propaganda.
+- **Legendas ao vivo** — **não** são propriedade do arquivo (verificado no objeto de automação):
+  são preferência da máquina de quem apresenta. Entregam-se como instrução (regra J04).
+- **Transcrição linear** em `.docx` com estilos de título reais (`gen_transcricao.py`).
+
+**Nada disso substitui revisão humana.** Glosa automática erra concordância espacial e
+classificadores; alt text gerado passa por curadoria antes de sair.
+
 
 ### 6. Exportar
 `scripts/export_pdfua.py` — COM, `DocStructureTags=True`. Nunca "Imprimir para PDF".
@@ -170,14 +214,20 @@ Ele ainda corrige `/Lang` e `/Title`, que o PowerPoint entrega errados, e grava 
 identificador PDF/UA-1 no XMP — sem ele o veraPDF reprova.
 
 ### 7. Auditar
-`audit_pptx.py` + `audit_contrast.py` + `audit_pdf.py` produzem o relatório por regra. O laço
-volta ao passo 3 **até zerar Erros e Avisos**. A camada M do catálogo (confirmação humana) sai
-como lista de pendências com instruções — nunca como item aprovado sem evidência.
+`audit_pptx.py` (A–I e N) + `audit_contrast.py` + `audit_design.py` + `audit_pdf.py` (L) +
+**`audit_pacote.py` (O)**. O laço volta ao passo 3 **até zerar Erros e Avisos**.
 
-Antes de fechar, rode `simular_leitura.py` e **leia a saída**: é a forma mais barata de
-perceber que a ordem de leitura está certa no XML mas errada no sentido.
+A camada **O** é a que olha o *conjunto*: paridade de texto entre paletas (O01/O02), equivalência
+de mensagem-chave entre perfis (O04/O05), declaração de público (O06) e coerência com o mapa de
+recursos (O07). Rode-a **depois** de embutir a mídia — é o arquivo como entregue que vale:
 
----
+```bash
+python scripts/audit_pacote.py entrega/*.pptx --md entrega/auditoria-pacote.md
+```
+
+A camada M (confirmação humana) sai como lista de pendências com instruções — nunca como item
+aprovado sem evidência. Antes de fechar, rode `simular_leitura.py` e **leia a saída**.
+
 
 ## Fluxo de auditoria de um arquivo de terceiros
 
