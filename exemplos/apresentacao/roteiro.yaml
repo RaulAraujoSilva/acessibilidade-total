@@ -13,14 +13,14 @@ apresentacao:
   palavras_chave: "acessibilidade, WCAG, PDF/UA, PowerPoint, Libras, audiodescrição, LBI"
   resumo: >
     Apresentação do projeto acessibilidade-total, uma skill de código aberto que
-    produz apresentações acessíveis por construção e as audita contra 118 regras.
+    produz um material por público e audita todos contra 118 regras.
 
 slides:
   # ===================== ABERTURA =====================
   - tipo: capa
     titulo: "Acessibilidade Total"
     subtitulo:
-      - "Uma ferramenta para produzir e auditar apresentações acessíveis"
+      - "Um material por público, quando a produção deixa de ser o limite"
       - "Trabalho 1 · TCE 00191 — Documentos Acessíveis"
       - "Doutorado em Engenharia de Produção · UFF"
       - "Raul Araujo Silva"
@@ -51,6 +51,58 @@ slides:
       entregar tradução revisada. Corrigir a declaração nos dois sentidos é
       parte do método.
 
+  # ===================== A HIPOTESE =====================
+  - tipo: secao
+    titulo: "A hipótese"
+    conteudo:
+      - "Acessibilidade supõe um material só. E se a suposição for economia?"
+
+  - titulo: "Um material para todos, ou um para cada?"
+    mensagem_chave: "Perguntamos se vale fazer um material para cada público."
+    libras:
+      titulo: "Um ou vários?"
+    conteudo:
+      - "O Desenho Universal manda fazer um material que sirva a todos."
+      - "A regra tem duas razões: não dar menos, e não deixar versões divergirem."
+      - "Mas quem tem Libras como língua materna lê português como segunda língua."
+      - "Para essa pessoa, parede de texto não fica acessível por ter alt text."
+      - "A pergunta deste trabalho: e se produzir vários deixasse de ser inviável?"
+    notas: >
+      A LBI, no artigo 28, inciso quatro, fala em Libras como primeira língua e
+      português escrito como segunda língua. Se a lei reconhece duas línguas,
+      entregar só uma e chamar de universal é conveniência, não princípio.
+      A pergunta não é retórica: ela só faz sentido agora, porque o custo de
+      produzir mudou.
+
+  - tipo: destaque
+    titulo: "O que tornava inviável"
+    mensagem_chave: "Fazer sete versões à mão custaria centenas de horas."
+    numero: "196"
+    rotulo: "slides para escrever e revisar"
+    conteudo:
+      - "Sete versões de vinte e oito slides, cada uma auditada."
+      - "Mais vinte e oito faixas narradas e vinte e oito vídeos em Libras."
+      - "Somam-se as descrições longas, uma por figura, em cada versão."
+      - "Nenhuma equipe pequena faz isso à mão, e por isso ninguém fazia."
+    notas: >
+      Este é o número que sustenta a regra de um artefato só. Ele não vem da
+      ética: vem do orçamento. Vale dizer isso com todas as letras, porque é o
+      que a automação muda — e o que ela não muda.
+
+  - titulo: "O que a automação muda, e o que não muda"
+    mensagem_chave: "A automação tira o custo, não tira o dever."
+    libras:
+      titulo: "O que muda"
+    conteudo:
+      - "Some o custo: as sete versões saem de um comando só."
+      - "Some a deriva: todas nascem do mesmo roteiro, na mesma hora."
+      - "Não some o dever de entregar a mesma informação a todos."
+      - "Por isso a equivalência virou regra auditável, e não promessa."
+    notas: >
+      Das duas razões do artefato único, a automação derruba uma e reforça a
+      outra. O custo cai. A divergência entre versões, que era o segundo medo,
+      passa a ser verificada por máquina a cada build — algo que a produção
+      manual nunca teve.
   - tipo: destaque
     titulo: "O problema em um número"
     mensagem_chave: "O verificador do PowerPoint vê só 10 regras."
@@ -320,24 +372,56 @@ slides:
       Link, Diretrizes WCAG 2.2 do W3C. Tabela, 3 linhas, 2 colunas. Linha de
       cabeçalho: Camada, Cobertura nativa.'
 
-  - titulo: "Três modos de cor, três arquivos"
-    mensagem_chave: "São três arquivos de cor com o mesmo conteúdo."
+  - titulo: "Dois eixos de separação"
+    mensagem_chave: "Separamos por paleta de cor e por público."
     conteudo:
-      - "Padrão, alto contraste e daltônico-seguro, com o mesmo conteúdo."
-      - "Era um arquivo só, com um hub e três seções paralelas."
-      - "De 85 slides, 57 eram repetição — e a transcrição saía triplicada."
-      - "Quem enxerga escolhia no hub; quem lê em sequência pagava a conta."
-      - "Conteúdo diferente por deficiência seria segregação, não acessibilidade."
+      - "Paleta troca a cor e nada mais: o texto tem de ser idêntico."
+      - "Perfil troca o registro do texto, para outro público."
+      - "Paleta: padrão, alto contraste e daltônico-seguro."
+      - "Perfil: completo, Libras como primeira língua e leitura fácil."
+      - "Sete arquivos, todos gerados do mesmo roteiro."
     notas: >
-      A decisão foi revista em 26 de agosto de 2026, e o motivo é o público que
-      a repetição penalizava: quem navega em sequência atravessava o material
-      três vezes. O arquivo único economizava um anexo e cobrava isso. A troca
-      criou um risco novo, que as versões divergissem, e por isso nasceu a
-      camada O: ela compara texto, texto alternativo, notas e recursos das três
-      versões, slide a slide, e reprova a diferença. O modo fica no título do
-      documento, que é o que o leitor de tela anuncia ao abrir, e não no
-      conteúdo.
+      A distinção entre os dois eixos é o que permite auditar. Entre paletas a
+      exigência é texto idêntico. Entre perfis o texto muda de propósito, e o
+      que se compara é a mensagem-chave que cada slide declara. Comparar
+      literalmente entre perfis reprovaria por construção.
 
+  - titulo: "Sete versões, sete públicos"
+    mensagem_chave: "Cada versão tem um público e recursos próprios."
+    libras:
+      titulo: "Sete versões"
+    tabela:
+      nome: "Versões do material"
+      alt: "As sete versões entregues, o público de cada uma e o que muda"
+      cabecalho: ["Versão", "Para quem", "O que carrega"]
+      linhas:
+        - ["padrão", "uso geral", "audiodescrição em cada slide"]
+        - ["alto contraste", "baixa visão, sala clara", "audiodescrição, 21:1"]
+        - ["daltônico-seguro", "discromatopsia", "audiodescrição, hachura"]
+        - ["libras (3 paletas)", "Libras como 1ª língua", "janela em cada slide"]
+        - ["leitura fácil", "cognitivo, atenção", "uma ideia por slide"]
+    notas: >
+      O recurso segue o sentido que ele serve. A audiodescrição atende quem não
+      enxerga e por isso não vai no arquivo em Libras, onde seriam treze
+      megabytes de faixas que aquele público não usa. A janela de Libras não
+      vai nos demais, porque uma janela avulsa num material que não tem Libras
+      nos outros vinte e sete slides é selo, não acesso.
+
+  - titulo: "O que separa acesso de segregação"
+    mensagem_chave: "Versão diferente só vale se der a mesma informação."
+    libras:
+      titulo: "Acesso ou segregação"
+    conteudo:
+      - "Nenhuma versão dá menos: toda mensagem-chave está em todas."
+      - "Nenhuma versão dá mais: nada existe só num arquivo."
+      - "Qualquer pessoa pode abrir qualquer versão."
+      - "A versão completa carrega tudo, e nunca falta nada a ninguém."
+      - "As condições viraram as regras O quatro a O sete, verificadas por máquina."
+    notas: >
+      Esta é a resposta à objeção óbvia: versão por deficiência costuma ser
+      versão pior. O que impede isso aqui não é boa intenção, é teste. O
+      auditor compara as mensagens-chave entre as versões e reprova tanto o que
+      falta quanto o que sobra. Sem essa verificação, equivalente seria palavra.
   # ===================== COMO USAR =====================
   - tipo: secao
     titulo: "Como usar"
@@ -399,6 +483,38 @@ slides:
       no início, e carrega o corpo e as referências apenas quando a tarefa pede.
       É o que permite manter um catálogo de 118 regras sem ocupar contexto à toa.
 
+  - titulo: "Como o agente entra no processo"
+    mensagem_chave: "Você pede em português e o agente conduz o pipeline."
+    libras:
+      titulo: "O papel do agente"
+    conteudo:
+      - "Você entrega um texto ou uma apresentação que já tem."
+      - "O agente lê a skill e sabe as regras, os limites e a ordem dos passos."
+      - "Ele roteiriza, constrói as sete versões, audita e relata o que falhou."
+      - "Quem decide o que cada público precisa continua sendo você."
+      - "O portão é do pipeline, não do agente: com erro aberto, não há entrega."
+    notas: >
+      A diferença entre isto e pedir slides a um modelo de linguagem é o
+      portão. O agente não decide se está bom: ele roda o auditor, e o auditor
+      recusa. Foi assim que apareceram os defeitos que ninguém tinha visto,
+      inclusive dentro do próprio auditor.
+
+  - titulo: "O que a máquina fez, e o que não fez"
+    mensagem_chave: "A máquina produziu e auditou, mas julgar continua humano."
+    libras:
+      titulo: "Fez e não fez"
+    conteudo:
+      - "Fez: cento e dezoito regras, o código e as sete versões."
+      - "Fez: achou defeitos que passaram por três revisões humanas."
+      - "Não fez: revisar a glosa de Libras, que erra concordância espacial."
+      - "Não fez: escolher o que cada público precisa saber."
+      - "Não fez: substituir o teste com pessoas com deficiência."
+    notas: >
+      Vale ser específico sobre os defeitos: uma regra do catálogo saía como
+      conforme sem nunca ter sido verificada, e a primeira janela de Libras
+      entregue tinha dois quadros e meio por segundo, abaixo de qualquer
+      condição já testada na literatura. Os dois apareceram porque alguém
+      olhou, não porque a automação avisou.
   - titulo: "O que a ferramenta não faz"
     mensagem_chave: "A ferramenta não substitui teste com pessoas."
     conteudo:
@@ -452,7 +568,7 @@ slides:
       titulo: "Auditada por si mesma"
     conteudo:
       - "Gerada por código a partir do roteiro que a acompanha."
-      - "Auditada contra as camadas A a I, N e O, com zero erros e zero avisos."
+      - "Sete versões auditadas: zero erros e zero avisos em todas."
       - "Exportada em PDF com marcas de estrutura e identificador PDF/UA."
       - "Validada no veraPDF contra a ISO 14289, sem erros."
       - "O relatório de auditoria acompanha a entrega."

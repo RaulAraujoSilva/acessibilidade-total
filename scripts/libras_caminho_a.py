@@ -203,7 +203,8 @@ def gravar(texto: str, saida: str, segundos: int = None, largura: int = 1280,
 
 
 def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
-                fps: int = FPS_ALVO, segundos: int = None) -> dict:
+                fps: int = FPS_ALVO, segundos: int = None,
+                ao_terminar=None) -> dict:
     """
     Grava um video por item, reaproveitando UMA sessao de navegador.
 
@@ -287,6 +288,14 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
                 print("   %-12s %.0fs · %d KB" % (nome, dur,
                       (os.path.getsize(alvo) // 1024) if os.path.exists(alvo) else 0),
                       flush=True)
+                # Avisa a cada item. Sem isto o manifesto so era gravado no fim,
+                # e um travamento no meio jogava fora o cache de tudo o que ja
+                # tinha sido gravado — aconteceu com 28 videos prontos.
+                if ao_terminar:
+                    try:
+                        ao_terminar(nome, feitos[nome])
+                    except Exception:
+                        pass
                 feitos[nome] = {
                     "arquivo": alvo,
                     "segundos": dur,

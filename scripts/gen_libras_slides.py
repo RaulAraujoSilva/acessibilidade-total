@@ -82,7 +82,15 @@ def gerar(pptx: str, pasta: str, forcar: bool = False) -> dict:
     if pendentes:
         print("gravando %d vídeo(s); %d reaproveitado(s) do manifesto"
               % (len(pendentes), len(manifesto) - len(pendentes)))
-        feitos = L.gravar_lote(pendentes, pasta)
+        def _salvar(nome, info):
+            """Grava o manifesto a cada video, nao so no fim."""
+            manifesto[nome].update({"bytes": info["bytes"],
+                                    "segundos": info["segundos"],
+                                    "px": info["px"]})
+            with open(caminho_man, "w", encoding="utf-8") as f:
+                json.dump(manifesto, f, ensure_ascii=False, indent=2)
+
+        feitos = L.gravar_lote(pendentes, pasta, ao_terminar=_salvar)
         for nome, info in feitos.items():
             manifesto[nome].update({"bytes": info["bytes"],
                                     "segundos": info["segundos"],
