@@ -51,6 +51,23 @@ def titulo(n, texto):
     print("=" * 74)
 
 
+def _rotulo(pptx, base=""):
+    """
+    Nome do relatorio derivado do NOME DO ARQUIVO auditado.
+
+    Antes ele vinha da chave interna ("libras/alto_contraste" -> "-alto_contraste")
+    enquanto o arquivo saia com "-alto-contraste". As duas convencoes conviveram
+    na mesma pasta e a entrega ficou com relatorios duplicados — metade deles
+    descrevendo o estado ANTERIOR a embutir a midia. Um relatorio que descreve
+    outro arquivo e pior que relatorio nenhum.
+    """
+    nome = os.path.splitext(os.path.basename(pptx))[0]
+    suf = nome.rsplit(base, 1)[-1].lstrip("-") if base and base in nome else nome
+    if not suf.startswith(("libras", "leitura")):
+        suf = "completo-" + suf
+    return suf
+
+
 def _auditar_deck(pptx, saida, rotulo):
     """Audita um deck e grava o relatorio. Devolve (contagem, caminho_md)."""
     from audit_pptx import audit as auditar_pptx
@@ -145,7 +162,7 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
     reprovado = False
     for chave, caminho in feitos.items():
         print("   -- %s" % os.path.basename(caminho))
-        rep, md = _auditar_deck(caminho, saida, chave.replace("/", "-"))
+        rep, md = _auditar_deck(caminho, saida, _rotulo(caminho, nome_base))
         c = _mostrar(rep, md)
         reprovado = reprovado or bool(c.get("E", 0) or c.get("A", 0))
 
@@ -317,7 +334,7 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
         titulo(10, "Reauditoria dos arquivos COMO ENTREGUES")
         for chave, caminho in feitos.items():
             print("   -- %s" % os.path.basename(caminho))
-            rep, md = _auditar_deck(caminho, saida, chave.replace("/", "-"))
+            rep, md = _auditar_deck(caminho, saida, _rotulo(caminho, nome_base))
             c = _mostrar(rep, md)
             if c.get("E", 0) or c.get("A", 0):
                 codigo = codigo or 1
