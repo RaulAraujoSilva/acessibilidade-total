@@ -33,13 +33,13 @@ slides:
       entrega.
 
   - titulo: "Acessibilidade deste material"
-    mensagem_chave: "Este material tem alt text, Libras e audiodescrição."
+    mensagem_chave: "Este material tem alt text, audiodescrição narrada e versão em Libras."
     conteudo:
       - "Alvo: WCAG 2.2 nível AA, via WCAG2ICT. Contraste em AAA (16,3:1)."
       - "Três arquivos de cor: padrão, alto contraste e daltônico-seguro."
       - "Alt text, ordem de leitura conferida e transcrição linear em .docx."
       - "Audiodescrição embutida em cada slide, sem reprodução automática."
-      - "Janela de Libras na capa deste arquivo, com glosa automática."
+      - "Janela de Libras em cada slide, na versão em Libras, com glosa automática."
       - "NÃO entregue: revisão por intérprete, nem leitura por pessoa cega."
     notas: >
       Uma declaração de acessibilidade que só lista acertos é propaganda. A que
@@ -77,11 +77,11 @@ slides:
   - tipo: destaque
     titulo: "O que tornava inviável"
     mensagem_chave: "Fazer sete versões à mão custaria centenas de horas."
-    numero: "196"
+    numero: "252"
     rotulo: "slides para escrever e revisar"
     conteudo:
-      - "Sete versões de vinte e oito slides, cada uma auditada."
-      - "Mais vinte e oito faixas narradas e vinte e oito vídeos em Libras."
+      - "Sete versões de trinta e seis slides, cada uma auditada."
+      - "Mais trinta e seis faixas narradas e trinta e seis vídeos em Libras."
       - "Somam-se as descrições longas, uma por figura, em cada versão."
       - "Nenhuma equipe pequena faz isso à mão, e por isso ninguém fazia."
     notas: >
@@ -242,13 +242,14 @@ slides:
         daltonico: "figuras/camadas-catalogo-daltonico.png"
       alt: "As 15 camadas do catálogo, de metadados do documento até design e composição"
       descricao_longa: >
-        Lista vertical de treze camadas identificadas pelas letras A a M, com o
+        Lista vertical de quinze camadas identificadas pelas letras A a O, com o
         número de regras de cada uma. A, documento e metadados, 6 regras. B,
         estrutura semântica, 10. C, ordem de leitura, 6. D, texto alternativo,
         11. E, cor e contraste, 10. F, tipografia e legibilidade, 10. G, tabelas,
         6. H, hiperlinks, 4. I, mídia, movimento e interação, 9. J, Libras e
-        público surdo, 8. K, público cego e audiodescrição, 5. L, exportação e
-        PDF/UA, 7. M, confirmação humana, 6 itens. N, design e composição, 10.
+        público surdo, 9. K, público cego e audiodescrição, 5. L, exportação e
+        PDF/UA, 7. M, confirmação humana, 6 itens. N, design e composição, 12.
+        O, pacote e versões paralelas, 7. Somam 118.
         As camadas A a I, N e O são verificadas automaticamente; as camadas J a M
         dependem de mídia, do PDF ou de uma pessoa, e saem no relatório como não
         verificadas.
