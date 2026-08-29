@@ -100,7 +100,8 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
            parar_no_portao=True, com_diagramas=True, arquivo_unico=False,
            pasta_audio=None, pdf_todos_os_modos=False,
            video_libras=None, perfis=("completo",),
-           libras_por_slide=False, perfis_todos_os_modos=False) -> int:
+           libras_por_slide=False, perfis_todos_os_modos=False,
+           caminho_libras="tela") -> int:
     import build_deck
     import gen_transcricao
     import simular_leitura
@@ -268,7 +269,11 @@ def montar(entrada: str, saida: str, com_modos=True, com_pdf=True,
             pasta_v = os.path.join(saida, "libras", "slides")
             alvos = [c for k, c in feitos.items() if k.startswith("libras/")]
             if alvos:
-                r = gen_libras_slides.gerar(alvos[0], pasta_v)
+                # o caminho vai ate aqui de proposito: sem ele o pipeline
+                # inteiro cai no `tela`, que exige a janela visivel e trava
+                # a montagem quando o gfxcapture para de devolver quadros.
+                r = gen_libras_slides.gerar(alvos[0], pasta_v,
+                                            caminho=caminho_libras)
                 print("   %d de %d slides com janela"
                       % (r["com_video"], r["slides"]))
                 if r["abaixo_de_15fps"]:
@@ -389,6 +394,10 @@ def main():
                     help="gera cada perfil nas 3 paletas (9 arquivos)")
     ap.add_argument("--libras-por-slide", action="store_true",
                     help="grava uma janela de Libras POR SLIDE no perfil libras")
+    ap.add_argument("--caminho-libras", choices=("tela", "video"),
+                    default="tela",
+                    help="como gravar a janela: tela filma a janela; video "
+                         "grava pelo Playwright e dispensa janela visivel")
     ap.add_argument("--com-libras", metavar="VIDEO",
                     help="embute a janela de Libras na capa de TODOS os modos")
     ap.add_argument("--com-audio", metavar="PASTA",
@@ -407,6 +416,7 @@ def main():
                   video_libras=args.com_libras,
                   perfis=tuple(p.strip() for p in args.perfis.split(",") if p.strip()),
                   libras_por_slide=args.libras_por_slide,
+                  caminho_libras=args.caminho_libras,
                   perfis_todos_os_modos=args.perfis_todos_os_modos,
                   pdf_todos_os_modos=args.pdf_todos_os_modos,
                   parar_no_portao=not args.seguir_mesmo_reprovado)

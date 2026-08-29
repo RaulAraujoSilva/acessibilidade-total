@@ -42,12 +42,19 @@ MANIFESTO = "manifesto.json"
 # generoso: um video de 12 s a 25 fps nao sai de 100 KB por acidente.
 MINIMO_BYTES = 50 * 1024
 
+# Tamanho nao basta. Um lote interrompido no meio da gravacao deixa mp4 sem o
+# atomo `moov`: o arquivo tem 262 KB, passa folgado no piso acima, e volta do
+# cache como se estivesse pronto — foi o que aconteceu com dois videos quando a
+# maquina reiniciou. `fps_do_arquivo` devolve 0.0 para arquivo que o ffprobe nao
+# consegue ler, e e esse o portao que de fato responde "este video presta?".
+
 
 def _hash(texto):
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()[:16]
 
 
-def gerar(pptx: str, pasta: str, forcar: bool = False) -> dict:
+def gerar(pptx: str, pasta: str, forcar: bool = False,
+          caminho: str = "tela") -> dict:
     from pptx import Presentation
 
     os.makedirs(pasta, exist_ok=True)
@@ -73,9 +80,14 @@ def gerar(pptx: str, pasta: str, forcar: bool = False) -> dict:
         arquivo = os.path.join(pasta, nome + ".mp4")
         reaproveita = (antigo.get(nome, {}).get("hash") == h
                        and os.path.exists(arquivo)
-                       and os.path.getsize(arquivo) >= MINIMO_BYTES)
+                       and os.path.getsize(arquivo) >= MINIMO_BYTES
+                       and L.fps_do_arquivo(arquivo) > 0)
+        # O manifesto guarda o NOME do arquivo, nao o caminho: ele viaja
+        # junto da pasta, e um caminho absoluto so diria onde a maquina de
+        # quem gerou guardava as coisas.
         manifesto[nome] = {"slide": i, "texto": texto, "hash": h,
-                           "arquivo": arquivo, "reaproveitado": reaproveita}
+                           "arquivo": nome + ".mp4",
+                           "reaproveitado": reaproveita}
         if not reaproveita:
             pendentes.append((nome, texto))
 
@@ -90,7 +102,9 @@ def gerar(pptx: str, pasta: str, forcar: bool = False) -> dict:
             with open(caminho_man, "w", encoding="utf-8") as f:
                 json.dump(manifesto, f, ensure_ascii=False, indent=2)
 
-        feitos = L.gravar_lote(pendentes, pasta, ao_terminar=_salvar)
+        lote = (L.gravar_lote_video if caminho == "video"
+                else L.gravar_lote)
+        feitos = lote(pendentes, pasta, ao_terminar=_salvar)
         for nome, info in feitos.items():
             manifesto[nome].update({"bytes": info["bytes"],
                                     "segundos": info["segundos"],
@@ -99,14 +113,15 @@ def gerar(pptx: str, pasta: str, forcar: bool = False) -> dict:
         print("nada a gravar: todos os vídeos estão em dia")
 
     for nome, m in manifesto.items():
-        if m.get("arquivo") and os.path.exists(m["arquivo"]):
-            m["fps"] = round(L.fps_do_arquivo(m["arquivo"]), 1)
+        alvo = os.path.join(pasta, m["arquivo"]) if m.get("arquivo") else None
+        if alvo and os.path.exists(alvo):
+            m["fps"] = round(L.fps_do_arquivo(alvo), 1)
 
     with open(caminho_man, "w", encoding="utf-8") as f:
         json.dump(manifesto, f, ensure_ascii=False, indent=2)
 
     com_video = [m for m in manifesto.values() if m.get("arquivo")
-                 and os.path.exists(m["arquivo"])]
+                 and os.path.exists(os.path.join(pasta, m["arquivo"]))]
     piores = [m for m in com_video if m.get("fps", 0) < 15]
     return {"slides": len(manifesto), "com_video": len(com_video),
             "abaixo_de_15fps": len(piores), "manifesto": caminho_man,
@@ -120,10 +135,14 @@ def main():
     ap.add_argument("-o", "--saida", default="libras/slides")
     ap.add_argument("--forcar", action="store_true",
                     help="ignora o cache e regrava tudo")
+    ap.add_argument("--caminho", choices=("tela", "video"), default="tela",
+                    help="tela: filma a janela (gfxcapture/gdigrab); "
+                         "video: grava a página pelo Playwright, sem depender "
+                         "de a janela estar visível")
     args = ap.parse_args()
 
     try:
-        r = gerar(args.pptx, args.saida, args.forcar)
+        r = gerar(args.pptx, args.saida, args.forcar, args.caminho)
     except RuntimeError as e:
         print("ERRO: %s" % e)
         return 2

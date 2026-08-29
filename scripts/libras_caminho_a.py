@@ -123,6 +123,29 @@ def _ffmpeg_gfx(recorte, segundos, saida, fps=FPS_ALVO, titulo=None):
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
+def _ffmpeg_gdi(caixa_tela, segundos, saida, fps=FPS_ALVO):
+    """
+    Segundo caminho: `gdigrab` recorta a TELA, nao a janela.
+
+    O `gfxcapture` usa a API Windows.Graphics.Capture, que nesta maquina parou
+    de devolver quadros depois de muitas execucoes seguidas — a sonda estourava
+    90 s sem um unico frame. O gdigrab usa GDI, outra API: nao enxerga conteudo
+    composto pela GPU quando se pede a JANELA (`-i title=`), mas funciona bem
+    quando se pede a TELA e se recorta por coordenadas, porque ai o que se le e
+    o que esta na tela composta.
+
+    Em troca, exige a janela visivel e sem nada por cima durante a gravacao.
+    """
+    x, y, larg, alt = caixa_tela
+    return subprocess.Popen(
+        ["ffmpeg", "-y", "-f", "gdigrab", "-framerate", str(fps),
+         "-draw_mouse", "0", "-offset_x", str(x), "-offset_y", str(y),
+         "-video_size", "%dx%d" % (larg, alt), "-i", "desktop",
+         "-t", "%.2f" % segundos, "-c:v", "libx264", "-preset", "veryfast",
+         "-crf", "20", "-pix_fmt", "yuv420p", saida],
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+
 def _par(v):
     v = int(round(v))
     return v - (v % 2)
@@ -136,13 +159,20 @@ def _medir_escala(pg, tmp, titulo):
     100%: `devicePixelRatio` reporta 1.0 e a captura vem 1,483x maior.
     """
     sonda = os.path.join(tmp, "_sonda.mp4")
-    _ffmpeg_gfx(",crop=trunc(iw/2)*2:trunc(ih/2)*2", 1, sonda,
-                titulo=titulo).communicate(timeout=90)
-    dim = subprocess.run(
-        ["ffprobe", "-v", "error", "-show_entries", "stream=width,height",
-         "-of", "csv=p=0", sonda], capture_output=True, text=True).stdout.strip()
+    dim = ""
+    try:
+        proc = _ffmpeg_gfx(",crop=trunc(iw/2)*2:trunc(ih/2)*2", 1, sonda,
+                           titulo=titulo)
+        proc.communicate(timeout=45)
+        dim = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "stream=width,height",
+             "-of", "csv=p=0", sonda],
+            capture_output=True, text=True).stdout.strip()
+    except subprocess.TimeoutExpired:
+        proc.kill()
+        proc.communicate()
     if not dim:
-        raise RuntimeError("a sonda nao capturou a janela — ela esta visivel?")
+        return None, None       # quem chamou decide cair para o gdigrab
     cap_w = int(dim.split(",")[0])
     m = pg.evaluate("() => ({ow: window.outerWidth,"
                     " cromo: window.outerHeight - window.innerHeight})")
@@ -237,8 +267,18 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
         with sync_playwright() as pw:
             nav = pw.chromium.launch(headless=False, args=[
                 "--use-gl=angle", "--use-angle=gl",
-                "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
+                "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist",
+                # sem isto o Chromium abre fora da area visivel (screenX na
+                # casa dos -20000). Janela fora da tela nao e capturavel: o
+                # gfxcapture fica 90 s sem devolver um quadro e o gdigrab
+                # recorta area vazia. Foi a causa da sonda estourar.
+                "--window-position=0,0"])
             pg = nav.new_page(viewport={"width": largura, "height": altura})
+            # O gfxcapture NAO captura janela minimizada — esta escrito na
+            # documentacao do filtro, e e o que faz a sonda estourar 90 s sem
+            # devolver quadro nenhum. Depois de varias execucoes seguidas a
+            # janela deixa de vir para a frente sozinha.
+            pg.bring_to_front()
             pg.goto("http://127.0.0.1:%d/index.html" % porta, wait_until="load")
             time.sleep(8)
 
@@ -247,14 +287,29 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
             pg.mouse.click(largura - 30, altura // 2)
             time.sleep(16)          # o player Unity demora a subir
 
-            escala, cromo = _medir_escala(pg, tmp, titulo_janela)
             recuo, topo, larg_c, alt_c = CAIXA_CSS
-            recorte = ",crop=%d:%d:%d:%d" % (
-                _par(larg_c * escala), _par(alt_c * escala),
-                int(round((largura - recuo) * escala)),
-                int(round((topo + cromo) * escala)))
+            escala, cromo = _medir_escala(pg, tmp, titulo_janela)
+            por_tela = escala is None
+            if por_tela:
+                # o gfxcapture nao devolveu quadro: cai para o gdigrab, que
+                # recorta a TELA e por isso precisa da posicao da janela nela
+                m = pg.evaluate("() => ({sx: window.screenX, sy: window.screenY,"
+                                " ow: window.outerWidth,"
+                                " cromo: window.outerHeight - window.innerHeight})")
+                escala, cromo = 1.0, m["cromo"]
+                caixa_tela = (int(m["sx"] + largura - recuo), int(m["sy"] + topo + cromo),
+                              _par(larg_c), _par(alt_c))
+                print("   gfxcapture indisponível; usando gdigrab em %s"
+                      % (caixa_tela,), flush=True)
+                recorte = ""
+            else:
+                recorte = ",crop=%d:%d:%d:%d" % (
+                    _par(larg_c * escala), _par(alt_c * escala),
+                    int(round((largura - recuo) * escala)),
+                    int(round((topo + cromo) * escala)))
 
             def _abrir_player():
+                pg.bring_to_front()
                 pg.goto("http://127.0.0.1:%d/index.html" % porta,
                         wait_until="load")
                 time.sleep(8)
@@ -272,7 +327,10 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
                 pg.evaluate("(t) => { document.getElementById('alvo').textContent = t; }",
                             texto)
                 time.sleep(0.4)
-                proc = _ffmpeg_gfx(recorte, dur, alvo, fps, titulo_janela)
+                if por_tela:
+                    proc = _ffmpeg_gdi(caixa_tela, dur, alvo, fps)
+                else:
+                    proc = _ffmpeg_gfx(recorte, dur, alvo, fps, titulo_janela)
                 time.sleep(1.0)
                 _selecionar(pg)
                 try:
@@ -291,21 +349,19 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
                 # Avisa a cada item. Sem isto o manifesto so era gravado no fim,
                 # e um travamento no meio jogava fora o cache de tudo o que ja
                 # tinha sido gravado — aconteceu com 28 videos prontos.
-                if ao_terminar:
-                    try:
-                        ao_terminar(nome, feitos[nome])
-                    except Exception:
-                        pass
                 feitos[nome] = {
                     "arquivo": alvo,
                     "segundos": dur,
                     "bytes": os.path.getsize(alvo) if os.path.exists(alvo) else 0,
                 }
+                if ao_terminar:
+                    ao_terminar(nome, feitos[nome])
                 # respiro antes do proximo: selecionar com o player ocupado nao
                 # dispara traducao nova, e o lote trava sem dizer por que
                 time.sleep(2.5)
 
-            caixa_final = (_par(larg_c * escala), _par(alt_c * escala))
+            caixa_final = ((caixa_tela[2], caixa_tela[3]) if por_tela
+                           else (_par(larg_c * escala), _par(alt_c * escala)))
             nav.close()
     finally:
         srv.shutdown()
@@ -314,6 +370,104 @@ def gravar_lote(itens, pasta: str, largura: int = 1280, altura: int = 800,
     for r in feitos.values():
         r.update({"fps": fps, "escala": round(escala, 4),
                   "px": "%dx%d" % caixa_final})
+    return feitos
+
+
+def gravar_lote_video(itens, pasta: str, largura: int = 1280,
+                      altura: int = 800, fps: int = FPS_ALVO,
+                      segundos: int = None, ao_terminar=None) -> dict:
+    """
+    Terceiro caminho: a gravacao do proprio Playwright, nao a captura de tela.
+
+    Os dois primeiros caminhos filmam uma JANELA, e por isso dependem de ela
+    existir na tela: o `gfxcapture` para de devolver quadros quando o Chromium
+    abre fora da area visivel (nesta maquina, `screenX` = -20370, e nem
+    `--window-position=0,0` corrigiu), e o `gdigrab` recorta area vazia pela
+    mesma razao. O Playwright grava o CONTEUDO da pagina pelo protocolo de
+    depuracao, antes de haver janela: posicao, foco e sobreposicao deixam de
+    importar.
+
+    Em troca, o video sai em pixels CSS — o que dispensa medir a escala da tela
+    — e comeca junto com a pagina, incluindo os 24 s de carga. Por isso o corte
+    e feito depois, com `-ss` marcado no relogio, do instante em que a selecao
+    disparou a traducao.
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        raise RuntimeError("playwright ausente: pip install playwright && "
+                           "playwright install chromium")
+    if not shutil.which("ffmpeg"):
+        raise RuntimeError("ffmpeg ausente no PATH")
+
+    os.makedirs(pasta, exist_ok=True)
+    tmp = tempfile.mkdtemp(prefix="libras_")
+    brutos = os.path.join(tmp, "brutos")
+    os.makedirs(brutos, exist_ok=True)
+    with open(os.path.join(tmp, "index.html"), "w", encoding="utf-8") as f:
+        f.write(PAGINA.format(titulo=TITULO_BASE, texto=itens[0][1]))
+
+    srv, porta = _servir(tmp)
+    feitos = {}
+    recuo, topo, larg_c, alt_c = CAIXA_CSS
+    recorte = "crop=%d:%d:%d:%d" % (_par(larg_c), _par(alt_c),
+                                    largura - recuo, topo)
+    try:
+        with sync_playwright() as pw:
+            nav = pw.chromium.launch(headless=False, args=[
+                "--use-gl=angle", "--use-angle=gl",
+                "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
+            ctx = nav.new_context(
+                viewport={"width": largura, "height": altura},
+                record_video_dir=brutos,
+                record_video_size={"width": largura, "height": altura})
+            for nome, texto in itens:
+                dur = segundos if segundos else _duracao_estimada(texto)
+                pg = ctx.new_page()
+                t0 = time.monotonic()
+                pg.goto("http://127.0.0.1:%d/index.html" % porta,
+                        wait_until="load")
+                time.sleep(8)
+                pg.mouse.click(largura - 30, altura // 2)
+                time.sleep(16)
+                pg.evaluate("(t) => { document.getElementById('alvo')"
+                            ".textContent = t; }", texto)
+                time.sleep(0.4)
+                _selecionar(pg)
+                inicio = time.monotonic() - t0
+                time.sleep(dur + 1.5)
+                video = pg.video
+                pg.close()
+                bruto = video.path()
+
+                alvo = os.path.join(pasta, "%s.mp4" % nome)
+                # o corte vai DEPOIS do -i de proposito: o webm do Playwright
+                # tem taxa variavel e cabecalho de duracao aproximado, e com
+                # `-ss` antes da entrada o ffmpeg busca por palpite e sai sem
+                # um quadro sequer — o mp4 nascia com 0 byte.
+                r = subprocess.run(
+                    ["ffmpeg", "-y", "-i", bruto, "-ss", "%.2f" % inicio,
+                     "-t", "%.2f" % dur, "-vf", recorte, "-r", str(fps),
+                     "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+                     "-pix_fmt", "yuv420p", alvo],
+                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+                if not os.path.exists(alvo) or os.path.getsize(alvo) == 0:
+                    print("   ffmpeg não produziu %s:%s%s"
+                          % (nome, os.linesep, r.stdout[-600:]), flush=True)
+                feitos[nome] = {
+                    "arquivo": alvo, "segundos": dur, "fps": fps,
+                    "escala": 1.0, "px": "%dx%d" % (_par(larg_c), _par(alt_c)),
+                    "bytes": os.path.getsize(alvo) if os.path.exists(alvo) else 0,
+                }
+                print("   %-12s %.0fs · %d KB (playwright)"
+                      % (nome, dur, feitos[nome]["bytes"] // 1024), flush=True)
+                if ao_terminar:
+                    ao_terminar(nome, feitos[nome])
+            ctx.close()
+            nav.close()
+    finally:
+        srv.shutdown()
+        shutil.rmtree(tmp, ignore_errors=True)
     return feitos
 
 
