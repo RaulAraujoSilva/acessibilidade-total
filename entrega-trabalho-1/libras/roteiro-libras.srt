@@ -1,0 +1,139 @@
+1
+00:00:00,000 --> 00:00:11,586
+Acessibilidade Total. Uma ferramenta para
+produzir e auditar apresentações
+
+2
+00:00:11,586 --> 00:00:39,310
+Acessibilidade deste material. Alvo: WCAG
+2.2 nível AA, via WCAG2ICT. Contraste de
+
+3
+00:00:39,310 --> 00:01:04,552
+O problema em um número. O Verificador de
+Acessibilidade do PowerPoint cobre 10
+
+4
+00:01:04,552 --> 00:01:12,828
+Fundamentação: por que isto é obrigação,
+não gentileza. A cadeia normativa técnica,
+
+5
+00:01:12,828 --> 00:01:24,828
+De onde vem a exigência. A WCAG foi
+escrita para a web. O WCAG2ICT é o que a
+
+6
+00:01:24,828 --> 00:01:49,655
+A lei brasileira. Lei 13.146/2015 (LBI):
+acessibilidade é direito, não cortesia. A
+
+7
+00:01:49,655 --> 00:01:56,690
+As normas ABNT que se aplicam. Conferidas
+no acervo ABNT Coleção do MPF: 45 normas
+
+8
+00:01:56,690 --> 00:02:19,862
+Três citações erradas que este projeto
+recusa. NBR 17060:2022 é sobre aplicativos
+
+9
+00:02:19,862 --> 00:02:27,724
+O que a ferramenta faz. Um catálogo
+explícito, um auditor que o executa e um
+
+10
+00:02:27,724 --> 00:02:50,483
+O que foi construído. 98 regras
+auditáveis, organizadas em 13 camadas. Um
+
+11
+00:02:50,483 --> 00:03:06,207
+As 13 camadas do catálogo. Cada regra tem
+identificador estável, severidade e
+
+12
+00:03:06,207 --> 00:03:26,483
+Anatomia de uma regra. Regra D05,
+severidade Erro, critério WCAG 1.1.1.
+
+13
+00:03:26,483 --> 00:03:32,690
+O que o auditor vê e o nativo não. Uma
+amostra da diferença de cobertura.
+
+14
+00:03:32,690 --> 00:03:57,931
+Achados que só apareceram porque medimos.
+A paleta Okabe-Ito crua reprova no
+
+15
+00:03:57,931 --> 00:04:03,724
+Fluxo de trabalho. Do roteiro ao PDF
+validado, com um portão em cada estágio.
+
+16
+00:04:03,724 --> 00:04:13,655
+O pipeline em sete estágios. Cada estágio
+tem um portão que pode reprovar. A
+
+17
+00:04:13,655 --> 00:04:35,586
+Acessível por construção, não por
+remediação. O construtor recusa roteiro
+
+18
+00:04:35,586 --> 00:04:57,103
+O simulador de leitura. Escreve o que um
+leitor de tela anunciaria, na ordem em que
+
+19
+00:04:57,103 --> 00:05:18,621
+Três modos de cor no mesmo arquivo.
+Padrão, alto contraste e daltônico-seguro,
+
+20
+00:05:18,621 --> 00:05:24,000
+Como usar. A ferramenta é uma skill, e
+skill hoje é formato aberto.
+
+21
+00:05:24,000 --> 00:05:36,828
+Uma skill, muitos agentes. Agent Skills é
+especificação aberta, publicada em
+
+22
+00:05:36,828 --> 00:06:01,241
+Instalação em três passos. Passo 1: clonar
+o repositório público. Passo 2: rodar
+
+23
+00:06:01,241 --> 00:06:21,517
+Uso dentro do agente. Claude Code: copiar
+a pasta para ~/.claude/skills/. Codex e
+
+24
+00:06:21,517 --> 00:06:45,517
+O que a ferramenta não faz. Não escreve o
+conteúdo por você: o roteiro é humano. Não
+
+25
+00:06:45,517 --> 00:06:52,552
+Rigor: como sei que a ferramenta funciona.
+Um auditor não testado é uma opinião com
+
+26
+00:06:52,552 --> 00:07:11,172
+Testado nos dois sentidos. Primeiro teste:
+um deck com 33 defeitos plantados, cada um
+
+27
+00:07:11,172 --> 00:07:32,690
+Ausência de evidência não é conformidade.
+O que não pôde ser verificado entra como
+
+28
+00:07:32,690 --> 00:07:59,586
+Esta apresentação foi auditada por si
+mesma. Gerada por código a partir do

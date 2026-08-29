@@ -1,0 +1,290 @@
+{
+  "slide-01": {
+    "slide": 1,
+    "texto": "Acessibilidade Total. Um material por público, quando a produção deixa de ser o limite. Trabalho 1 · TCE 00191 — Documentos Acessíveis. Doutorado em Engenharia de Produção · UFF. Raul Araujo Silva.",
+    "hash": "5150d14fe4819c48",
+    "arquivo": "slide-01.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-02": {
+    "slide": 2,
+    "texto": "Acessibilidade deste material. Este material tem alt text, audiodescrição narrada e versão em Libras.",
+    "hash": "d3655cdc3f8123e4",
+    "arquivo": "slide-02.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-03": {
+    "slide": 3,
+    "texto": "A hipótese. Acessibilidade supõe um material só. E se a suposição for economia?",
+    "hash": "9f879e524dc0dec4",
+    "arquivo": "slide-03.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-04": {
+    "slide": 4,
+    "texto": "Um ou vários? Perguntamos se vale fazer um material para cada público.",
+    "hash": "4fc58cc9cc75a7b0",
+    "arquivo": "slide-04.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-05": {
+    "slide": 5,
+    "texto": "O que tornava inviável. Fazer sete versões à mão custaria centenas de horas.",
+    "hash": "ca4888cb94557ab3",
+    "arquivo": "slide-05.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-06": {
+    "slide": 6,
+    "texto": "O que muda. A automação tira o custo, não tira o dever.",
+    "hash": "244ff17360de8f8d",
+    "arquivo": "slide-06.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-07": {
+    "slide": 7,
+    "texto": "O problema em um número. O verificador do PowerPoint vê só 10 regras.",
+    "hash": "91e3675b915a8d81",
+    "arquivo": "slide-07.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-08": {
+    "slide": 8,
+    "texto": "Por que é obrigação. A cadeia normativa técnica, a lei brasileira e as armadilhas de citação.",
+    "hash": "b33b2fbb33c66d21",
+    "arquivo": "slide-08.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-09": {
+    "slide": 9,
+    "texto": "De onde vem a exigência. A exigência vem da lei e das normas técnicas.",
+    "hash": "b0d905f523945eea",
+    "arquivo": "slide-09.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-10": {
+    "slide": 10,
+    "texto": "A lei brasileira. A lei brasileira obriga material acessível.",
+    "hash": "cb3c5d7c690776bc",
+    "arquivo": "slide-10.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-11": {
+    "slide": 11,
+    "texto": "Normas ABNT. Poucas normas ABNT valem para documento.",
+    "hash": "cbe494205c25860b",
+    "arquivo": "slide-11.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-12": {
+    "slide": 12,
+    "texto": "Citações erradas. Muita gente cita a norma errada.",
+    "hash": "a4ae7dfe70bac840",
+    "arquivo": "slide-12.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-13": {
+    "slide": 13,
+    "texto": "O que a ferramenta faz. Um catálogo explícito, um auditor que o executa e um construtor que o obedece.",
+    "hash": "7db0bc96e928890c",
+    "arquivo": "slide-13.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-14": {
+    "slide": 14,
+    "texto": "O que foi construído. Construímos uma ferramenta que produz e audita.",
+    "hash": "521fb9542af5d0cb",
+    "arquivo": "slide-14.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-15": {
+    "slide": 15,
+    "texto": "As 15 camadas do catálogo. O catálogo tem 118 regras em 15 camadas.",
+    "hash": "3587bd18741421eb",
+    "arquivo": "slide-15.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-16": {
+    "slide": 16,
+    "texto": "Anatomia de uma regra. Cada regra diz como achar e como corrigir.",
+    "hash": "a7ec4cb2ea8221f0",
+    "arquivo": "slide-16.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-17": {
+    "slide": 17,
+    "texto": "O que o nativo não vê. O nosso auditor vê o que o nativo não vê.",
+    "hash": "57e2d4a6da583c24",
+    "arquivo": "slide-17.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-18": {
+    "slide": 18,
+    "texto": "Achados de medição. Medir revelou erros que ninguém via.",
+    "hash": "cf87431a926b9f48",
+    "arquivo": "slide-18.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-19": {
+    "slide": 19,
+    "texto": "Fluxo de trabalho. Do roteiro ao PDF validado, com um portão em cada estágio.",
+    "hash": "dbe76f47c1a790ae",
+    "arquivo": "slide-19.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-20": {
+    "slide": 20,
+    "texto": "O pipeline em sete estágios. O material nasce do roteiro e passa por portões.",
+    "hash": "9e0beda9f8d03868",
+    "arquivo": "slide-20.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-21": {
+    "slide": 21,
+    "texto": "Certo desde o começo. O slide já nasce certo.",
+    "hash": "38c50a990a31b6b1",
+    "arquivo": "slide-21.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-22": {
+    "slide": 22,
+    "texto": "O simulador de leitura. Dá para ouvir o que o leitor de tela diria.",
+    "hash": "d6ad87b7876d5876",
+    "arquivo": "slide-22.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-23": {
+    "slide": 23,
+    "texto": "Dois eixos de separação. Separamos por paleta de cor e por público.",
+    "hash": "b4a0b16cd2c75bba",
+    "arquivo": "slide-23.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-24": {
+    "slide": 24,
+    "texto": "Sete versões. Cada versão tem um público e recursos próprios.",
+    "hash": "39130c272af157ea",
+    "arquivo": "slide-24.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-25": {
+    "slide": 25,
+    "texto": "Acesso ou segregação. Versão diferente só vale se der a mesma informação.",
+    "hash": "05cf85a975be1e56",
+    "arquivo": "slide-25.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-26": {
+    "slide": 26,
+    "texto": "Como usar. A ferramenta é uma skill, e skill hoje é formato aberto.",
+    "hash": "bdfc15d52db88ad0",
+    "arquivo": "slide-26.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-27": {
+    "slide": 27,
+    "texto": "Uma skill, muitos agentes. A ferramenta funciona em vários assistentes.",
+    "hash": "e83bcbae94ea657a",
+    "arquivo": "slide-27.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-28": {
+    "slide": 28,
+    "texto": "Instalação em três passos. Instalar leva três passos. Repositório do projeto no GitHub.",
+    "hash": "419e650d51b027ad",
+    "arquivo": "slide-28.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-29": {
+    "slide": 29,
+    "texto": "Uso dentro do agente. Você pede em português e o agente faz.",
+    "hash": "1f5c4e585296bbc1",
+    "arquivo": "slide-29.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-30": {
+    "slide": 30,
+    "texto": "O papel do agente. Você pede em português e o agente conduz o pipeline.",
+    "hash": "fed7af34838ed6b3",
+    "arquivo": "slide-30.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-31": {
+    "slide": 31,
+    "texto": "Fez e não fez. A máquina produziu e auditou, mas julgar continua humano.",
+    "hash": "d25bc1205e5085ee",
+    "arquivo": "slide-31.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-32": {
+    "slide": 32,
+    "texto": "O que a ferramenta não faz. A ferramenta não substitui teste com pessoas.",
+    "hash": "f30273fdbab20878",
+    "arquivo": "slide-32.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-33": {
+    "slide": 33,
+    "texto": "Rigor: como sei que a ferramenta funciona. Um auditor não testado é uma opinião com sotaque técnico.",
+    "hash": "51a9f114f0373f89",
+    "arquivo": "slide-33.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-34": {
+    "slide": 34,
+    "texto": "Testado nos dois sentidos. Testamos se acusa o erro e se aprova o certo.",
+    "hash": "772fe9c90c5d725c",
+    "arquivo": "slide-34.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-35": {
+    "slide": 35,
+    "texto": "Ausência de evidência não é conformidade. O princípio que impede a ferramenta de virar um selo.",
+    "hash": "a9d35b576395a9a5",
+    "arquivo": "slide-35.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  },
+  "slide-36": {
+    "slide": 36,
+    "texto": "Auditada por si mesma. Esta apresentação passou na própria auditoria. Repositório com o código, o catálogo e este roteiro.",
+    "hash": "c2d419df7e609258",
+    "arquivo": "slide-36.mp4",
+    "reaproveitado": true,
+    "fps": 25.0
+  }
+}
