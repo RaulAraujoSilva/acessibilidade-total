@@ -141,6 +141,9 @@ def embutir_por_slide(pptx: str, pasta: str) -> dict:
     por_slide, rejeitados = {}, []
     for m in manifesto.values():
         a = m.get("arquivo")
+        # o manifesto guarda o nome; o caminho se resolve contra a pasta dele
+        if a and not os.path.isabs(a):
+            a = os.path.join(os.path.abspath(pasta), a)
         if not a or not os.path.exists(a):
             continue
         if os.path.getsize(a) < MINIMO:
