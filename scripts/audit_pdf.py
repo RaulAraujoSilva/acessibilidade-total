@@ -23,6 +23,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import a11y_lib as A
 from audit_pptx import NAO_CONFORME, NAO_VERIFICADO, Report
 
 try:
@@ -231,7 +232,8 @@ def _extrair_falhas_verapdf(dados):
 def render(rep: Report, pdf: str) -> str:
     c = rep.counts()
     L = ["# Auditoria do PDF — camada L\n",
-         "**Arquivo:** `%s`\n" % os.path.basename(pdf)]
+         "**Arquivo:** `%s`  " % os.path.basename(pdf),
+         A.carimbo() + "\n"]
     tags = getattr(rep, "tags", None)
     if tags:
         principais = sorted(tags.items(), key=lambda kv: -kv[1])[:12]

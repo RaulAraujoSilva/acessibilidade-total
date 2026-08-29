@@ -416,6 +416,8 @@ def render(rep: Pacote, pasta="") -> str:
     L.append("**Arquivos:** " + ", ".join("`%s`" % os.path.basename(a)
                                           for a in rep.arquivos))
     L.append("")
+    L.append(A.carimbo())
+    L.append("")
     L.append("| Severidade | Não conformes |")
     L.append("|---|---|")
     L.append("| Erro | **%d** |" % erros)

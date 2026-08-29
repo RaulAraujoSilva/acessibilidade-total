@@ -704,3 +704,26 @@ def falta_acento(s: str) -> bool:
 
 def has_pt_accent(s: str) -> bool:
     return bool(re.search(r"[áàâãéêíóôõúüçÁÀÂÃÉÊÍÓÔÕÚÜÇ]", s))
+
+
+def carimbo() -> str:
+    """
+    Data, hora e commit da execucao, para o cabecalho dos relatorios.
+
+    Um relatorio sem data nao e evidencia: nao da para saber se ele descreve o
+    arquivo que esta na pasta ou um anterior. Aconteceu — os relatorios de uma
+    entrega eram mais velhos que a midia que diziam ter auditado.
+    """
+    import os
+    import subprocess
+    from datetime import datetime
+    aqui = os.path.dirname(os.path.abspath(__file__))
+    try:
+        commit = subprocess.run(
+            ["git", "-C", aqui, "rev-parse", "--short", "HEAD"],
+            capture_output=True, text=True, timeout=10).stdout.strip()
+    except Exception:
+        commit = ""
+    quando = datetime.now().strftime("%d/%m/%Y %H:%M")
+    return ("**Gerado em:** %s · commit `%s`" % (quando, commit) if commit
+            else "**Gerado em:** %s" % quando)
