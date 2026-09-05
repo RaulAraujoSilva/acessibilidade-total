@@ -1,0 +1,7 @@
+.git
+.venv
+entrega*
+web/private-*
+web/*.sqlite3
+**/__pycache__
+.env

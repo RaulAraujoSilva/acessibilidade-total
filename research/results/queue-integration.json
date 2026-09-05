@@ -1,0 +1,15 @@
+{
+  "redis_real": true,
+  "worker_pool": "solo local Windows",
+  "status": "review",
+  "seconds": 3.006550899997819,
+  "artifacts": [
+    "documento.docx",
+    "documento.html",
+    "documento.pdf",
+    "content.json",
+    "report.json"
+  ],
+  "database": "SQLite local; PostgreSQL não exercitado neste teste",
+  "restart": "publicado antes do início do worker; retomada de etapa testada separadamente"
+}

@@ -1,0 +1,367 @@
+{
+  "runs": 36,
+  "missing_numeric_facts": [],
+  "docx_readback_missing": 0,
+  "pdfs": [
+    {
+      "source": "D1.docx",
+      "strategy": "unico",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D1.docx",
+      "strategy": "unico",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D1.docx",
+      "strategy": "especializadas",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D1.docx",
+      "strategy": "especializadas",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D1.docx",
+      "strategy": "base_adaptavel",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D1.docx",
+      "strategy": "base_adaptavel",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D2.docx",
+      "strategy": "unico",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D2.docx",
+      "strategy": "unico",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D2.docx",
+      "strategy": "especializadas",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D2.docx",
+      "strategy": "especializadas",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D2.docx",
+      "strategy": "base_adaptavel",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "D2.docx",
+      "strategy": "base_adaptavel",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F1.pdf",
+      "strategy": "unico",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F1.pdf",
+      "strategy": "unico",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F1.pdf",
+      "strategy": "especializadas",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F1.pdf",
+      "strategy": "especializadas",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F1.pdf",
+      "strategy": "base_adaptavel",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F1.pdf",
+      "strategy": "base_adaptavel",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F2.pdf",
+      "strategy": "unico",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F2.pdf",
+      "strategy": "unico",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F2.pdf",
+      "strategy": "especializadas",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F2.pdf",
+      "strategy": "especializadas",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F2.pdf",
+      "strategy": "base_adaptavel",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "F2.pdf",
+      "strategy": "base_adaptavel",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P1.pptx",
+      "strategy": "unico",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P1.pptx",
+      "strategy": "unico",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P1.pptx",
+      "strategy": "especializadas",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P1.pptx",
+      "strategy": "especializadas",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P1.pptx",
+      "strategy": "base_adaptavel",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P1.pptx",
+      "strategy": "base_adaptavel",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P2.pptx",
+      "strategy": "unico",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P2.pptx",
+      "strategy": "unico",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P2.pptx",
+      "strategy": "especializadas",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P2.pptx",
+      "strategy": "especializadas",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P2.pptx",
+      "strategy": "base_adaptavel",
+      "repeat": 1,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    },
+    {
+      "source": "P2.pptx",
+      "strategy": "base_adaptavel",
+      "repeat": 2,
+      "marked": true,
+      "structure": true,
+      "language": "en-US",
+      "pages": 1
+    }
+  ],
+  "update": {
+    "fingerprint_invalidated": true,
+    "old_output_against_new_source": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002"
+      ],
+      "numeric_losses": [
+        {
+          "id": "b0002",
+          "values": [
+            "45"
+          ]
+        }
+      ],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "scope": "Ensaio de detecção da saída desatualizada. A propagação completa de novas versões não foi medida."
+  },
+  "semantic_validation": "Leitura assistida por IA; não é revisão humana independente",
+  "timing": {
+    "unico": {
+      "1": 1.327199749997817,
+      "2": 1.0599880000008852
+    },
+    "especializadas": {
+      "1": 9.43100730000151,
+      "2": 8.20346265000262
+    },
+    "base_adaptavel": {
+      "1": 7.925340349996986,
+      "2": 2.1205504499957897
+    }
+  }
+}
