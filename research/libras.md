@@ -20,3 +20,9 @@ Um segundo ensaio, usando o adaptador da aplicação no mesmo ambiente, levou 28
 O [código da API de tradução](https://github.com/spbgovbr-vlibras/vlibras-translator-api) declara LGPL-3.0. Essa constatação não resolve a licença dos avatares, sinais, bibliotecas Unity e binário do player. Nenhum desses ativos foi incluído no Git. A conferência de redistribuição continua pendente.
 
 Não foram medidos memória, falhas em textos extensos, taxa de sinais ausentes ou comparação em trechos idênticos à captura anterior. A inspeção de três quadros confirma enquadramento e mudança de pose; não certifica fluidez ou correção de Libras. Necessária revisão por pessoas fluentes em Libras, incluindo pessoas surdas. A eficiência de produção permanece requisito parcialmente atendido.
+
+## Integração pelo navegador
+
+O DOCX sintético D1 foi enviado pelo formulário, conferido, colocado na fila e reconstruído em DOCX, HTML, PPTX e PDF. Seus cinco blocos produziram cinco vídeos. O download autenticado do DOCX foi exercitado no navegador. Os tempos por bloco foram 29,36; 85,98; 119,89; 41,16 e 66,95 segundos, incluindo preparação de recursos e codificação. `results/ui-integration.json` registra durações e arquivos. O download opcional de bundles retornou recursos ausentes, como números e termos compostos de negação; ausência do bundle exato não determina por si só o que o avatar sinalizou. A tradução entregue exige revisão de sinais, datilologia e contexto.
+
+Esse teste revelou e corrigiu limite de caminhos Windows e conversão de prefixos longos para WSL. O resultado não foi incluído retroativamente nas 36 medições documentais nem no tempo da primeira prova curta. A conta permanece no estado de revisão; não se registrou revisão humana fictícia.

@@ -1,0 +1,76 @@
+{
+  "date": "2026-09-05",
+  "fixture": "D1.docx",
+  "entry": "browser upload → extraction → options → estimate → database worker",
+  "status": "review",
+  "stage": "Confira conteúdo e relatório",
+  "artifact_count": 12,
+  "libras_status": "gerado; revisão linguística pendente",
+  "blocks": [
+    {
+      "block_id": "b0001",
+      "seconds": 29.3562729999976,
+      "video_seconds": "4.800000",
+      "bytes": "199357",
+      "missing_bundle_resources": [
+        "X",
+        "Z"
+      ]
+    },
+    {
+      "block_id": "b0002",
+      "seconds": 85.984434900005,
+      "video_seconds": "18.000000",
+      "bytes": "1434908",
+      "missing_bundle_resources": [
+        "30",
+        "NÃO_GARANTIR",
+        "X",
+        "Z"
+      ]
+    },
+    {
+      "block_id": "b0003",
+      "seconds": 119.8885975999874,
+      "video_seconds": "24.320000",
+      "bytes": "1507042",
+      "missing_bundle_resources": [
+        "24",
+        "36",
+        "60",
+        "NÃO_DEMONSTRAR",
+        "X",
+        "Z"
+      ]
+    },
+    {
+      "block_id": "b0004",
+      "seconds": 41.15544719999889,
+      "video_seconds": "8.200000",
+      "bytes": "394876",
+      "missing_bundle_resources": [
+        "24",
+        "36",
+        "X",
+        "Z"
+      ]
+    },
+    {
+      "block_id": "b0005",
+      "seconds": 66.94747929999721,
+      "video_seconds": "14.800000",
+      "bytes": "991353",
+      "missing_bundle_resources": [
+        "24",
+        "36",
+        "X",
+        "Z"
+      ]
+    }
+  ],
+  "human_review": "não realizada",
+  "initial_failures": [
+    "Limite MAX_PATH do Windows em diretório de cache; corrigido com armazenamento curto.",
+    "Prefixo de caminho longo resolvido pelo Windows incompatível com conversão WSL; conversão corrigida."
+  ]
+}
