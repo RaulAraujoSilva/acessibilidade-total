@@ -1,0 +1,362 @@
+[
+  {
+    "id": "S13",
+    "title": "Do Text Simplification Systems Preserve Meaning? A Human Evaluation via Reading Comprehension",
+    "year": 2024,
+    "url": "https://aclanthology.org/2024.tacl-1.24/",
+    "pdf": "https://aclanthology.org/2024.tacl-1.24.pdf",
+    "doi": "10.1162/tacl_a_00653",
+    "version": "Publicação em periódico",
+    "axis": "Preservação e compreensão",
+    "accessed": "2026-09-05T12:23:54.713041+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Sweta Agrawal",
+      "Marine Carpuat"
+    ],
+    "venue": "",
+    "pages": 17,
+    "sha256": "b518065afb8f68fd6b827f149dfe41ea1fd83dd8c74806d01a274754d662efa6"
+  },
+  {
+    "id": "S14",
+    "title": "Benchmarking PDF Accessibility Evaluation: A Dataset and Framework for Assessing Automated and LLM-Based Approaches for Accessibility Testing",
+    "year": 2025,
+    "url": "https://dl.acm.org/doi/10.1145/3663547.3746380",
+    "pdf": "https://www.llwang.net/assets/pdf/2025_kumar_a11ybenchmark_assets.pdf",
+    "doi": "10.1145/3663547.3746380",
+    "version": "Publicação em anais; cópia original disponibilizada pela coautora",
+    "axis": "Avaliação de PDF",
+    "accessed": "2026-09-05T12:23:54.713041+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Kumar, Anukriti",
+      "Padath, Tanushree",
+      "Wang, Lucy Lu"
+    ],
+    "venue": "Proceedings of the 27th International ACM SIGACCESS Conference on Computers and Accessibility",
+    "pages": 24,
+    "sha256": "296520c5cd6631f2021b0dd9aa565c5876dd43a348696a8e9de834ed4f29c7dc"
+  },
+  {
+    "id": "S15",
+    "title": "AI-Based Personalized E-Learning Systems: Issues, Challenges, and Solutions",
+    "year": 2022,
+    "url": "https://ieeexplore.ieee.org/document/9840390/",
+    "pdf": "https://ieeexplore.ieee.org/stampPDF/getPDF.jsp?tp=&arnumber=9840390",
+    "doi": "10.1109/ACCESS.2022.3193938",
+    "version": "Publicação em periódico",
+    "axis": "Personalização",
+    "accessed": "2026-09-05T12:23:54.713041+00:00",
+    "status": "pendente",
+    "authors": [
+      "Murtaza, Mir",
+      "Ahmed, Yamna",
+      "Shamsi, Jawwad Ahmed",
+      "Sherwani, Fahad",
+      "Usman, Mariam"
+    ],
+    "venue": "IEEE Access"
+  },
+  {
+    "id": "S16",
+    "title": "Evaluating Factuality in Text Simplification",
+    "year": 2022,
+    "url": "https://aclanthology.org/2022.acl-long.506/",
+    "pdf": "https://aclanthology.org/2022.acl-long.506.pdf",
+    "version": "Publicação em anais",
+    "axis": "Preservação factual",
+    "accessed": "2026-09-05T12:23:54.713041+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Ashwin Devaraj",
+      "William Sheffield",
+      "Byron C. Wallace",
+      "Junyi Jessy Li"
+    ],
+    "doi": "10.18653/v1/2022.acl-long.506",
+    "venue": "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "pages": 15,
+    "sha256": "fe8cf08e6245cdc323a4d752bed5b8a3935f2e33d373486b00299c2ce9857231"
+  },
+  {
+    "id": "S01",
+    "title": "Ability-Based Design: Concept, Principles and Examples",
+    "year": 2011,
+    "doi": "10.1145/1952383.1952384",
+    "authors": [
+      "Wobbrock, Jacob O.",
+      "Kane, Shaun K.",
+      "Gajos, Krzysztof Z.",
+      "Harada, Susumu",
+      "Froehlich, Jon"
+    ],
+    "url": "https://faculty.washington.edu/wobbrock/pubs/taccess-11.pdf",
+    "pdf": "https://faculty.washington.edu/wobbrock/pubs/taccess-11.pdf",
+    "version": "Cópia disponibilizada pelo autor; conferir identificação editorial",
+    "axis": "Desenho e personalização",
+    "accessed": "2026-09-05T12:23:55.293663+00:00",
+    "status": "PDF obtido e legível",
+    "pages": 27,
+    "sha256": "92adc4cd34b5b86fefc0c7363dba3e65cb76e3366243088ac2cdf9b287377d90"
+  },
+  {
+    "id": "S02",
+    "title": "Automatic Text Simplification for People with Cognitive Disabilities: Resource Creation within the ClearText Project",
+    "year": 2023,
+    "url": "https://aclanthology.org/2023.tsar-1.7/",
+    "pdf": "https://aclanthology.org/2023.tsar-1.7.pdf",
+    "version": "Publicação em anais",
+    "axis": "Acessibilidade cognitiva",
+    "accessed": "2026-09-05T12:23:55.615731+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Isabel Espinosa-Zaragoza",
+      "José Abreu-Salas",
+      "Paloma Moreda Pozo",
+      "Manuel Palomar"
+    ],
+    "doi": "",
+    "venue": "Proceedings of the Second Workshop on Text Simplification, Accessibility and Readability",
+    "pages": 10,
+    "sha256": "44b8536a1f35bf88fb35323370090294e561bb371a0ba6d30eca1e080be94047"
+  },
+  {
+    "id": "S03",
+    "title": "InfoLossQA: Characterizing and Recovering Information Loss in Text Simplification",
+    "year": 2024,
+    "url": "https://aclanthology.org/2024.acl-long.234/",
+    "pdf": "https://aclanthology.org/2024.acl-long.234.pdf",
+    "version": "Publicação em anais",
+    "axis": "Preservação da informação",
+    "accessed": "2026-09-05T12:23:55.888754+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Jan Trienes",
+      "Sebastian Joseph",
+      "Jörg Schlötterer",
+      "Christin Seifert",
+      "Kyle Lo",
+      "Wei Xu",
+      "Byron C. Wallace",
+      "Junyi Jessy Li"
+    ],
+    "doi": "10.18653/v1/2024.acl-long.234",
+    "venue": "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "pages": 32,
+    "sha256": "eb8d6b6693eca4b7582f0c128e4cd1b4ef1a675fb2bfb29fbc98d4b3453542b7"
+  },
+  {
+    "id": "S04",
+    "title": "Context-Aware Image Descriptions for Web Accessibility",
+    "year": 2024,
+    "url": "https://arxiv.org/abs/2409.03054",
+    "pdf": "https://arxiv.org/pdf/2409.03054",
+    "version": "Preprint; conferir publicação associada",
+    "axis": "Cegueira e baixa visão",
+    "accessed": "2026-09-05T12:23:56.122221+00:00",
+    "status": "PDF obtido e legível",
+    "pages": 17,
+    "sha256": "8c3630cda166f90fb71caaae25a9f03ef3a5ca9c75695c416fd1317d873ecd35",
+    "authors": [
+      "Mohanbabu, Ananya Gubbi",
+      "Pavel, Amy"
+    ]
+  },
+  {
+    "id": "S05",
+    "title": "Evaluating LLMs for Portuguese Sentence Simplification with Linguistic Insights",
+    "year": 2025,
+    "url": "https://aclanthology.org/2025.acl-long.1193/",
+    "pdf": "https://aclanthology.org/2025.acl-long.1193.pdf",
+    "version": "Publicação em anais",
+    "axis": "Simplificação em português",
+    "accessed": "2026-09-05T12:23:56.628058+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Arthur Mariano Rocha De Azevedo Scalercio",
+      "Elvis A. De Souza",
+      "Maria José B. Finatto",
+      "Aline Paes"
+    ],
+    "doi": "10.18653/v1/2025.acl-long.1193",
+    "venue": "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "pages": 26,
+    "sha256": "78ba35aa225eef637fef3747df8d9e6deea666e7f5bb79a2b0f90ffb797ba79d"
+  },
+  {
+    "id": "S06",
+    "title": "Exploring Large Language Models to generate Easy to Read content",
+    "year": 2024,
+    "doi": "10.3389/fcomp.2024.1394705",
+    "url": "https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2024.1394705/full",
+    "pdf": "https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2024.1394705/pdf",
+    "version": "Artigo de periódico",
+    "axis": "Leitura fácil e avaliação",
+    "accessed": "2026-09-05T12:23:56.889735+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Martínez, Paloma",
+      "Ramos, Alberto",
+      "Moreno, Lourdes"
+    ],
+    "venue": "Frontiers in Computer Science",
+    "pages": 13,
+    "sha256": "5c9823b933928db5c7fde7c3ed81b7c548e94f19b8d9bb1f4a1021e308cc9796"
+  },
+  {
+    "id": "S07",
+    "title": "Easy-read and large language models: on the ethical dimensions of LLM-based text simplification",
+    "year": 2024,
+    "doi": "10.1007/s10676-024-09792-4",
+    "url": "https://link.springer.com/article/10.1007/s10676-024-09792-4",
+    "pdf": "https://link.springer.com/content/pdf/10.1007/s10676-024-09792-4.pdf",
+    "version": "Artigo de periódico",
+    "axis": "Ética e autonomia",
+    "accessed": "2026-09-05T12:23:58.733447+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Freyer, Nils",
+      "Kempt, Hendrik",
+      "Klöser, Lars"
+    ],
+    "venue": "Ethics and Information Technology",
+    "pages": 10,
+    "sha256": "961dbfb21ae3f180875492ea72fe4b00e8f32bfa2e3a8565955ec70ceb985093"
+  },
+  {
+    "id": "S08",
+    "title": "Guidelines for easy-to-read materials",
+    "year": 2010,
+    "authors": [
+      "Nomura, Misako",
+      "Nielsen, Gyda Skat",
+      "Tronbacke, Bror"
+    ],
+    "url": "https://repository.ifla.org/bitstreams/9e8bc5f6-3873-4200-a482-885cfb239722/download",
+    "pdf": "https://repository.ifla.org/bitstreams/9e8bc5f6-3873-4200-a482-885cfb239722/download",
+    "version": "Guia institucional, segunda edição",
+    "axis": "Diretrizes de leitura fácil",
+    "accessed": "2026-09-05T12:23:59.109238+00:00",
+    "status": "PDF obtido e legível",
+    "pages": 32,
+    "sha256": "ee14e45d171525bba0968af683e0979905cccd67aee87f96a653023fb5b5b562"
+  },
+  {
+    "id": "S09",
+    "title": "Personalisation, interaction and navigation in rich multimedia documents for print-disabled users",
+    "year": 2005,
+    "doi": "10.1147/sj.443.0629",
+    "authors": [
+      "Petrie, Helen",
+      "Weber, Gerhard",
+      "Fisher, Wayne"
+    ],
+    "url": "https://eprints.whiterose.ac.uk/id/eprint/6236/",
+    "pdf": null,
+    "version": "Artigo de periódico; texto integral pendente",
+    "axis": "Personalização documental",
+    "accessed": "2026-09-05T12:23:59.204023+00:00",
+    "status": "Metadados obtidos; PDF pendente",
+    "sha256": "f195d16c11256bc42851c81f52e6a919c5928701be7ed6e3e6250f97e999d52f"
+  },
+  {
+    "id": "S10",
+    "title": "A Usabilidade de avatares de libras em sites: análise da interação de usuários surdos por meio do rastreador ocular Eye Tracking",
+    "year": 2018,
+    "doi": "10.23972/det2018iss16pp41-51",
+    "url": "https://www.ufrgs.br/det/index.php/det/article/view/495",
+    "pdf": "https://ngd.ufsc.br/wp-content/uploads/2019/09/A-usabilidade-de-avatares-de-libras-em-sites-ana%CC%81lise-da-interac%CC%A7a%CC%83o-de-usua%CC%81rios-surdos-por-meio-do-rastreador-ocular-Eye-Tracking.pdf",
+    "version": "Cópia do artigo disponibilizada pelo grupo de pesquisa; inclui capa de repositório",
+    "axis": "Libras e avaliação com usuários",
+    "accessed": "2026-09-05T12:23:59.506877+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Moraes, Laíse Miolo",
+      "Vieira, Francine Medeiros",
+      "Gonçalves, Berenice Santos",
+      "Braviano, Gilson",
+      "Merino, Gisele Schmidt Alves Diaz"
+    ],
+    "venue": "Design e Tecnologia",
+    "pages": 12,
+    "sha256": "42f8aba5b02274a95ae69502c18304c5b038a27b1f5758100ca54bb3076735eb"
+  },
+  {
+    "id": "S11",
+    "title": "Inteligência Artificial aplicada à Acessibilidade Digital em Ferramenta Educacional WEB",
+    "year": 2025,
+    "authors": [
+      "Silva, Raisa Priscila da",
+      "Silva, Josivan Pereira da"
+    ],
+    "url": "https://congressos.ifsp.edu.br/conict/article/view/2006",
+    "pdf": "https://congressos.ifsp.edu.br/conict/article/view/2006/763",
+    "version": "Anais CONICT 2025; disponibilizado em 01/04/2026",
+    "axis": "Trabalho correlato brasileiro",
+    "accessed": "2026-09-05T12:23:59.920076+00:00",
+    "status": "PDF obtido e legível",
+    "pages": 6,
+    "sha256": "eb2e4e0575a9d16c830a1beacedd103ae16a648a1977a51c6bb28d0ac17a5a38"
+  },
+  {
+    "id": "S12",
+    "title": "Inteligência Artificial e inclusão de estudantes com deficiência na Educação Básica",
+    "year": 2025,
+    "doi": "10.1590/s0103-4014.202539115.001",
+    "url": "https://www.scielo.br/j/ea/a/9Z9TX7TvvByqTSk5PrdxvWK/?lang=pt",
+    "pdf": "https://www.scielo.br/j/ea/a/9Z9TX7TvvByqTSk5PrdxvWK/?format=pdf&lang=pt",
+    "version": "Artigo de periódico",
+    "axis": "Contexto brasileiro e limites",
+    "accessed": "2026-09-05T12:24:00.060335+00:00",
+    "status": "PDF obtido e legível",
+    "authors": [
+      "Siqueira, Ivan Cláudio Pereira"
+    ],
+    "venue": "Estudos Avançados",
+    "pages": 14,
+    "sha256": "eb6ce58cca5995321b1ea05f945e0944d799800814a4ccaf69007f2a72897764"
+  },
+  {
+    "id": "N01",
+    "title": "Web Content Accessibility Guidelines (WCAG) 2.2",
+    "year": 2023,
+    "authors": [
+      "World Wide Web Consortium"
+    ],
+    "url": "https://www.w3.org/TR/WCAG22/",
+    "version": "Recomendação; HTML nativo",
+    "axis": "Normas",
+    "accessed": "2026-09-05T12:24:00.175950+00:00",
+    "status": "HTML nativo obtido",
+    "sha256": "6e3c5fe397257cae509a2fb4752b73062cf8cbeb92c2cec618989b17e4cf7057"
+  },
+  {
+    "id": "N02",
+    "title": "Making Content Usable for People with Cognitive and Learning Disabilities",
+    "year": 2021,
+    "authors": [
+      "World Wide Web Consortium"
+    ],
+    "url": "https://www.w3.org/TR/coga-usable/",
+    "version": "Nota de grupo de trabalho; HTML nativo",
+    "axis": "Diretrizes cognitivas",
+    "accessed": "2026-09-05T12:24:00.365930+00:00",
+    "status": "HTML nativo obtido",
+    "sha256": "521a552791a81f10494bbe9d76592de52c6a91971ada6e0498faeb1b14fe44fd"
+  },
+  {
+    "id": "N03",
+    "title": "Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)",
+    "year": 2024,
+    "authors": [
+      "World Wide Web Consortium"
+    ],
+    "url": "https://www.w3.org/TR/wcag2ict/",
+    "version": "Nota de grupo de trabalho; HTML nativo",
+    "axis": "Aplicação a documentos",
+    "accessed": "2026-09-05T12:24:00.613569+00:00",
+    "status": "HTML nativo obtido",
+    "sha256": "265077c096b19d21d9f6b29ce60604d1cf88f8cf4a8663312ee46490a2c9b2e7"
+  }
+]

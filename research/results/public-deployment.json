@@ -1,0 +1,90 @@
+{
+  "url": "https://acessibilidade.31.97.160.142.sslip.io",
+  "https": true,
+  "registration": true,
+  "real_email_received": true,
+  "activation": true,
+  "date": "2026-09-05",
+  "public_document_id": "c6c34551-293c-438e-a32d-912773912b63",
+  "authenticated_downloads": [
+    {
+      "label": "documento.docx",
+      "bytes": 40021,
+      "sha256": "c84e0db0121cc2c1c8279b1a3cdeb64ddef29a66933a54b4bb14a7eb756a790f"
+    },
+    {
+      "label": "documento.html",
+      "bytes": 5545,
+      "sha256": "88be0573952fb2ecd8b0d7caf3ea39b42a7a1f320a47fd18d245d9c482fb0e6b"
+    },
+    {
+      "label": "apresentacao.pptx",
+      "bytes": 42305,
+      "sha256": "52ffa08be9cc039c4e7709a12ecc62c71691b947feeb08c09a0cf36a7cdcac84"
+    },
+    {
+      "label": "auditoria-skill.txt",
+      "bytes": 4910,
+      "sha256": "2af271c9727ffe21b22212357c5732e082d00d5597b965ccf2c0fb3a09169e05"
+    },
+    {
+      "label": "documento.pdf",
+      "bytes": 58194,
+      "sha256": "65060b405f3b53309d90249f9086ef286153ffc70c177d41cca0368162db2909"
+    },
+    {
+      "label": "content.json",
+      "bytes": 5784,
+      "sha256": "146caa3680c7b48a1e783a23b4261c7931492cd21f69ccfc95a58bf224c25b26"
+    },
+    {
+      "label": "report.json",
+      "bytes": 21944,
+      "sha256": "e3979c5ddbb364ed38f5d667da2493cad2648e8aad840d9eb1a69fd21b581d2f"
+    },
+    {
+      "label": "Libras — bloco b0001",
+      "bytes": 351599,
+      "sha256": "489bcd9ca9c3ffe17933907a611b5b69691944d6daf5aa9eb6c4316acec7b3b2"
+    },
+    {
+      "label": "Libras — bloco b0002",
+      "bytes": 1631037,
+      "sha256": "2745658a1e71b9988582bcf7a9c4055452995bead8e493d4f7d929b03ad97a91"
+    },
+    {
+      "label": "Libras — bloco b0003",
+      "bytes": 1839177,
+      "sha256": "66eca13ee46099d2b9bb91685794d4a5f854c400c38ef5cd5f0dfc843a376678"
+    },
+    {
+      "label": "Libras — bloco b0004",
+      "bytes": 631139,
+      "sha256": "83979fb4939712598b86a78155cf76035351c6bb549d0909cd611a90ec412ece"
+    },
+    {
+      "label": "Libras — bloco b0005",
+      "bytes": 3550277,
+      "sha256": "f9399030c1a5e0162dd70649d207472e7a7b34f5f74061e9a4905f361d33d5cd"
+    }
+  ],
+  "anonymous_download_blocked": true,
+  "libras_status": "gerado; revisão linguística pendente",
+  "libras_error": "",
+  "libras_blocks": 5,
+  "numeric_losses": [],
+  "human_review": "pendente",
+  "password_reset_request": true,
+  "deployment": "VPS existente; Docker Compose; HTTPS Caddy",
+  "database_tests": {
+    "engine": "PostgreSQL 16",
+    "passed": 25
+  },
+  "restart_verification": "Web e workers recriados; sessão e 12 downloads preservados",
+  "translator": "vlibras/vlibras-translator-text-core:4.2.0; regras; serviço interno",
+  "limitations": [
+    "Revisão linguística pendente",
+    "Recursos de sinais ausentes registrados no relatório",
+    "Carga prolongada e recuperação de desastre não avaliadas"
+  ]
+}

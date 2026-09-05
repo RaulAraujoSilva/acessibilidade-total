@@ -1,0 +1,23 @@
+{
+  "runs": 36,
+  "cost_usd": 0.01220472,
+  "model": "openai/gpt-4.1-mini",
+  "strategies": {
+    "unico": {
+      "median_seconds": 1.1184839999914402,
+      "calls": 0,
+      "cache_hits": 0
+    },
+    "especializadas": {
+      "median_seconds": 8.351569200007361,
+      "calls": 56,
+      "cache_hits": 0
+    },
+    "base_adaptavel": {
+      "median_seconds": 5.098628549996647,
+      "calls": 28,
+      "cache_hits": 28
+    }
+  },
+  "caveat": "Corpus sintético pequeno. Custos incluem tarefas diferentes: uma saída única ou duas visualizações. Cache frio na primeira repetição da base adaptável e quente na segunda. Não mede compreensão, preferência ou equivalência semântica."
+}

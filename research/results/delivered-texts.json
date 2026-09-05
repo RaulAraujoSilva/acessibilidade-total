@@ -1,0 +1,218 @@
+[
+  {
+    "source": "D1.docx",
+    "strategy": "unico",
+    "repeat": 1,
+    "text": "Avaliação D1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso suspende esse prazo, mas não garante a aprovação.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é descritiva e não demonstra a causa da diferença.\n\nGrupo A: 24 solicitações. Grupo B: 36 solicitações. Barras com rótulos e valores.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "unico",
+    "repeat": 2,
+    "text": "Avaliação D1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso suspende esse prazo, mas não garante a aprovação.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é descritiva e não demonstra a causa da diferença.\n\nGrupo A: 24 solicitações. Grupo B: 36 solicitações. Barras com rótulos e valores.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "especializadas",
+    "repeat": 1,
+    "text": "Avaliação D1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo para resposta é suspenso, ou seja, para de contar temporariamente. No entanto, apresentar um recurso não garante que a aprovação será concedida.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não indica a causa da diferença.\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final da barra. O Grupo B tem uma barra marrom com o valor 36 ao final da barra. O gráfico está relacionado ao contexto de Atendimento.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "especializadas",
+    "repeat": 2,
+    "text": "Avaliação D1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, ou seja, para de contar enquanto o recurso está sendo analisado. No entanto, apresentar um recurso não garante que ele será aprovado.\nForam recebidas 60 solicitações no total: 24 do grupo A e 36 do grupo B. A contagem mostra apenas os números e não explica o motivo da diferença entre os grupos.\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. A barra do Grupo A está preenchida em azul escuro e tem o valor 24 ao final. A barra do Grupo B está preenchida em marrom e tem o valor 36 ao final. O gráfico indica que o Grupo B tem mais solicitações que o Grupo A.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "base_adaptavel",
+    "repeat": 1,
+    "text": "Avaliação D1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, ou seja, para de contar enquanto o recurso está sendo analisado. No entanto, apresentar um recurso não garante que ele será aprovado.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não indica a causa da diferença entre os grupos.\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final da barra. O Grupo B tem uma barra marrom com o valor 36 ao final da barra. O gráfico está relacionado ao contexto de Atendimento.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "base_adaptavel",
+    "repeat": 2,
+    "text": "Avaliação D1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, ou seja, para de contar enquanto o recurso está sendo analisado. No entanto, apresentar um recurso não garante que ele será aprovado.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não indica a causa da diferença entre os grupos.\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final da barra. O Grupo B tem uma barra marrom com o valor 36 ao final da barra. O gráfico está relacionado ao contexto de Atendimento.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "unico",
+    "repeat": 1,
+    "text": "Avaliação D2\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até 15 de outubro. A participação é gratuita, exceto o transporte.\nO resultado preliminar indica 80% de conclusão entre 10 participantes. Esse resultado não pode ser generalizado para toda a turma.\n\nGrupo A: 24 solicitações. Grupo B: 36 solicitações. Barras com rótulos e valores.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "unico",
+    "repeat": 2,
+    "text": "Avaliação D2\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até 15 de outubro. A participação é gratuita, exceto o transporte.\nO resultado preliminar indica 80% de conclusão entre 10 participantes. Esse resultado não pode ser generalizado para toda a turma.\n\nGrupo A: 24 solicitações. Grupo B: 36 solicitações. Barras com rótulos e valores.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "especializadas",
+    "repeat": 1,
+    "text": "Avaliação D2\nCapacitação\nA oficina disponibiliza 20 vagas e requer que a inscrição seja feita até o dia 15 de outubro. A participação na oficina é gratuita, porém o custo do transporte não está incluído e deve ser arcado pelo participante.\nO resultado preliminar mostra que 80% dos 10 participantes completaram a atividade. Esse resultado não pode ser aplicado a toda a turma.\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final da barra. O Grupo B tem uma barra marrom com o valor 36 ao final da barra. O gráfico está relacionado ao contexto de Capacitação.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "especializadas",
+    "repeat": 2,
+    "text": "Avaliação D2\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação não tem custo, porém o transporte é de responsabilidade do participante.\nO resultado preliminar mostra que 80% dos participantes concluíram a capacitação, considerando um total de 10 participantes. Esse resultado não pode ser aplicado para toda a turma.\n\nGráfico de barras horizontais mostrando o número de solicitações por grupo. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Capacitação.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "base_adaptavel",
+    "repeat": 1,
+    "text": "Avaliação D2\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação não tem custo, porém o transporte é de responsabilidade do participante.\nO resultado preliminar mostra que 80% dos 10 participantes concluíram a capacitação. Esse resultado não pode ser aplicado a toda a turma.\n\nGráfico de barras horizontais mostrando o número de solicitações por grupo. A barra do Grupo A está em azul escuro e representa 24 solicitações. A barra do Grupo B está em marrom e representa 36 solicitações. Cada barra tem o valor numérico exibido ao lado direito.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "base_adaptavel",
+    "repeat": 2,
+    "text": "Avaliação D2\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação não tem custo, porém o transporte é de responsabilidade do participante.\nO resultado preliminar mostra que 80% dos 10 participantes concluíram a capacitação. Esse resultado não pode ser aplicado a toda a turma.\n\nGráfico de barras horizontais mostrando o número de solicitações por grupo. A barra do Grupo A está em azul escuro e representa 24 solicitações. A barra do Grupo B está em marrom e representa 36 solicitações. Cada barra tem o valor numérico exibido ao lado direito.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nConferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "unico",
+    "repeat": 1,
+    "text": "Avaliação F1\nPágina 1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso suspende esse prazo, mas não garante a\naprovação.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é descritiva e\nnão demonstra a causa da diferença.\nGrupo    Solicitações\nA        24\nB        36\n\nDescrição pendente de revisão.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "unico",
+    "repeat": 2,
+    "text": "Avaliação F1\nPágina 1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso suspende esse prazo, mas não garante a\naprovação.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é descritiva e\nnão demonstra a causa da diferença.\nGrupo    Solicitações\nA        24\nB        36\n\nDescrição pendente de revisão.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "especializadas",
+    "repeat": 1,
+    "text": "Avaliação F1\nPágina 1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, ou seja, para de contar enquanto o recurso está sendo analisado. No entanto, apresentar um recurso não garante que a aprovação será concedida.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não explica o motivo da diferença entre os grupos.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontal com duas barras. A barra do Grupo A está à esquerda e tem comprimento correspondente ao valor 24. A barra do Grupo B está abaixo da barra do Grupo A e tem comprimento maior, correspondente ao valor 36.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "especializadas",
+    "repeat": 2,
+    "text": "Avaliação F1\nPágina 1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, ou seja, para de contar enquanto o recurso está sendo analisado. No entanto, apresentar um recurso não garante que a aprovação será concedida.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não explica o motivo da diferença entre os grupos.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontal mostrando Grupo A com valor 24 e Grupo B com valor 36, onde a barra do Grupo B é maior que a do Grupo A.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "base_adaptavel",
+    "repeat": 1,
+    "text": "Avaliação F1\nPágina 1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, ou seja, para de contar enquanto o recurso está sendo analisado. No entanto, apresentar um recurso não garante que a aprovação será concedida.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não explica o motivo da diferença entre os grupos.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontal com duas barras. A barra do Grupo A está à esquerda e tem o valor 24. A barra do Grupo B está abaixo da do Grupo A e tem o valor 36, sendo maior que a do Grupo A.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "base_adaptavel",
+    "repeat": 2,
+    "text": "Avaliação F1\nPágina 1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, ou seja, para de contar enquanto o recurso está sendo analisado. No entanto, apresentar um recurso não garante que a aprovação será concedida.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não explica o motivo da diferença entre os grupos.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontal com duas barras. A barra do Grupo A está à esquerda e tem o valor 24. A barra do Grupo B está abaixo da do Grupo A e tem o valor 36, sendo maior que a do Grupo A.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "unico",
+    "repeat": 1,
+    "text": "Avaliação F2\nPágina 1\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até 15 de outubro. A participação é gratuita,\nexceto o transporte.\nO resultado preliminar indica 80% de conclusão entre 10 participantes. Esse resultado não\npode ser generalizado para toda a turma.\nGrupo    Solicitações\nA        24\nB        36\n\nDescrição pendente de revisão.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "unico",
+    "repeat": 2,
+    "text": "Avaliação F2\nPágina 1\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até 15 de outubro. A participação é gratuita,\nexceto o transporte.\nO resultado preliminar indica 80% de conclusão entre 10 participantes. Esse resultado não\npode ser generalizado para toda a turma.\nGrupo    Solicitações\nA        24\nB        36\n\nDescrição pendente de revisão.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "especializadas",
+    "repeat": 1,
+    "text": "Avaliação F2\nPágina 1\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até  dia 15 de outubro. A participação é gratuita, exceto o transporte.\nO resultado preliminar mostra que 80% dos participantes concluíram a capacitação, considerando um total de 10 participantes. Esse resultado não pode ser aplicado para toda a turma.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontais com duas barras. A barra do Grupo A é azul e tem o valor 24. A barra do Grupo B é marrom e tem o valor 36.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "especializadas",
+    "repeat": 2,
+    "text": "Avaliação F2\nPágina 1\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até 15 de outubro. A participação é gratuita, exceto o transporte.\nO resultado preliminar mostra que 80% dos 10 participantes concluíram a capacitação. Esse resultado não pode ser aplicado a toda a turma.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontais comparando dois grupos. O Grupo A tem uma barra azul com valor 24. O Grupo B tem uma barra marrom com valor 36.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "base_adaptavel",
+    "repeat": 1,
+    "text": "Avaliação F2\nPágina 1\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação não tem custo, porém o transporte é por conta do participante.\nO resultado preliminar mostra que 80% dos participantes concluíram a capacitação, considerando um total de 10 participantes. Esse resultado não pode ser aplicado para toda a turma.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontais comparando dois grupos. A barra do Grupo A está em azul escuro e representa o valor 24. A barra do Grupo B está em marrom e representa o valor 36.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "base_adaptavel",
+    "repeat": 2,
+    "text": "Avaliação F2\nPágina 1\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação não tem custo, porém o transporte é por conta do participante.\nO resultado preliminar mostra que 80% dos participantes concluíram a capacitação, considerando um total de 10 participantes. Esse resultado não pode ser aplicado para toda a turma.\nGrupo    Solicitações\nA        24\nB        36\n\nGráfico de barras horizontais comparando dois grupos. A barra do Grupo A está em azul escuro e representa o valor 24. A barra do Grupo B está em marrom e representa o valor 36.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nPDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "unico",
+    "repeat": 1,
+    "text": "Avaliação P1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso suspende esse prazo, mas não garante a aprovação.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é descritiva e não demonstra a causa da diferença.\nDistribuição das solicitações\n\nGrupo A: 24; grupo B: 36 solicitações.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "unico",
+    "repeat": 2,
+    "text": "Avaliação P1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso suspende esse prazo, mas não garante a aprovação.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é descritiva e não demonstra a causa da diferença.\nDistribuição das solicitações\n\nGrupo A: 24; grupo B: 36 solicitações.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "especializadas",
+    "repeat": 1,
+    "text": "Avaliação P1\nAtendimento\nO prazo para resposta é de 30 dias. Quando um recurso é apresentado, esse prazo é suspenso, mas isso não significa que a aprovação será garantida.\nForam recebidas 60 solicitações no total: 24 do grupo A e 36 do grupo B. A contagem apresentada é apenas descritiva e não explica o motivo da diferença entre os grupos.\nDistribuição das solicitações\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Atendimento.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "especializadas",
+    "repeat": 2,
+    "text": "Avaliação P1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso interrompe esse prazo, mas não assegura a aprovação.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não explica a razão da diferença.\nDistribuição das solicitações\n\nGráfico de barras horizontais comparando o número de solicitações entre dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom mais longa com o valor 36 ao final. O gráfico está relacionado ao contexto de atendimento.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "base_adaptavel",
+    "repeat": 1,
+    "text": "Avaliação P1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso interrompe esse prazo, mas não assegura que será aprovado.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não explica o motivo da diferença.\nDistribuição das solicitações\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Atendimento.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "base_adaptavel",
+    "repeat": 2,
+    "text": "Avaliação P1\nAtendimento\nO prazo para resposta é de 30 dias. O recurso interrompe esse prazo, mas não assegura que será aprovado.\nForam recebidas 60 solicitações: 24 do grupo A e 36 do grupo B. A contagem é apenas descritiva e não explica o motivo da diferença.\nDistribuição das solicitações\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Atendimento.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "unico",
+    "repeat": 1,
+    "text": "Avaliação P2\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até 15 de outubro. A participação é gratuita, exceto o transporte.\nO resultado preliminar indica 80% de conclusão entre 10 participantes. Esse resultado não pode ser generalizado para toda a turma.\nDistribuição das solicitações\n\nGrupo A: 24; grupo B: 36 solicitações.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "unico",
+    "repeat": 2,
+    "text": "Avaliação P2\nCapacitação\nA oficina oferece 20 vagas e exige inscrição até 15 de outubro. A participação é gratuita, exceto o transporte.\nO resultado preliminar indica 80% de conclusão entre 10 participantes. Esse resultado não pode ser generalizado para toda a turma.\nDistribuição das solicitações\n\nGrupo A: 24; grupo B: 36 solicitações.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "especializadas",
+    "repeat": 1,
+    "text": "Avaliação P2\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação não tem custo, exceto pelo transporte, que é por conta do participante.\nO resultado preliminar mostra que 80% dos 10 participantes concluíram a atividade. Esse dado não deve ser aplicado para toda a turma, pois é específico para esse grupo.\nDistribuição das solicitações\n\nGráfico de barras horizontais mostrando o número de solicitações para dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Capacitação.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "especializadas",
+    "repeat": 2,
+    "text": "Avaliação P2\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação é gratuita, com exceção dos custos de transporte.\nO resultado preliminar mostra que 80% dos 10 participantes concluíram a oficina. Esse resultado não deve ser generalizado para toda a turma.\nDistribuição das solicitações\n\nGráfico de barras horizontais comparando solicitações entre dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Capacitação.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "base_adaptavel",
+    "repeat": 1,
+    "text": "Avaliação P2\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação é gratuita, com exceção dos custos de transporte.\nO resultado preliminar mostra que 80% dos 10 participantes concluíram a oficina. Esse resultado não deve ser aplicado a toda a turma.\nDistribuição das solicitações\n\nGráfico de barras horizontais comparando solicitações entre dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Capacitação.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "base_adaptavel",
+    "repeat": 2,
+    "text": "Avaliação P2\nCapacitação\nA oficina disponibiliza 20 vagas e requer inscrição até o dia 15 de outubro. A participação é gratuita, com exceção dos custos de transporte.\nO resultado preliminar mostra que 80% dos 10 participantes concluíram a oficina. Esse resultado não deve ser aplicado a toda a turma.\nDistribuição das solicitações\n\nGráfico de barras horizontais comparando solicitações entre dois grupos. O Grupo A tem uma barra azul escura com o valor 24 ao final. O Grupo B tem uma barra marrom com o valor 36 ao final. O gráfico está relacionado ao contexto de Capacitação.\nRelatório de acessibilidade\nEste arquivo foi reconstruído automaticamente e requer revisão. A presença de estrutura e alternativas não comprova compreensão ou conformidade integral.\nGrupo\nSolicitações\nA\n24\nB\n36"
+  }
+]

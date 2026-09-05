@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: acessibilidade
+      POSTGRES_USER: acessibilidade
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configure no arquivo .env local}
+    volumes: ["postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U acessibilidade"]
+      interval: 5s
+      retries: 10
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: ["redis:/data"]
+  web:
+    build: {context: ., dockerfile: web/Dockerfile}
+    env_file: .env
+    ports: ["127.0.0.1:8000:8000"]
+    volumes: ["documents:/data"]
+    depends_on:
+      postgres: {condition: service_healthy}
+  worker:
+    build: {context: ., dockerfile: web/Dockerfile}
+    command: ["celery", "-A", "portal", "worker", "-Q", "documents", "--concurrency=1", "--loglevel=WARNING"]
+    env_file: .env
+    volumes: ["documents:/data"]
+    depends_on:
+      postgres: {condition: service_healthy}
+  libras:
+    build: {context: ., dockerfile: web/Dockerfile}
+    command: ["celery", "-A", "portal", "worker", "-Q", "libras", "--concurrency=1", "--loglevel=WARNING"]
+    env_file: .env
+    volumes: ["documents:/data"]
+volumes:
+  postgres:
+  redis:
+  documents:

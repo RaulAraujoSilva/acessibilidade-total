@@ -1,0 +1,3564 @@
+[
+  {
+    "source": "D1.docx",
+    "strategy": "unico",
+    "repetition": 1,
+    "seconds": 8.413865499998792,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 107398,
+    "source_sha256": "62e7b4833397e29ee420853a85e27a4e6a49acd2413de56fc87f5348106449ef",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "unico",
+    "repetition": 2,
+    "seconds": 1.0044104999979027,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 107398,
+    "source_sha256": "62e7b4833397e29ee420853a85e27a4e6a49acd2413de56fc87f5348106449ef",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "especializadas",
+    "repetition": 1,
+    "seconds": 10.476191699999617,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 13,
+        "total_tokens": 118,
+        "cost": 6.2172e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.28e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.08e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 125,
+        "completion_tokens": 61,
+        "total_tokens": 186,
+        "cost": 0.000146124,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001476,
+          "upstream_inference_prompt_cost": 5e-05,
+          "upstream_inference_completions_cost": 9.76e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 138,
+        "completion_tokens": 47,
+        "total_tokens": 185,
+        "cost": 0.000129096,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001304,
+          "upstream_inference_prompt_cost": 5.52e-05,
+          "upstream_inference_completions_cost": 7.52e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 343,
+        "completion_tokens": 100,
+        "total_tokens": 443,
+        "cost": 0.000294228,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002972,
+          "upstream_inference_prompt_cost": 0.0001372,
+          "upstream_inference_completions_cost": 0.00016
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.0006316200000000001,
+    "bytes": 213438,
+    "source_sha256": "62e7b4833397e29ee420853a85e27a4e6a49acd2413de56fc87f5348106449ef",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "especializadas",
+    "repetition": 2,
+    "seconds": 8.308920800001943,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 13,
+        "total_tokens": 118,
+        "cost": 6.2172e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.28e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.08e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 125,
+        "completion_tokens": 59,
+        "total_tokens": 184,
+        "cost": 0.000142956,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001444,
+          "upstream_inference_prompt_cost": 5e-05,
+          "upstream_inference_completions_cost": 9.44e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 138,
+        "completion_tokens": 51,
+        "total_tokens": 189,
+        "cost": 0.000135432,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001368,
+          "upstream_inference_prompt_cost": 5.52e-05,
+          "upstream_inference_completions_cost": 8.16e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 343,
+        "completion_tokens": 111,
+        "total_tokens": 454,
+        "cost": 0.000311652,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0003148,
+          "upstream_inference_prompt_cost": 0.0001372,
+          "upstream_inference_completions_cost": 0.0001776
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000652212,
+    "bytes": 214154,
+    "source_sha256": "62e7b4833397e29ee420853a85e27a4e6a49acd2413de56fc87f5348106449ef",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "base_adaptavel",
+    "repetition": 1,
+    "seconds": 8.097445899999002,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 13,
+        "total_tokens": 118,
+        "cost": 6.2172e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.28e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.08e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 125,
+        "completion_tokens": 59,
+        "total_tokens": 184,
+        "cost": 0.000142956,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001444,
+          "upstream_inference_prompt_cost": 5e-05,
+          "upstream_inference_completions_cost": 9.44e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 138,
+        "completion_tokens": 50,
+        "total_tokens": 188,
+        "cost": 0.000133848,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001352,
+          "upstream_inference_prompt_cost": 5.52e-05,
+          "upstream_inference_completions_cost": 8e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 343,
+        "completion_tokens": 100,
+        "total_tokens": 443,
+        "cost": 0.000294228,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002972,
+          "upstream_inference_prompt_cost": 0.0001372,
+          "upstream_inference_completions_cost": 0.00016
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000633204,
+    "bytes": 213482,
+    "source_sha256": "62e7b4833397e29ee420853a85e27a4e6a49acd2413de56fc87f5348106449ef",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D1.docx",
+    "strategy": "base_adaptavel",
+    "repetition": 2,
+    "seconds": 2.0658070999925258,
+    "calls": 0,
+    "cache_hits": 4,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 213482,
+    "source_sha256": "62e7b4833397e29ee420853a85e27a4e6a49acd2413de56fc87f5348106449ef",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "unico",
+    "repetition": 1,
+    "seconds": 1.018234700008179,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 108419,
+    "source_sha256": "f25c67828e78d6bde8ce53cb5a97bff94e8cea29673101568f29413e929005d1",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "unico",
+    "repetition": 2,
+    "seconds": 1.0231143999990309,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 108419,
+    "source_sha256": "f25c67828e78d6bde8ce53cb5a97bff94e8cea29673101568f29413e929005d1",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "especializadas",
+    "repetition": 1,
+    "seconds": 7.685621900003753,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 17,
+        "total_tokens": 124,
+        "cost": 6.93e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.72e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 128,
+        "completion_tokens": 56,
+        "total_tokens": 184,
+        "cost": 0.000139392,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001408,
+          "upstream_inference_prompt_cost": 5.12e-05,
+          "upstream_inference_completions_cost": 8.96e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 130,
+        "completion_tokens": 39,
+        "total_tokens": 169,
+        "cost": 0.000113256,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001144,
+          "upstream_inference_prompt_cost": 5.2e-05,
+          "upstream_inference_completions_cost": 6.24e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 344,
+        "completion_tokens": 101,
+        "total_tokens": 445,
+        "cost": 0.000296208,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002992,
+          "upstream_inference_prompt_cost": 0.0001376,
+          "upstream_inference_completions_cost": 0.0001616
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000618156,
+    "bytes": 215076,
+    "source_sha256": "f25c67828e78d6bde8ce53cb5a97bff94e8cea29673101568f29413e929005d1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "especializadas",
+    "repetition": 2,
+    "seconds": 7.832073400000809,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 17,
+        "total_tokens": 124,
+        "cost": 6.93e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.72e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 128,
+        "completion_tokens": 43,
+        "total_tokens": 171,
+        "cost": 0.0001188,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00012,
+          "upstream_inference_prompt_cost": 5.12e-05,
+          "upstream_inference_completions_cost": 6.88e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 130,
+        "completion_tokens": 46,
+        "total_tokens": 176,
+        "cost": 0.000124344,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001256,
+          "upstream_inference_prompt_cost": 5.2e-05,
+          "upstream_inference_completions_cost": 7.36e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 344,
+        "completion_tokens": 96,
+        "total_tokens": 440,
+        "cost": 0.000288288,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002912,
+          "upstream_inference_prompt_cost": 0.0001376,
+          "upstream_inference_completions_cost": 0.0001536
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000600732,
+    "bytes": 214814,
+    "source_sha256": "f25c67828e78d6bde8ce53cb5a97bff94e8cea29673101568f29413e929005d1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "base_adaptavel",
+    "repetition": 1,
+    "seconds": 7.494835499994224,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 17,
+        "total_tokens": 124,
+        "cost": 6.93e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.72e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 128,
+        "completion_tokens": 43,
+        "total_tokens": 171,
+        "cost": 0.0001188,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00012,
+          "upstream_inference_prompt_cost": 5.12e-05,
+          "upstream_inference_completions_cost": 6.88e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 130,
+        "completion_tokens": 40,
+        "total_tokens": 170,
+        "cost": 0.00011484,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000116,
+          "upstream_inference_prompt_cost": 5.2e-05,
+          "upstream_inference_completions_cost": 6.4e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 344,
+        "completion_tokens": 99,
+        "total_tokens": 443,
+        "cost": 0.00029304,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000296,
+          "upstream_inference_prompt_cost": 0.0001376,
+          "upstream_inference_completions_cost": 0.0001584
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.00059598,
+    "bytes": 214692,
+    "source_sha256": "f25c67828e78d6bde8ce53cb5a97bff94e8cea29673101568f29413e929005d1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "D2.docx",
+    "strategy": "base_adaptavel",
+    "repetition": 2,
+    "seconds": 2.1081455999956233,
+    "calls": 0,
+    "cache_hits": 4,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 214692,
+    "source_sha256": "f25c67828e78d6bde8ce53cb5a97bff94e8cea29673101568f29413e929005d1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0003",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "Conferir cabeçalhos, rodapés, notas e objetos flutuantes; não são reconstruídos automaticamente."
+    ]
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "unico",
+    "repetition": 1,
+    "seconds": 1.1490118999936385,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 102159,
+    "source_sha256": "5e4226cb99323c3fcf69bf83f2fcc8104e01ffc10d47a33567e124a04304ae75",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "unico",
+    "repetition": 2,
+    "seconds": 1.0320199000125285,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 102159,
+    "source_sha256": "5e4226cb99323c3fcf69bf83f2fcc8104e01ffc10d47a33567e124a04304ae75",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "especializadas",
+    "repetition": 1,
+    "seconds": 10.752863299989258,
+    "calls": 6,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 106,
+        "completion_tokens": 12,
+        "total_tokens": 118,
+        "cost": 6.0984e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.16e-05,
+          "upstream_inference_prompt_cost": 4.24e-05,
+          "upstream_inference_completions_cost": 1.92e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 13,
+        "total_tokens": 118,
+        "cost": 6.2172e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.28e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.08e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 127,
+        "completion_tokens": 61,
+        "total_tokens": 188,
+        "cost": 0.000146916,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001484,
+          "upstream_inference_prompt_cost": 5.08e-05,
+          "upstream_inference_completions_cost": 9.76e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 139,
+        "completion_tokens": 50,
+        "total_tokens": 189,
+        "cost": 0.000134244,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001356,
+          "upstream_inference_prompt_cost": 5.56e-05,
+          "upstream_inference_completions_cost": 8e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 117,
+        "completion_tokens": 60,
+        "total_tokens": 177,
+        "cost": 0.000141372,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001428,
+          "upstream_inference_prompt_cost": 4.68e-05,
+          "upstream_inference_completions_cost": 9.6e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 318,
+        "completion_tokens": 105,
+        "total_tokens": 423,
+        "cost": 0.000292248,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002952,
+          "upstream_inference_prompt_cost": 0.0001272,
+          "upstream_inference_completions_cost": 0.000168
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000837936,
+    "bytes": 204580,
+    "source_sha256": "5e4226cb99323c3fcf69bf83f2fcc8104e01ffc10d47a33567e124a04304ae75",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "especializadas",
+    "repetition": 2,
+    "seconds": 11.536106800005655,
+    "calls": 6,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 106,
+        "completion_tokens": 12,
+        "total_tokens": 118,
+        "cost": 6.0984e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.16e-05,
+          "upstream_inference_prompt_cost": 4.24e-05,
+          "upstream_inference_completions_cost": 1.92e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 13,
+        "total_tokens": 118,
+        "cost": 6.2172e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.28e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.08e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 127,
+        "completion_tokens": 61,
+        "total_tokens": 188,
+        "cost": 0.000146916,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001484,
+          "upstream_inference_prompt_cost": 5.08e-05,
+          "upstream_inference_completions_cost": 9.76e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 139,
+        "completion_tokens": 50,
+        "total_tokens": 189,
+        "cost": 0.000134244,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001356,
+          "upstream_inference_prompt_cost": 5.56e-05,
+          "upstream_inference_completions_cost": 8e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 117,
+        "completion_tokens": 62,
+        "total_tokens": 179,
+        "cost": 0.00014454,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.000146,
+          "upstream_inference_prompt_cost": 4.68e-05,
+          "upstream_inference_completions_cost": 9.92e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 318,
+        "completion_tokens": 112,
+        "total_tokens": 430,
+        "cost": 0.000303336,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0003064,
+          "upstream_inference_prompt_cost": 0.0001272,
+          "upstream_inference_completions_cost": 0.0001792
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000852192,
+    "bytes": 203539,
+    "source_sha256": "5e4226cb99323c3fcf69bf83f2fcc8104e01ffc10d47a33567e124a04304ae75",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "base_adaptavel",
+    "repetition": 1,
+    "seconds": 10.404487799998606,
+    "calls": 6,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 106,
+        "completion_tokens": 12,
+        "total_tokens": 118,
+        "cost": 6.0984e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.16e-05,
+          "upstream_inference_prompt_cost": 4.24e-05,
+          "upstream_inference_completions_cost": 1.92e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 13,
+        "total_tokens": 118,
+        "cost": 6.2172e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.28e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.08e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 127,
+        "completion_tokens": 61,
+        "total_tokens": 188,
+        "cost": 0.000146916,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001484,
+          "upstream_inference_prompt_cost": 5.08e-05,
+          "upstream_inference_completions_cost": 9.76e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 139,
+        "completion_tokens": 50,
+        "total_tokens": 189,
+        "cost": 0.000134244,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001356,
+          "upstream_inference_prompt_cost": 5.56e-05,
+          "upstream_inference_completions_cost": 8e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 117,
+        "completion_tokens": 60,
+        "total_tokens": 177,
+        "cost": 0.000141372,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001428,
+          "upstream_inference_prompt_cost": 4.68e-05,
+          "upstream_inference_completions_cost": 9.6e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 318,
+        "completion_tokens": 106,
+        "total_tokens": 424,
+        "cost": 0.000293832,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002968,
+          "upstream_inference_prompt_cost": 0.0001272,
+          "upstream_inference_completions_cost": 0.0001696
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.00083952,
+    "bytes": 204221,
+    "source_sha256": "5e4226cb99323c3fcf69bf83f2fcc8104e01ffc10d47a33567e124a04304ae75",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F1.pdf",
+    "strategy": "base_adaptavel",
+    "repetition": 2,
+    "seconds": 2.0547843999956967,
+    "calls": 0,
+    "cache_hits": 6,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 204221,
+    "source_sha256": "5e4226cb99323c3fcf69bf83f2fcc8104e01ffc10d47a33567e124a04304ae75",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "unico",
+    "repetition": 1,
+    "seconds": 0.999411600001622,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 103151,
+    "source_sha256": "754894c6cb9ec673dd90c2b0bd249950a41c0d65da0720a00d69fcdd235fd9f1",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "unico",
+    "repetition": 2,
+    "seconds": 1.087956099989242,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 103151,
+    "source_sha256": "754894c6cb9ec673dd90c2b0bd249950a41c0d65da0720a00d69fcdd235fd9f1",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "especializadas",
+    "repetition": 1,
+    "seconds": 10.602345600011176,
+    "calls": 6,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 25,
+        "total_tokens": 132,
+        "cost": 8.1972e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.28e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 4e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 14,
+        "total_tokens": 121,
+        "cost": 6.4548e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.52e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.24e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 129,
+        "completion_tokens": 37,
+        "total_tokens": 166,
+        "cost": 0.000109692,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001108,
+          "upstream_inference_prompt_cost": 5.16e-05,
+          "upstream_inference_completions_cost": 5.92e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 132,
+        "completion_tokens": 46,
+        "total_tokens": 178,
+        "cost": 0.000125136,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001264,
+          "upstream_inference_prompt_cost": 5.28e-05,
+          "upstream_inference_completions_cost": 7.36e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 118,
+        "completion_tokens": 56,
+        "total_tokens": 174,
+        "cost": 0.000135432,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001368,
+          "upstream_inference_prompt_cost": 4.72e-05,
+          "upstream_inference_completions_cost": 8.96e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 319,
+        "completion_tokens": 122,
+        "total_tokens": 441,
+        "cost": 0.000319572,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0003228,
+          "upstream_inference_prompt_cost": 0.0001276,
+          "upstream_inference_completions_cost": 0.0001952
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.0008363520000000001,
+    "bytes": 204372,
+    "source_sha256": "754894c6cb9ec673dd90c2b0bd249950a41c0d65da0720a00d69fcdd235fd9f1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "especializadas",
+    "repetition": 2,
+    "seconds": 12.138280800005305,
+    "calls": 6,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 21,
+        "total_tokens": 128,
+        "cost": 7.5636e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7.64e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 3.36e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 17,
+        "total_tokens": 124,
+        "cost": 6.93e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 7e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.72e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 129,
+        "completion_tokens": 35,
+        "total_tokens": 164,
+        "cost": 0.000106524,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001076,
+          "upstream_inference_prompt_cost": 5.16e-05,
+          "upstream_inference_completions_cost": 5.6e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 132,
+        "completion_tokens": 40,
+        "total_tokens": 172,
+        "cost": 0.000115632,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001168,
+          "upstream_inference_prompt_cost": 5.28e-05,
+          "upstream_inference_completions_cost": 6.4e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 118,
+        "completion_tokens": 56,
+        "total_tokens": 174,
+        "cost": 0.000135432,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001368,
+          "upstream_inference_prompt_cost": 4.72e-05,
+          "upstream_inference_completions_cost": 8.96e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 319,
+        "completion_tokens": 89,
+        "total_tokens": 408,
+        "cost": 0.0002673,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00027,
+          "upstream_inference_prompt_cost": 0.0001276,
+          "upstream_inference_completions_cost": 0.0001424
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000769824,
+    "bytes": 204524,
+    "source_sha256": "754894c6cb9ec673dd90c2b0bd249950a41c0d65da0720a00d69fcdd235fd9f1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "base_adaptavel",
+    "repetition": 1,
+    "seconds": 10.022809899994172,
+    "calls": 6,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 25,
+        "total_tokens": 132,
+        "cost": 8.1972e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 8.28e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 4e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 14,
+        "total_tokens": 121,
+        "cost": 6.4548e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.52e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.24e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 129,
+        "completion_tokens": 43,
+        "total_tokens": 172,
+        "cost": 0.000119196,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001204,
+          "upstream_inference_prompt_cost": 5.16e-05,
+          "upstream_inference_completions_cost": 6.88e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 132,
+        "completion_tokens": 46,
+        "total_tokens": 178,
+        "cost": 0.000125136,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001264,
+          "upstream_inference_prompt_cost": 5.28e-05,
+          "upstream_inference_completions_cost": 7.36e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 118,
+        "completion_tokens": 56,
+        "total_tokens": 174,
+        "cost": 0.000135432,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001368,
+          "upstream_inference_prompt_cost": 4.72e-05,
+          "upstream_inference_completions_cost": 8.96e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 319,
+        "completion_tokens": 97,
+        "total_tokens": 416,
+        "cost": 0.000279972,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002828,
+          "upstream_inference_prompt_cost": 0.0001276,
+          "upstream_inference_completions_cost": 0.0001552
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000806256,
+    "bytes": 205193,
+    "source_sha256": "754894c6cb9ec673dd90c2b0bd249950a41c0d65da0720a00d69fcdd235fd9f1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "F2.pdf",
+    "strategy": "base_adaptavel",
+    "repetition": 2,
+    "seconds": 2.132955299995956,
+    "calls": 0,
+    "cache_hits": 6,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 205193,
+    "source_sha256": "754894c6cb9ec673dd90c2b0bd249950a41c0d65da0720a00d69fcdd235fd9f1",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0003",
+        "b0004",
+        "b0006"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições."
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": [
+      "PDF: tabelas, colunas, fórmulas e ordem semântica exigem revisão; extração geométrica não comprova estrutura."
+    ]
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "unico",
+    "repetition": 1,
+    "seconds": 1.6448411000019405,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 152758,
+    "source_sha256": "d9b3cc3acad4c8557ab5439bc68a777ec413caee4c3685b0fa650e864a6daa2b",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "unico",
+    "repetition": 2,
+    "seconds": 1.4455470999964746,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 152758,
+    "source_sha256": "d9b3cc3acad4c8557ab5439bc68a777ec413caee4c3685b0fa650e864a6daa2b",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "especializadas",
+    "repetition": 1,
+    "seconds": 8.385822900003404,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 15,
+        "total_tokens": 120,
+        "cost": 6.534e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.4e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 162,
+        "completion_tokens": 90,
+        "total_tokens": 252,
+        "cost": 0.000206712,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002088,
+          "upstream_inference_prompt_cost": 6.48e-05,
+          "upstream_inference_completions_cost": 0.000144
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 108,
+        "completion_tokens": 16,
+        "total_tokens": 124,
+        "cost": 6.8112e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.88e-05,
+          "upstream_inference_prompt_cost": 4.32e-05,
+          "upstream_inference_completions_cost": 2.56e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 332,
+        "completion_tokens": 85,
+        "total_tokens": 417,
+        "cost": 0.000266112,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002688,
+          "upstream_inference_prompt_cost": 0.0001328,
+          "upstream_inference_completions_cost": 0.000136
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000606276,
+    "bytes": 259522,
+    "source_sha256": "d9b3cc3acad4c8557ab5439bc68a777ec413caee4c3685b0fa650e864a6daa2b",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "especializadas",
+    "repetition": 2,
+    "seconds": 8.098004500003299,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 15,
+        "total_tokens": 120,
+        "cost": 6.534e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.6e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.4e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 162,
+        "completion_tokens": 72,
+        "total_tokens": 234,
+        "cost": 0.0001782,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00018,
+          "upstream_inference_prompt_cost": 6.48e-05,
+          "upstream_inference_completions_cost": 0.0001152
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 108,
+        "completion_tokens": 16,
+        "total_tokens": 124,
+        "cost": 6.8112e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.88e-05,
+          "upstream_inference_prompt_cost": 4.32e-05,
+          "upstream_inference_completions_cost": 2.56e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 332,
+        "completion_tokens": 88,
+        "total_tokens": 420,
+        "cost": 0.000270864,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002736,
+          "upstream_inference_prompt_cost": 0.0001328,
+          "upstream_inference_completions_cost": 0.0001408
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.0005825159999999999,
+    "bytes": 259148,
+    "source_sha256": "d9b3cc3acad4c8557ab5439bc68a777ec413caee4c3685b0fa650e864a6daa2b",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "base_adaptavel",
+    "repetition": 1,
+    "seconds": 7.702093700005207,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 105,
+        "completion_tokens": 13,
+        "total_tokens": 118,
+        "cost": 6.2172e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.28e-05,
+          "upstream_inference_prompt_cost": 4.2e-05,
+          "upstream_inference_completions_cost": 2.08e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 162,
+        "completion_tokens": 80,
+        "total_tokens": 242,
+        "cost": 0.000190872,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001928,
+          "upstream_inference_prompt_cost": 6.48e-05,
+          "upstream_inference_completions_cost": 0.000128
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 108,
+        "completion_tokens": 16,
+        "total_tokens": 124,
+        "cost": 6.8112e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.88e-05,
+          "upstream_inference_prompt_cost": 4.32e-05,
+          "upstream_inference_completions_cost": 2.56e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 332,
+        "completion_tokens": 85,
+        "total_tokens": 417,
+        "cost": 0.000266112,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002688,
+          "upstream_inference_prompt_cost": 0.0001328,
+          "upstream_inference_completions_cost": 0.000136
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000587268,
+    "bytes": 259069,
+    "source_sha256": "d9b3cc3acad4c8557ab5439bc68a777ec413caee4c3685b0fa650e864a6daa2b",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P1.pptx",
+    "strategy": "base_adaptavel",
+    "repetition": 2,
+    "seconds": 2.6198948999954155,
+    "calls": 0,
+    "cache_hits": 4,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 259069,
+    "source_sha256": "d9b3cc3acad4c8557ab5439bc68a777ec413caee4c3685b0fa650e864a6daa2b",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "unico",
+    "repetition": 1,
+    "seconds": 1.5053876000019955,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 153383,
+    "source_sha256": "7aff1b393cde81dd66759efced9c9a02c9bc2bb7a18df69be9af062f522d12bc",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "unico",
+    "repetition": 2,
+    "seconds": 1.4775850000005448,
+    "calls": 0,
+    "cache_hits": 0,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 153383,
+    "source_sha256": "7aff1b393cde81dd66759efced9c9a02c9bc2bb7a18df69be9af062f522d12bc",
+    "model": null,
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "especializadas",
+    "repetition": 1,
+    "seconds": 8.317315500011318,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 14,
+        "total_tokens": 121,
+        "cost": 6.4548e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.52e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.24e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 156,
+        "completion_tokens": 86,
+        "total_tokens": 242,
+        "cost": 0.000198,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002,
+          "upstream_inference_prompt_cost": 6.24e-05,
+          "upstream_inference_completions_cost": 0.0001376
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 109,
+        "completion_tokens": 16,
+        "total_tokens": 125,
+        "cost": 6.8508e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.92e-05,
+          "upstream_inference_prompt_cost": 4.36e-05,
+          "upstream_inference_completions_cost": 2.56e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 333,
+        "completion_tokens": 86,
+        "total_tokens": 419,
+        "cost": 0.000268092,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002708,
+          "upstream_inference_prompt_cost": 0.0001332,
+          "upstream_inference_completions_cost": 0.0001376
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000599148,
+    "bytes": 260447,
+    "source_sha256": "7aff1b393cde81dd66759efced9c9a02c9bc2bb7a18df69be9af062f522d12bc",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "especializadas",
+    "repetition": 2,
+    "seconds": 7.73275399999693,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 14,
+        "total_tokens": 121,
+        "cost": 6.4548e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.52e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.24e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 156,
+        "completion_tokens": 75,
+        "total_tokens": 231,
+        "cost": 0.000180576,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001824,
+          "upstream_inference_prompt_cost": 6.24e-05,
+          "upstream_inference_completions_cost": 0.00012
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 109,
+        "completion_tokens": 16,
+        "total_tokens": 125,
+        "cost": 6.8508e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.92e-05,
+          "upstream_inference_prompt_cost": 4.36e-05,
+          "upstream_inference_completions_cost": 2.56e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 333,
+        "completion_tokens": 84,
+        "total_tokens": 417,
+        "cost": 0.000264924,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002676,
+          "upstream_inference_prompt_cost": 0.0001332,
+          "upstream_inference_completions_cost": 0.0001344
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000578556,
+    "bytes": 260074,
+    "source_sha256": "7aff1b393cde81dd66759efced9c9a02c9bc2bb7a18df69be9af062f522d12bc",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "base_adaptavel",
+    "repetition": 1,
+    "seconds": 7.753234799994971,
+    "calls": 4,
+    "cache_hits": 0,
+    "usage": [
+      {
+        "prompt_tokens": 107,
+        "completion_tokens": 14,
+        "total_tokens": 121,
+        "cost": 6.4548e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.52e-05,
+          "upstream_inference_prompt_cost": 4.28e-05,
+          "upstream_inference_completions_cost": 2.24e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 156,
+        "completion_tokens": 74,
+        "total_tokens": 230,
+        "cost": 0.000178992,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0001808,
+          "upstream_inference_prompt_cost": 6.24e-05,
+          "upstream_inference_completions_cost": 0.0001184
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 109,
+        "completion_tokens": 16,
+        "total_tokens": 125,
+        "cost": 6.8508e-05,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 6.92e-05,
+          "upstream_inference_prompt_cost": 4.36e-05,
+          "upstream_inference_completions_cost": 2.56e-05
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      },
+      {
+        "prompt_tokens": 333,
+        "completion_tokens": 84,
+        "total_tokens": 417,
+        "cost": 0.000264924,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0002676,
+          "upstream_inference_prompt_cost": 0.0001332,
+          "upstream_inference_completions_cost": 0.0001344
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    ],
+    "cost_usd": 0.000576972,
+    "bytes": 260047,
+    "source_sha256": "7aff1b393cde81dd66759efced9c9a02c9bc2bb7a18df69be9af062f522d12bc",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  },
+  {
+    "source": "P2.pptx",
+    "strategy": "base_adaptavel",
+    "repetition": 2,
+    "seconds": 2.70242159999907,
+    "calls": 0,
+    "cache_hits": 4,
+    "usage": [],
+    "cost_usd": 0,
+    "bytes": 260047,
+    "source_sha256": "7aff1b393cde81dd66759efced9c9a02c9bc2bb7a18df69be9af062f522d12bc",
+    "model": "openai/gpt-4.1-mini",
+    "temperature": 0,
+    "prompt_version": 1,
+    "comparison": {
+      "missing_blocks": [],
+      "added_blocks": [],
+      "changed": [
+        "b0002",
+        "b0005"
+      ],
+      "numeric_losses": [],
+      "semantic_equivalence": "não verificada; requer revisão humana",
+      "requires_review": true
+    },
+    "export": {
+      "docx_missing_text": [],
+      "pdf": {
+        "pages": 1,
+        "searchable": true
+      },
+      "human_review": "pendente",
+      "pdfua": "não verificado",
+      "color": "Texto reconstruído não depende de cor; gráficos e imagens originais exigem conferência de rótulos, padrões e descrições.",
+      "legacy_audit_exit_code": 1
+    },
+    "files": [
+      "documento.docx",
+      "documento.html",
+      "apresentacao.pptx",
+      "auditoria-skill.txt",
+      "documento.pdf"
+    ],
+    "human_semantic_review": "pendente",
+    "source_warnings": []
+  }
+]

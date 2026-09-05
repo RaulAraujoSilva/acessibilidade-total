@@ -1,0 +1,211 @@
+TY  - JOUR
+ID  - S13
+TI  - Do Text Simplification Systems Preserve Meaning? A Human Evaluation via Reading Comprehension
+AU  - Sweta Agrawal
+AU  - Marine Carpuat
+PY  - 2024
+DO  - 10.1162/tacl_a_00653
+UR  - https://aclanthology.org/2024.tacl-1.24/
+ER  - 
+
+TY  - JOUR
+ID  - S14
+TI  - Benchmarking PDF Accessibility Evaluation: A Dataset and Framework for Assessing Automated and LLM-Based Approaches for Accessibility Testing
+AU  - Kumar, Anukriti
+AU  - Padath, Tanushree
+AU  - Wang, Lucy Lu
+PY  - 2025
+DO  - 10.1145/3663547.3746380
+UR  - https://dl.acm.org/doi/10.1145/3663547.3746380
+ER  - 
+
+TY  - JOUR
+ID  - S15
+TI  - AI-Based Personalized E-Learning Systems: Issues, Challenges, and Solutions
+AU  - Murtaza, Mir
+AU  - Ahmed, Yamna
+AU  - Shamsi, Jawwad Ahmed
+AU  - Sherwani, Fahad
+AU  - Usman, Mariam
+PY  - 2022
+DO  - 10.1109/ACCESS.2022.3193938
+UR  - https://ieeexplore.ieee.org/document/9840390/
+ER  - 
+
+TY  - JOUR
+ID  - S16
+TI  - Evaluating Factuality in Text Simplification
+AU  - Ashwin Devaraj
+AU  - William Sheffield
+AU  - Byron C. Wallace
+AU  - Junyi Jessy Li
+PY  - 2022
+DO  - 10.18653/v1/2022.acl-long.506
+UR  - https://aclanthology.org/2022.acl-long.506/
+ER  - 
+
+TY  - JOUR
+ID  - S01
+TI  - Ability-Based Design: Concept, Principles and Examples
+AU  - Wobbrock, Jacob O.
+AU  - Kane, Shaun K.
+AU  - Gajos, Krzysztof Z.
+AU  - Harada, Susumu
+AU  - Froehlich, Jon
+PY  - 2011
+DO  - 10.1145/1952383.1952384
+UR  - https://faculty.washington.edu/wobbrock/pubs/taccess-11.pdf
+ER  - 
+
+TY  - JOUR
+ID  - S02
+TI  - Automatic Text Simplification for People with Cognitive Disabilities: Resource Creation within the ClearText Project
+AU  - Isabel Espinosa-Zaragoza
+AU  - José Abreu-Salas
+AU  - Paloma Moreda Pozo
+AU  - Manuel Palomar
+PY  - 2023
+DO  - 
+UR  - https://aclanthology.org/2023.tsar-1.7/
+ER  - 
+
+TY  - JOUR
+ID  - S03
+TI  - InfoLossQA: Characterizing and Recovering Information Loss in Text Simplification
+AU  - Jan Trienes
+AU  - Sebastian Joseph
+AU  - Jörg Schlötterer
+AU  - Christin Seifert
+AU  - Kyle Lo
+AU  - Wei Xu
+AU  - Byron C. Wallace
+AU  - Junyi Jessy Li
+PY  - 2024
+DO  - 10.18653/v1/2024.acl-long.234
+UR  - https://aclanthology.org/2024.acl-long.234/
+ER  - 
+
+TY  - JOUR
+ID  - S04
+TI  - Context-Aware Image Descriptions for Web Accessibility
+AU  - Mohanbabu, Ananya Gubbi
+AU  - Pavel, Amy
+PY  - 2024
+DO  - 
+UR  - https://arxiv.org/abs/2409.03054
+ER  - 
+
+TY  - JOUR
+ID  - S05
+TI  - Evaluating LLMs for Portuguese Sentence Simplification with Linguistic Insights
+AU  - Arthur Mariano Rocha De Azevedo Scalercio
+AU  - Elvis A. De Souza
+AU  - Maria José B. Finatto
+AU  - Aline Paes
+PY  - 2025
+DO  - 10.18653/v1/2025.acl-long.1193
+UR  - https://aclanthology.org/2025.acl-long.1193/
+ER  - 
+
+TY  - JOUR
+ID  - S06
+TI  - Exploring Large Language Models to generate Easy to Read content
+AU  - Martínez, Paloma
+AU  - Ramos, Alberto
+AU  - Moreno, Lourdes
+PY  - 2024
+DO  - 10.3389/fcomp.2024.1394705
+UR  - https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2024.1394705/full
+ER  - 
+
+TY  - JOUR
+ID  - S07
+TI  - Easy-read and large language models: on the ethical dimensions of LLM-based text simplification
+AU  - Freyer, Nils
+AU  - Kempt, Hendrik
+AU  - Klöser, Lars
+PY  - 2024
+DO  - 10.1007/s10676-024-09792-4
+UR  - https://link.springer.com/article/10.1007/s10676-024-09792-4
+ER  - 
+
+TY  - JOUR
+ID  - S08
+TI  - Guidelines for easy-to-read materials
+AU  - Nomura, Misako
+AU  - Nielsen, Gyda Skat
+AU  - Tronbacke, Bror
+PY  - 2010
+DO  - 
+UR  - https://repository.ifla.org/bitstreams/9e8bc5f6-3873-4200-a482-885cfb239722/download
+ER  - 
+
+TY  - JOUR
+ID  - S09
+TI  - Personalisation, interaction and navigation in rich multimedia documents for print-disabled users
+AU  - Petrie, Helen
+AU  - Weber, Gerhard
+AU  - Fisher, Wayne
+PY  - 2005
+DO  - 10.1147/sj.443.0629
+UR  - https://eprints.whiterose.ac.uk/id/eprint/6236/
+ER  - 
+
+TY  - JOUR
+ID  - S10
+TI  - A Usabilidade de avatares de libras em sites: análise da interação de usuários surdos por meio do rastreador ocular Eye Tracking
+AU  - Moraes, Laíse Miolo
+AU  - Vieira, Francine Medeiros
+AU  - Gonçalves, Berenice Santos
+AU  - Braviano, Gilson
+AU  - Merino, Gisele Schmidt Alves Diaz
+PY  - 2018
+DO  - 10.23972/det2018iss16pp41-51
+UR  - https://www.ufrgs.br/det/index.php/det/article/view/495
+ER  - 
+
+TY  - JOUR
+ID  - S11
+TI  - Inteligência Artificial aplicada à Acessibilidade Digital em Ferramenta Educacional WEB
+AU  - Silva, Raisa Priscila da
+AU  - Silva, Josivan Pereira da
+PY  - 2025
+DO  - 
+UR  - https://congressos.ifsp.edu.br/conict/article/view/2006
+ER  - 
+
+TY  - JOUR
+ID  - S12
+TI  - Inteligência Artificial e inclusão de estudantes com deficiência na Educação Básica
+AU  - Siqueira, Ivan Cláudio Pereira
+PY  - 2025
+DO  - 10.1590/s0103-4014.202539115.001
+UR  - https://www.scielo.br/j/ea/a/9Z9TX7TvvByqTSk5PrdxvWK/?lang=pt
+ER  - 
+
+TY  - GEN
+ID  - N01
+TI  - Web Content Accessibility Guidelines (WCAG) 2.2
+AU  - World Wide Web Consortium
+PY  - 2023
+DO  - 
+UR  - https://www.w3.org/TR/WCAG22/
+ER  - 
+
+TY  - GEN
+ID  - N02
+TI  - Making Content Usable for People with Cognitive and Learning Disabilities
+AU  - World Wide Web Consortium
+PY  - 2021
+DO  - 
+UR  - https://www.w3.org/TR/coga-usable/
+ER  - 
+
+TY  - GEN
+ID  - N03
+TI  - Guidance on Applying WCAG 2 to Non-Web Information and Communications Technologies (WCAG2ICT)
+AU  - World Wide Web Consortium
+PY  - 2024
+DO  - 
+UR  - https://www.w3.org/TR/wcag2ict/
+ER  - 
