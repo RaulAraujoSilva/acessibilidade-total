@@ -105,6 +105,8 @@ def render_libras(self,ident,run):
             result=render(text,out/'libras');result['block_id']=b['id'];manifests.append(result)
             files.append(str(Path(result['video']).relative_to(out)))
         except LibrasUnavailable as e:error=str(e);break
+        except Exception:
+            error='Falha interna no motor ou armazenamento de Libras; confira a configuração do worker.';break
     with transaction.atomic():
         current=Document.objects.select_for_update().filter(pk=ident,run_id=run,status=Document.Status.REVIEW).first()
         if not current:return

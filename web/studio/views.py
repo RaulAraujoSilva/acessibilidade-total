@@ -101,7 +101,7 @@ def detail(request,ident):
 @transaction.atomic
 def prepare(request,ident):
     doc=locked(request,ident);form=OptionsForm(request.POST)
-    if doc.status in [Document.Status.RUNNING,Document.Status.QUEUED]:return HttpResponse('Aguarde ou cancele o trabalho atual.',status=409)
+    if doc.status in [Document.Status.RUNNING,Document.Status.QUEUED] or (doc.status=='review' and doc.report.get('libras',{}).get('status')=='aguardando worker'):return HttpResponse('Aguarde ou cancele o trabalho atual.',status=409)
     if not form.is_valid():return render(request,'form.html',{'form':form,'title':'Escolher adaptações','button':'Calcular estimativa'},status=400)
     options=form.cleaned_data.copy();model_id=options.pop('model_id','');options.pop('consent')
     est={'usd':0,'note':'Sem chamadas de IA textual.'}

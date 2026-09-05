@@ -79,7 +79,7 @@ def export_all(content,out,title,options):
         command=[soffice,f'-env:UserInstallation={profile}','--headless','--convert-to','pdf:writer_pdf_Export:{"PDFUACompliance":{"type":"boolean","value":"true"}}','--outdir',str(out),str(docx)]
         if wsl:
             def lp(p):
-                p=Path(p).resolve();return '/mnt/'+p.drive[0].lower()+p.as_posix()[2:]
+                value=Path(p).resolve().as_posix().removeprefix('//?/');return '/mnt/'+value[0].lower()+value[2:]
             import uuid
             command=['wsl','-d',wsl,'--exec','libreoffice','-env:UserInstallation=file:///tmp/accessible-lo-'+uuid.uuid4().hex,'--headless','--convert-to','pdf:writer_pdf_Export:{"PDFUACompliance":{"type":"boolean","value":"true"}}','--outdir',lp(out),lp(docx)]
         try:result=subprocess.run(command,capture_output=True,timeout=120)

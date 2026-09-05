@@ -120,6 +120,26 @@ class WorkflowTests(TestCase):
             render_libras.apply(args=[str(doc.pk),str(doc.run_id)]).get()
         renderer.assert_not_called()
 
+    def test_libras_storage_failure_is_visible_not_stuck(self):
+        doc=self.document();doc.options={'libras':True};doc.save()
+        with patch('studio.tasks.render',side_effect=OSError('private-path')):
+            execute(str(doc.pk),str(doc.run_id))
+        doc.refresh_from_db()
+        self.assertEqual(doc.report['libras']['status'],'indisponível')
+        self.assertNotIn('private-path',doc.report['libras']['error'])
+
+    def test_libras_download_rejects_html_and_unsafe_filename(self):
+        from .libras import prepare_bundles
+        from unittest.mock import MagicMock
+        target=Path(self.tmp.name)/'bundles';(target/'BR').mkdir(parents=True)
+        for token in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789':(target/'BR'/token).write_bytes(b'installed')
+        response=MagicMock();response.__enter__.return_value=response;response.ok=True
+        response.iter_content.return_value=[b'<html>Error page</html>']
+        with patch.dict('os.environ',{'VLIBRAS_FETCH_BUNDLES':'1'}),patch('studio.libras.requests.get',return_value=response) as fetch:
+            missing=prepare_bundles('SINAL ../escape',target)
+        self.assertIn('SINAL',missing);self.assertIn('../escape',missing)
+        self.assertFalse((target/'BR'/'SINAL').exists());self.assertEqual(fetch.call_count,1)
+
     def test_recovery_republishes_stale_libras_only(self):
         from django.core.management import call_command
         doc=self.document();doc.status='review';doc.report={'libras':{'status':'aguardando worker'}}

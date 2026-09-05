@@ -1,4 +1,5 @@
 import os
+import hashlib
 from pathlib import Path
 import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
@@ -20,7 +21,12 @@ DATABASES={'default':dj_database_url.config(default='sqlite:///'+str(BASE_DIR/'l
 LANGUAGE_CODE='pt-br';TIME_ZONE='America/Sao_Paulo';USE_I18N=True;USE_TZ=True
 DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
 STATIC_URL='/static/';STATIC_ROOT=BASE_DIR/'staticfiles';STATICFILES_DIRS=[BASE_DIR/'static']
-MEDIA_ROOT=Path(os.environ.get('PRIVATE_MEDIA_ROOT',str(BASE_DIR/'private-media')))
+default_media=BASE_DIR/'private-media'
+if DEBUG and os.name=='nt':
+    # Caminhos de trabalho longos excedem MAX_PATH com IDs e hashes de mídia.
+    project_key=hashlib.sha256(str(BASE_DIR).encode()).hexdigest()[:8]
+    default_media=Path(os.environ.get('LOCALAPPDATA',str(Path.home())))/'AcessibilidadeTotal'/project_key/'media'
+MEDIA_ROOT=Path(os.environ.get('PRIVATE_MEDIA_ROOT',str(default_media)))
 LOGIN_URL='/conta/entrar/';LOGIN_REDIRECT_URL='/documentos/';LOGOUT_REDIRECT_URL='/'
 AUTH_USER_MODEL='studio.User'
 AUTH_PASSWORD_VALIDATORS=[{'NAME':'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},{'NAME':'django.contrib.auth.password_validation.MinimumLengthValidator','OPTIONS':{'min_length':12}},{'NAME':'django.contrib.auth.password_validation.CommonPasswordValidator'},{'NAME':'django.contrib.auth.password_validation.NumericPasswordValidator'}]

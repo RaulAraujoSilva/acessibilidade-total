@@ -23,6 +23,6 @@ A auditoria verifica números previamente definidos e releitura de texto do DOCX
 
 Os tempos preservados correspondem à execução original. Depois dela, ajustes na exportação PPTX corrigiram idioma e apresentação de tabelas; seis saídas foram auditadas novamente. O exemplo P1 único passou de sete erros para zero, mantendo avisos e itens não verificados. Não se substituíram tempos antigos por estimativas do código modificado.
 
-O ensaio de atualização altera 30 para 45 dias e detecta que uma saída antiga está desatualizada. Não mede propagação completa de atualizações. Os 19 testes da aplicação cobrem falhas e isolamento local, incluindo lease e recuperação de Libras; um ensaio adicional executou Celery e Redis reais com SQLite. PostgreSQL, carga, memória e revisão humana continuam pendentes.
+O ensaio de atualização altera 30 para 45 dias e detecta que uma saída antiga está desatualizada. Não mede propagação completa de atualizações. Os 21 testes da aplicação cobrem falhas e isolamento local, incluindo lease e recuperação de Libras; um ensaio adicional executou Celery e Redis reais com SQLite. PostgreSQL, carga, memória e revisão humana continuam pendentes.
 
 Veja [Libras](libras.md), [protocolo](protocolo.md), [buscas](registro-buscas.md), [matriz](matriz-evidencias.md) e [roteiro de revisão externa](roteiro-revisao-externa.md).

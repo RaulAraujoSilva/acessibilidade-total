@@ -23,6 +23,8 @@ python web/local.py process_pending
 
 O usuário cadastra sua chave OpenRouter na interface. Não existe chave de API compartilhada no código. A estimativa é aproximada, não um teto financeiro. Imagens e repetição podem alterar o consumo. A geração usa o modelo informado pelo usuário; entrada de imagem exige modelo com capacidade visual.
 
+No Windows, o desenvolvimento usa uma pasta curta em `%LOCALAPPDATA%/AcessibilidadeTotal/<id-do-projeto>/media` para evitar o limite de comprimento de caminhos do player. `PRIVATE_MEDIA_ROOT` permite escolher outro local. Ao alterar esse caminho numa instalação existente, copie os arquivos privados para o novo destino antes de reiniciar; os registros do banco usam caminhos relativos.
+
 ## Contêineres Linux
 
 Copie `web/.env.example` para `.env` na raiz e preencha as credenciais localmente. Gere `DJANGO_SECRET_KEY` e uma chave Fernet com um gerador criptográfico; mantenha cópia segura da chave Fernet, pois perdê-la impede decifrar as chaves dos usuários. A senha de `DATABASE_URL` deve coincidir com `POSTGRES_PASSWORD`. Configure SMTP, domínio HTTPS e origem CSRF antes de exposição pública.
@@ -52,6 +54,8 @@ A prova local com a imagem oficial `vlibras/vlibras-video-core:3.4.1` produziu 2
 
 ## Segurança e infraestrutura
 
+O operador pode ativar `VLIBRAS_FETCH_BUNDLES=1` para obter e guardar os recursos de glosa necessários no diretório de bundles configurado. O download usa quatro conexões, limita cada arquivo a 16 MB e verifica o cabeçalho Unity. `VLIBRAS_BUNDLE_BASE_URL` permite configurar a origem compatível com o player. Recursos não recuperados ficam no relatório; isso não mede correção linguística nem autoriza redistribuição. Por padrão, a opção fica desativada e os recursos devem estar instalados pelo operador.
+
 Chaves OpenRouter cifradas por Fernet com segredo separado do banco; consultas e downloads limitados ao proprietário; arquivos fora da pasta estática; limites de tamanho e expansão de ZIP; senhas com hash Django e confirmação de e-mail. Não registrar headers de autorização ou corpos de documentos em logs de produção. Backups, retenção, quotas de disco e monitoramento precisam ser configurados pelo operador antes de uso público.
 
 Railway é o alvo considerado, seguindo sua [documentação Django](https://docs.railway.com/guides/django). A implantação está pendente: a credencial consultada não listou projetos acessíveis, não foi confirmado crédito e não se identificou SMTP existente. Não foram contratados planos. **O Compose não é um modelo Railway pronto**: volumes locais não devem ser presumidos compartilhados entre serviços Railway. É necessário provisionamento existente com armazenamento comum ou implementar armazenamento de objetos antes de separar serviços gerenciados.
@@ -62,4 +66,4 @@ Railway é o alvo considerado, seguindo sua [documentação Django](https://docs
 python web/local.py test studio
 ```
 
-Dezenove testes passaram no ambiente local, além de um ensaio real Celery/Redis e navegação de cadastro, confirmação e entrada. O corpus contém seis arquivos sintéticos e 36 medições; os resultados e limitações estão em `research/`. Nenhuma avaliação humana independente de Libras, compreensão ou preferência foi realizada. Testes em PostgreSQL, carga concorrente e implantação Docker ainda devem complementar a verificação local.
+Vinte e um testes passaram no ambiente local, além de um ensaio real Celery/Redis e navegação de cadastro, confirmação e entrada. O corpus contém seis arquivos sintéticos e 36 medições; os resultados e limitações estão em `research/`. Nenhuma avaliação humana independente de Libras, compreensão ou preferência foi realizada. Testes em PostgreSQL, carga concorrente e implantação Docker ainda devem complementar a verificação local.
