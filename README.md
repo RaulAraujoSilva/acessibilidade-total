@@ -8,7 +8,7 @@ WCAG 2.2 AA (via WCAG2ICT), ISO 14289, LBI 13.146/2015 e e-MAG.
 
 Funciona como skill do Claude Code **e** como ferramenta de linha de comando avulsa.
 
-**Protótipo web de pesquisa:** [instalação e limites](web/README.md), [arquitetura](web/DESIGN.md) e [experimentos reproduzíveis](research/README.md). Inclui contas, chave OpenRouter própria cifrada, fila, importação de documentos, revisão e adaptador de renderização direta de Libras. A verificação local não constitui certificação de acessibilidade nem implantação pública pronta.
+**Protótipo web de pesquisa:** [acessar o sistema](https://acessibilidade.31.97.160.142.sslip.io), [instalação em VPS](deploy/README.md), [arquitetura](web/DESIGN.md) e [experimentos reproduzíveis](research/README.md). Inclui contas, chave OpenRouter própria cifrada, fila, importação, revisão e renderização direta de Libras. Publicado em infraestrutura existente com HTTPS e PostgreSQL; a geração automática exige revisão e não constitui certificação de acessibilidade.
 
 *[English version](README.en.md)*
 

@@ -58,7 +58,9 @@ O operador pode ativar `VLIBRAS_FETCH_BUNDLES=1` para obter e guardar os recurso
 
 Chaves OpenRouter cifradas por Fernet com segredo separado do banco; consultas e downloads limitados ao proprietário; arquivos fora da pasta estática; limites de tamanho e expansão de ZIP; senhas com hash Django e confirmação de e-mail. Não registrar headers de autorização ou corpos de documentos em logs de produção. Backups, retenção, quotas de disco e monitoramento precisam ser configurados pelo operador antes de uso público.
 
-Railway é o alvo considerado, seguindo sua [documentação Django](https://docs.railway.com/guides/django). A implantação está pendente: a credencial consultada não listou projetos acessíveis, não foi confirmado crédito e não se identificou SMTP existente. Não foram contratados planos. **O Compose não é um modelo Railway pronto**: volumes locais não devem ser presumidos compartilhados entre serviços Railway. É necessário provisionamento existente com armazenamento comum ou implementar armazenamento de objetos antes de separar serviços gerenciados.
+O [protótipo público](https://acessibilidade.31.97.160.142.sslip.io) foi implantado em VPS existente, com Docker, PostgreSQL, Redis, filas separadas, Caddy e HTTPS. Confirmação e recuperação de conta usam um serviço Gmail OAuth já disponível. O núcleo oficial de tradução VLibras roda internamente em modo baseado em regras; os ativos do renderizador permanecem privados. Consulte [implantação na VPS](../deploy/README.md).
+
+Railway foi consultado sem contratação ou criação de recursos. A VPS permite compartilhar o volume privado entre web e workers. **O Compose não é um modelo Railway pronto**: volumes locais não devem ser presumidos compartilhados entre serviços Railway. Nesse destino, é necessário armazenamento comum existente ou adaptação para armazenamento de objetos.
 
 ## Verificação
 
@@ -66,4 +68,4 @@ Railway é o alvo considerado, seguindo sua [documentação Django](https://docs
 python web/local.py test studio
 ```
 
-Vinte e um testes passaram no ambiente local, além de um ensaio real Celery/Redis e navegação de cadastro, confirmação e entrada. O corpus contém seis arquivos sintéticos e 36 medições; os resultados e limitações estão em `research/`. Nenhuma avaliação humana independente de Libras, compreensão ou preferência foi realizada. Testes em PostgreSQL, carga concorrente e implantação Docker ainda devem complementar a verificação local.
+A suíte contém 25 testes, incluindo isolamento, downloads, repetição de Libras e confiança explícita no proxy. Foi executada em SQLite e PostgreSQL. No servidor público, o fluxo real confirmou e-mail, extraiu um DOCX, executou adaptações e disponibilizou 12 arquivos autenticados, incluindo cinco vídeos em Libras. A revisão permaneceu pendente. O corpus anterior contém seis arquivos sintéticos e 36 medições; os resultados e limitações estão em `research/`. Carga prolongada, recuperação de desastres e avaliação humana independente ainda precisam ser realizadas.

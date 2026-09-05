@@ -93,7 +93,8 @@ def locked(request,ident):return get_object_or_404(Document.objects.select_for_u
 
 @login_required
 def detail(request,ident):
-    doc=owned(request,ident);form=OptionsForm(initial=doc.options or {'pptx':doc.original_name.lower().endswith('.pptx'),'color_safe':True})
+    doc=owned(request,ident);initial=doc.options or {'pptx':doc.original_name.lower().endswith('.pptx'),'color_safe':True}
+    form=OptionsForm(initial={**initial,'model_id':doc.model_id})
     labels={b['cache_key']:'Libras — bloco '+b['block_id'] for b in doc.report.get('libras',{}).get('blocks',[])}
     downloads=[]
     for index,name in enumerate(doc.artifacts):

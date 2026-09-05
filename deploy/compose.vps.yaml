@@ -1,0 +1,77 @@
+name: acessibilidade-total
+x-app: &app
+  image: acessibilidade-total:local
+  build: {context: .., dockerfile: web/Dockerfile}
+  env_file: .env
+  restart: unless-stopped
+  volumes: ["documents:/data"]
+  depends_on:
+    postgres: {condition: service_healthy}
+    redis: {condition: service_healthy}
+  logging: {driver: json-file, options: {max-size: 10m, max-file: "3"}}
+services:
+  gloss:
+    image: vlibras/vlibras-translator-text-core:4.2.0
+    command: ["python", "/adapter/gloss_server.py"]
+    restart: unless-stopped
+    volumes: ["./gloss_server.py:/adapter/gloss_server.py:ro"]
+    environment: {VLIBRAS_NEURAL: "0"}
+    mem_limit: 3g
+    cpus: 1
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    env_file: postgres.env
+    volumes: ["postgres:/var/lib/postgresql/data"]
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U acessibilidade"]
+      interval: 5s
+      retries: 15
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "96mb", "--maxmemory-policy", "noeviction"]
+    volumes: ["redis:/data"]
+    mem_limit: 128m
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 15
+  web:
+    <<: *app
+    mem_limit: 512m
+    cpus: 1
+  worker:
+    <<: *app
+    command: ["celery", "-A", "portal", "worker", "-n", "documents@%h", "-Q", "documents", "--concurrency=1", "--loglevel=WARNING"]
+    mem_limit: 2g
+    cpus: 1
+  libras:
+    <<: *app
+    command: ["celery", "-A", "portal", "worker", "-n", "libras@%h", "-Q", "libras", "--concurrency=1", "--loglevel=WARNING"]
+    volumes: ["documents:/data", "./runtime/player:/opt/vlibras:ro"]
+    mem_limit: 3g
+    cpus: 2
+    environment:
+      VLIBRAS_TRANSLATE_URL: http://gloss:8080/translate
+      VLIBRAS_TRANSLATOR_VERSION: text-core-4.2.0-rules
+  recovery:
+    <<: *app
+    command: ["python", "recover_loop.py"]
+    mem_limit: 256m
+    cpus: 0.25
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    env_file: proxy.env
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes: ["./Caddyfile:/etc/caddy/Caddyfile:ro", "caddy_data:/data", "caddy_config:/config"]
+    mem_limit: 256m
+    depends_on: [web]
+volumes:
+  postgres:
+  redis:
+  documents:
+  caddy_data:
+  caddy_config:

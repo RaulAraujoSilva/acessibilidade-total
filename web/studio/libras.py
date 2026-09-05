@@ -52,7 +52,7 @@ def render(text,out,avatar='icaro',fps=25):
     if not all([ffmpeg,ffprobe,xvfb]):raise LibrasUnavailable('ffmpeg, ffprobe e Xvfb são necessários no worker Linux.')
     if len(text)>5000:raise LibrasUnavailable('Bloco de Libras excede 5000 caracteres; divida o conteúdo sem omitir informação.')
     start=time.perf_counter()
-    identity={'text':text,'avatar':avatar,'fps':fps,'renderer_sha256':hashlib.sha256(Path(renderer).read_bytes()).hexdigest(),'bundles_version':os.environ.get('VLIBRAS_BUNDLES_VERSION','não informada')}
+    identity={'text':text,'avatar':avatar,'fps':fps,'renderer_sha256':hashlib.sha256(Path(renderer).read_bytes()).hexdigest(),'bundles_version':os.environ.get('VLIBRAS_BUNDLES_VERSION','não informada'),'translator_version':os.environ.get('VLIBRAS_TRANSLATOR_VERSION','serviço remoto sem versão fixada')}
     key=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()
     target=Path(out)/key;target.mkdir(parents=True,exist_ok=True)
     if (target/'manifest.json').exists() and (target/'libras.mp4').exists():return json.loads((target/'manifest.json').read_text(encoding='utf-8'))

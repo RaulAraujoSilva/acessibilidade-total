@@ -35,10 +35,14 @@ EMAIL_FILE_PATH=BASE_DIR/'private-mail'
 EMAIL_HOST=os.environ.get('EMAIL_HOST','');EMAIL_PORT=int(os.environ.get('EMAIL_PORT','587'))
 EMAIL_HOST_USER=os.environ.get('EMAIL_HOST_USER','');EMAIL_HOST_PASSWORD=os.environ.get('EMAIL_HOST_PASSWORD','')
 EMAIL_USE_TLS=os.environ.get('EMAIL_USE_TLS','1')=='1';EMAIL_TIMEOUT=15
+GMAIL_CLIENT_ID=os.environ.get('GMAIL_CLIENT_ID','')
+GMAIL_CLIENT_SECRET=os.environ.get('GMAIL_CLIENT_SECRET','')
+GMAIL_REFRESH_TOKEN=os.environ.get('GMAIL_REFRESH_TOKEN','')
 DEFAULT_FROM_EMAIL=os.environ.get('DEFAULT_FROM_EMAIL','acessibilidade@localhost')
 SITE_URL=os.environ.get('SITE_URL','http://127.0.0.1:8765').rstrip('/')
 FERNET_KEY=os.environ.get('FERNET_KEY','')
 CELERY_BROKER_URL=os.environ.get('REDIS_URL','redis://localhost:6379/0')
+TRUST_PROXY_CLIENT_IP=os.environ.get('TRUST_PROXY_CLIENT_IP','0')=='1'
 CELERY_TASK_ACKS_LATE=True;CELERY_TASK_REJECT_ON_WORKER_LOST=True
 CELERY_WORKER_PREFETCH_MULTIPLIER=1
 CELERY_TASK_DEFAULT_QUEUE='documents'

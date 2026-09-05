@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
-RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-writer libreoffice-impress ffmpeg xvfb xauth fonts-liberation fonts-dejavu && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-writer libreoffice-impress ffmpeg xvfb xauth libglu1-mesa libxcursor1 libxrandr2 libxi6 fonts-liberation fonts-dejavu && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY web/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt

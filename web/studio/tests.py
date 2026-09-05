@@ -6,7 +6,7 @@ import uuid
 from pathlib import Path
 from unittest.mock import patch,Mock
 from cryptography.fernet import Fernet
-from django.test import TestCase,override_settings
+from django.test import TransactionTestCase,override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core import mail
 from django.urls import reverse
@@ -21,7 +21,7 @@ from .tasks import execute
 from .exporters import export_all
 
 @override_settings(DEBUG=True,DISPATCH_MODE='database',EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',FERNET_KEY=Fernet.generate_key().decode(),SECURE_SSL_REDIRECT=False)
-class WorkflowTests(TestCase):
+class WorkflowTests(TransactionTestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.settings_override=override_settings(MEDIA_ROOT=Path(self.tmp.name));self.settings_override.enable();self.addCleanup(self.settings_override.disable)
@@ -148,3 +148,51 @@ class WorkflowTests(TestCase):
             call_command('recover_jobs',stdout=io.StringIO());dispatch.assert_not_called()
             doc.heartbeat=timezone.now()-timedelta(minutes=20);doc.save()
             call_command('recover_jobs',stdout=io.StringIO());dispatch.assert_called_once_with(str(doc.pk),str(doc.run_id))
+
+    def test_gmail_backend_sends_mime_without_exposing_credentials(self):
+        import base64
+        from django.core.mail import EmailMessage
+        from .mail import GmailBackend
+        token=Mock();token.json.return_value={'access_token':'temporary-secret'}
+        sent=Mock()
+        with patch('studio.mail.requests.post',side_effect=[token,sent]) as post:
+            count=GmailBackend().send_messages([EmailMessage('Confirmação','Texto de teste','sender@example.test',['recipient@example.test'])])
+        self.assertEqual(count,1)
+        raw=post.call_args_list[1].kwargs['json']['raw']
+        mime=base64.urlsafe_b64decode(raw).decode()
+        self.assertIn('recipient@example.test',mime)
+        self.assertNotIn('temporary-secret',mime)
+
+    def test_gmail_backend_error_is_sanitized(self):
+        import requests
+        from django.core.mail import EmailMessage
+        from .mail import GmailBackend
+        with patch('studio.mail.requests.post',side_effect=requests.RequestException('sensitive-provider-response')):
+            with self.assertRaises(OSError) as error:
+                GmailBackend().send_messages([EmailMessage('Teste','Teste')])
+        self.assertNotIn('sensitive-provider-response',str(error.exception))
+
+    def test_retry_libras_preserves_documents_and_failure_history(self):
+        from django.core.management import call_command,CommandError
+        doc=self.document();doc.status='review';doc.artifacts=['documento.docx']
+        doc.report={'libras':{'status':'indisponível','error':'Serviço indisponível'}};doc.save()
+        with patch('studio.management.commands.retry_libras.render_libras.delay') as dispatch:
+            call_command('retry_libras',str(doc.pk),stdout=io.StringIO())
+            dispatch.assert_called_once_with(str(doc.pk),str(doc.run_id))
+        doc.refresh_from_db()
+        self.assertEqual(doc.artifacts,['documento.docx'])
+        self.assertEqual(doc.report['libras_attempts'][0]['status'],'indisponível')
+        with self.assertRaises(CommandError):call_command('retry_libras',str(doc.pk),stdout=io.StringIO())
+
+    def test_proxy_client_ip_requires_explicit_trust(self):
+        from django.test import RequestFactory
+        from .security import limited
+        request=RequestFactory().get('/',REMOTE_ADDR='10.0.0.2',HTTP_X_REAL_IP='198.51.100.1')
+        with override_settings(TRUST_PROXY_CLIENT_IP=False):
+            self.assertFalse(limited(request,'untrusted',1))
+            request.META['HTTP_X_REAL_IP']='198.51.100.2'
+            self.assertTrue(limited(request,'untrusted',1))
+        with override_settings(TRUST_PROXY_CLIENT_IP=True):
+            self.assertFalse(limited(request,'trusted',1))
+            request.META['HTTP_X_REAL_IP']='198.51.100.3'
+            self.assertFalse(limited(request,'trusted',1))
