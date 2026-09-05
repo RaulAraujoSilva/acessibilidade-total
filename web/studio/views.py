@@ -100,8 +100,12 @@ def detail(request,ident):
     for index,name in enumerate(doc.artifacts):
         parts=name.replace('\\','/').split('/')
         label=labels.get(parts[1],name) if len(parts)>2 and parts[0]=='libras' else name
-        downloads.append({'index':index,'label':label})
-    return render(request,'detail.html',{'doc':doc,'form':form,'downloads':downloads,'report_json':json.dumps(doc.report,ensure_ascii=False,indent=2),'video_form':VideoForm()})
+        extension=Path(name).suffix.lstrip('.').upper()
+        kind='video' if extension=='MP4' else 'report' if extension in ['JSON','TXT'] else 'document'
+        descriptions={'DOCX':'Documento editável','HTML':'Leitura no navegador','PPTX':'Apresentação em slides','PDF':'Documento para leitura','MP4':'Vídeo para revisão','JSON':'Dados e rastreabilidade','TXT':'Relatório de verificação'}
+        downloads.append({'index':index,'label':label,'extension':extension,'kind':kind,'description':descriptions.get(extension,'Arquivo gerado')})
+    groups=[{'kind':kind,'title':title,'files':[file for file in downloads if file['kind']==kind]} for kind,title in [('document','Documentos'),('video','Vídeos em Libras'),('report','Relatórios e dados')]]
+    return render(request,'detail.html',{'doc':doc,'form':form,'downloads':downloads,'download_groups':groups,'report_json':json.dumps(doc.report,ensure_ascii=False,indent=2),'video_form':VideoForm()})
 
 @login_required
 @require_POST
